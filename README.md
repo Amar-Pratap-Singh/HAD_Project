@@ -25,3 +25,12 @@ SHOW TABLES;
 SELECT * FROM patient;
 ```
 
+# Start frontend
+
+1. Install ionic-react
+2. Start frontend server
+
+```bash
+ionic serve
+```
+
