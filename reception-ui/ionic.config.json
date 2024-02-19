@@ -1,0 +1,7 @@
+{
+  "name": "hospital-reception",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}

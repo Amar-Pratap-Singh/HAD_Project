@@ -1,0 +1,17 @@
+.view-opd-appts h1 {
+    text-align: center;
+}
+
+.view-opd-appts .table {
+    border: 2px solid black;
+    margin: 20px 40px;
+}
+
+.view-opd-appts .table > ion-row {
+    margin: 8px 0;
+}
+
+.view-opd-appts .table-header {
+    border-bottom: 2px solid black;
+    padding: 0 0 10px 0;
+}
