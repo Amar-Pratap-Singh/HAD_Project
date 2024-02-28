@@ -5,8 +5,7 @@
 ```sql
 CREATE USER 'had_user'@'localhost' IDENTIFIED BY 'had_user';
 CREATE DATABASE had_db;
-GRANT ALL PRIVILEGES ON had_db.* TO 'had_user'@'localhost' WITH GRANT OPT
-ION;
+GRANT ALL PRIVILEGES ON had_db.* TO 'had_user'@'localhost' WITH GRANT OPTION;
 ```
 
 2. Enter MySQL as had_user
