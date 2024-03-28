@@ -7,6 +7,9 @@ import AdmitPatientIPD from './pages/AdmitPatientIPD';
 import ViewPatients from './pages/ViewPatients';
 import ViewOPDAppointments from './pages/ViewOPDAppointments';
 import ViewIPDBeds from './pages/ViewIPDBeds';
+import TestLogin from './authPages/TestLogin';
+import TestSignUpDoctor from './authPages/TestSignUpDoctor';
+import TestSignUpNurse from './authPages/TestSignUpNurse';
 import SidebarMenu from './components/SidebarMenu';
 
 /* Core CSS required for Ionic components to work properly */
@@ -29,6 +32,8 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 
 setupIonicReact();
+
+/*Jinpe test hai wo reception wale nhi login/signupwale pages hai*/
 
 const App: React.FC = () => (
   <IonApp>
@@ -53,7 +58,15 @@ const App: React.FC = () => (
         <Route exact path="/view-ipd-beds">
           <ViewIPDBeds />
         </Route>
-        
+        <Route exact path="/test-login">
+          <TestLogin />
+        </Route>
+        <Route exact path="/test-signup-doctor">
+          <TestSignUpDoctor />
+        </Route>
+        <Route exact path="/test-signup-nurse">
+          <TestSignUpNurse />
+        </Route>
         <Route exact path="/">
           <Redirect to="/register-patient" />
         </Route>
