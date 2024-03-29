@@ -1,0 +1,114 @@
+.add-opd-appt ion-row {
+    margin: 20px 0;
+}
+
+.add-opd-appt ion-col {
+    background-color: white;
+    border: solid 2px #000000;
+    border-radius: 12px;
+    color: #000000;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 0 8px;
+}
+
+.add-opd-appt ion-content > h1 {
+    text-align: center;
+}
+
+.add-opd-appt ion-content > .button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.admit-patient-ipd ion-row {
+    margin: 20px 0;
+}
+
+.admit-patient-ipd ion-col {
+    background-color: white;
+    border: solid 2px #000000;
+    border-radius: 12px;
+    color: #000000;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 0 8px;
+}
+
+.admit-patient-ipd ion-content > h1 {
+    text-align: center;
+}
+
+.admit-patient-ipd ion-content > .button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.register-patient ion-row {
+    margin: 20px 0;
+}
+
+.register-patient ion-col {
+    background-color: white;
+    border: solid 2px #000000;
+    border-radius: 12px;
+    color: #000000;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 0 8px;
+}
+
+.register-patient ion-radio {
+    margin: 0 7px;
+}
+
+.register-patient ion-content > h1 {
+    text-align: center;
+}
+
+.register-patient ion-content > .button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.view-opd-appts h1 {
+    text-align: center;
+}
+
+.view-opd-appts .table {
+    border: 2px solid black;
+    margin: 20px 40px;
+}
+
+.view-opd-appts .table > ion-row {
+    margin: 8px 0;
+}
+
+.view-opd-appts .table-header {
+    border-bottom: 2px solid black;
+    padding: 0 0 10px 0;
+}
+
+.view-patients h1 {
+    text-align: center;
+}
+
+.view-patients .table {
+    border: 2px solid black;
+    margin: 20px 40px;
+}
+
+.view-patients .table > ion-row {
+    margin: 8px 0;
+}
+
+.view-patients .table-header {
+    border-bottom: 2px solid black;
+    padding: 0 0 10px 0;
+}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { IonPage, IonContent, IonCol, IonGrid, IonRow } from '@ionic/react';
 import TopToolbar from '../components/TopToolbar';
-import './ViewPatients.css';
+import './styles.css';
 
 const ViewPatients: React.FC = () => {
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { IonButton, IonCol, IonContent, IonGrid, IonInput, IonPage, IonRow } from '@ionic/react';
 import TopToolbar from '../components/TopToolbar';
-import './AddOPDAppointment.css';
+import './styles.css';
 
 const AddOPDAppointment: React.FC = () => {
 

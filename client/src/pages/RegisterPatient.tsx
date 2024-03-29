@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { IonButton, IonCol, IonContent, IonGrid, IonInput, IonPage, IonRadio, IonRadioGroup, IonRow } from '@ionic/react';
 import TopToolbar from '../components/TopToolbar';
-import './RegisterPatient.css';
+import './styles.css';
 
 const RegisterPatient: React.FC = () => {
 
