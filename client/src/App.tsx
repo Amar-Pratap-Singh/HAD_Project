@@ -30,6 +30,7 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import AddEncounter from './ipd/AddEncounter';
 
 setupIonicReact();
 
@@ -66,6 +67,9 @@ const App: React.FC = () => (
         </Route>
         <Route exact path="/test-signup-nurse">
           <TestSignUpNurse />
+        </Route>
+        <Route exact path="/add-encounter">
+          <AddEncounter />
         </Route>
         <Route exact path="/">
           <Redirect to="/register-patient" />
