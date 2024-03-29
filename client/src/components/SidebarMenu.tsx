@@ -57,6 +57,11 @@ const SidebarMenu: React.FC = () => {
               <IonLabel>Test Nurse Signup Page</IonLabel>
             </IonItem>
           </IonMenuToggle>
+          <IonMenuToggle>
+            <IonItem routerLink="/add-encounter" routerDirection="none">
+              <IonLabel>IPD Add Encounter</IonLabel>
+            </IonItem>
+          </IonMenuToggle>
         </IonList>
       </IonContent>
     </IonMenu>
