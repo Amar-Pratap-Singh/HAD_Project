@@ -1,3 +1,4 @@
+import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
@@ -92,6 +93,29 @@ const App: React.FC = () => (
         </Route>
         <Route exact path="/home">
           <Redirect to="/register-patient" />
+        </Route>
+        <Route exact path="/nurse-view-patients">
+          <NurseViewPatients />
+        </Route>
+        <Route exact path="/nurse-view-patients/details">
+          <NurseGetPaitentDetails />
+        </Route>
+        <Route exact path="/nurse-encounter">
+          <NurseCreateEncounter />
+        </Route>
+
+        <Route exact path="/lab-search">
+          <LabSearch />
+        </Route>
+        <Route exact path="/lab-ip">
+          <LabIP />
+        </Route>
+
+        <Route exact path="/pharma-search">
+          <PharmaSearch />
+        </Route>
+        <Route exact path="/pharma-prescription">
+          <PharmaPrescription />
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>
