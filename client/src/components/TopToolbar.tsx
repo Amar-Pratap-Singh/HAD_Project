@@ -9,7 +9,7 @@ const TopToolbar: React.FC = () => {
       <IonButtons slot="start">
         <IonMenuButton></IonMenuButton>
       </IonButtons>
-      <IonTitle>Reception Portal</IonTitle>
+      <IonTitle>Hospital System</IonTitle>
       </IonToolbar>
     </IonHeader>
   );

@@ -62,6 +62,26 @@ const SidebarMenu: React.FC = () => {
               <IonLabel>IPD Add Encounter</IonLabel>
             </IonItem>
           </IonMenuToggle>
+          <IonMenuToggle>
+            <IonItem routerLink="/ipd-patient-details" routerDirection="none">
+              <IonLabel>IPD Patient</IonLabel>
+            </IonItem>
+          </IonMenuToggle>
+          <IonMenuToggle>
+            <IonItem routerLink="/opd-create-prescription" routerDirection="none">
+              <IonLabel>OPD Create Prescription</IonLabel>
+            </IonItem>
+          </IonMenuToggle>
+          <IonMenuToggle>
+            <IonItem routerLink="/opd-get-patient-details" routerDirection="none">
+              <IonLabel>OPD Patient Details</IonLabel>
+            </IonItem>
+          </IonMenuToggle>
+          <IonMenuToggle>
+            <IonItem routerLink="/opd-view-patients" routerDirection="none">
+              <IonLabel>OPD Patients</IonLabel>
+            </IonItem>
+          </IonMenuToggle>
         </IonList>
       </IonContent>
     </IonMenu>

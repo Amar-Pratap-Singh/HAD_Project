@@ -31,6 +31,10 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import AddEncounter from './ipd/AddEncounter';
+import OPDCreatePrescription from './opdPages/OPDCreatePrescription';
+import OPDGetPatientDetails from './opdPages/OPDGetPatientDetails';
+import OPDViewPatients from './opdPages/OPDViewPatients';
+import PatientDetails from './ipd/PatientDetails';
 
 setupIonicReact();
 
@@ -70,6 +74,18 @@ const App: React.FC = () => (
         </Route>
         <Route exact path="/add-encounter">
           <AddEncounter />
+        </Route>
+        <Route exact path="/ipd-patient-details">
+          <PatientDetails name={'Rishi'} patientId={'44'} age={12} reasonForAdmit={'Malaria'} />
+        </Route>
+        <Route exact path="/opd-create-prescription">
+          <OPDCreatePrescription />
+        </Route>
+        <Route exact path="/opd-get-patient-details">
+          <OPDGetPatientDetails />
+        </Route>
+        <Route exact path="/opd-view-patients">
+          <OPDViewPatients />
         </Route>
         <Route exact path="/">
           <Redirect to="/register-patient" />
