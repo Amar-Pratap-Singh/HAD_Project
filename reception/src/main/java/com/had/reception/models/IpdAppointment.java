@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class IpdAppointment {
     @Id
-    private int patientId;
-    String Department;
-    Integer ward_no;
-    Integer bed_no;
-    String doctorName;
+    private Integer patientId;
+    private String Department;
+    private Integer ward_no;
+    private Integer bed_no;
+    private String doctorName;
 }
