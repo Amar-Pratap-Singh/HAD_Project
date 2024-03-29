@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { IonButton, IonCol, IonContent, IonGrid, IonInput, IonPage, IonRow } from '@ionic/react';
 import TopToolbar from '../components/TopToolbar';
 import './styles.css';
+import MedicineInputField from './MedicineInputField';
 
 const AddEncounter: React.FC = () => {
 
@@ -11,9 +12,14 @@ const AddEncounter: React.FC = () => {
   const [medicineQty, setMedicineQty] = useState('');
   const [medicineTiming, setMedicineTiming] = useState('');
   const [medicineDuration, setMedicineDuration] = useState('');
+  const [medicineFields, setMedicineFields] = useState([0]);
+
+  const addMedicineField = () => {
+    setMedicineFields([...medicineFields, medicineFields.length]);
+  };
 
   const handleFormSubmit = () => {
-    console.log('Form submitted:', { notes, instructions, medicine });
+    console.log('Form submitted:', { notes, instructions, medicineName });
   };
 
   return (
@@ -47,6 +53,12 @@ const AddEncounter: React.FC = () => {
                 <IonInput value={medicineDuration} onIonChange={(e) => setMedicineDuration(e.detail.value!)} label="Duration:" labelPlacement='floating' placeholder="3 days"></IonInput>
               </IonCol>
             </IonRow>
+            {medicineFields.map((_, index) => (
+                <MedicineInputField key={index} />
+            ))}
+            <div className='button-container'>
+                <IonButton onClick={addMedicineField} shape='round'>+</IonButton>
+            </div>
           </IonGrid>
           <div className='button-container'>
             <IonButton onClick={handleFormSubmit} shape='round'>Add Encounter</IonButton>
