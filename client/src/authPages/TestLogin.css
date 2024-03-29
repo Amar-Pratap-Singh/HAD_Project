@@ -1,8 +1,8 @@
-.admit-patient-ipd ion-row {
+.test-login ion-row {
     margin: 20px 0;
 }
 
-.admit-patient-ipd ion-col {
+.test-login ion-col {
     background-color: white;
     border: solid 2px #000000;
     border-radius: 12px;
@@ -14,11 +14,15 @@
     margin: 0 8px;
 }
 
-.admit-patient-ipd ion-content > h1 {
+.test-login ion-radio {
+    margin: 0 7px;
+}
+
+.test-login ion-content > h1 {
     text-align: center;
 }
 
-.admit-patient-ipd ion-content > .button-container {
+.test-login ion-content > .button-container {
     display: flex;
     justify-content: center;
 }

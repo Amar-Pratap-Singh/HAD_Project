@@ -42,6 +42,21 @@ const SidebarMenu: React.FC = () => {
               <IonLabel>View IPD Beds</IonLabel>
             </IonItem>
           </IonMenuToggle>
+          <IonMenuToggle>
+            <IonItem routerLink="/test-login" routerDirection="none">
+              <IonLabel>Test Login Page</IonLabel>
+            </IonItem>
+          </IonMenuToggle>
+          <IonMenuToggle>
+            <IonItem routerLink="/test-signup-doctor" routerDirection="none">
+              <IonLabel>Test Doctor Signup Page</IonLabel>
+            </IonItem>
+          </IonMenuToggle>
+          <IonMenuToggle>
+            <IonItem routerLink="/test-signup-nurse" routerDirection="none">
+              <IonLabel>Test Nurse Signup Page</IonLabel>
+            </IonItem>
+          </IonMenuToggle>
         </IonList>
       </IonContent>
     </IonMenu>

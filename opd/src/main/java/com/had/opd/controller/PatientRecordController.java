@@ -41,5 +41,4 @@ public class PatientRecordController {
     public List<PatientRecord> getAllPatientRecords(@RequestParam("patientId") Integer patientId, @RequestParam("doctorId") Integer doctorId){
         return patientRecordService.getAllPatientRecordsByPatientIdAndDoctorId(patientId, doctorId);
     }
-
 }

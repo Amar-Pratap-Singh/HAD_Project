@@ -1,8 +1,8 @@
-.register-patient ion-row {
+.register-doctor ion-row {
     margin: 20px 0;
 }
 
-.register-patient ion-col {
+.register-doctor ion-col {
     background-color: white;
     border: solid 2px #000000;
     border-radius: 12px;
@@ -14,15 +14,15 @@
     margin: 0 8px;
 }
 
-.register-patient ion-radio {
+.register-doctor ion-radio {
     margin: 0 7px;
 }
 
-.register-patient ion-content > h1 {
+.register-doctor ion-content > h1 {
     text-align: center;
 }
 
-.register-patient ion-content > .button-container {
+.register-doctor ion-content > .button-container {
     display: flex;
     justify-content: center;
 }

@@ -25,7 +25,6 @@ public class PatientRecord {
     private int doctorId;
     private String hospitalName;
     private String patientComplaints;
-    private String diagnosis;
 
     // vitals
     private double weight;
@@ -34,6 +33,7 @@ public class PatientRecord {
     private int lowBP;
     private int highBP;
 
+    // medicines
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "patientRecord")
     private List<Medicine> medicines;
     

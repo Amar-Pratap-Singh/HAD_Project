@@ -1,6 +1,6 @@
 import { IonCol, IonContent, IonGrid, IonPage, IonRow } from '@ionic/react';
 import TopToolbar from '../components/TopToolbar';
-import './ViewOPDAppointments.css';
+import './styles.css';
 
 const ViewOPDAppointments: React.FC = () => {
 

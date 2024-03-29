@@ -1,8 +1,8 @@
-.add-opd-appt ion-row {
+.register-nurse ion-row {
     margin: 20px 0;
 }
 
-.add-opd-appt ion-col {
+.register-nurse ion-col {
     background-color: white;
     border: solid 2px #000000;
     border-radius: 12px;
@@ -14,11 +14,15 @@
     margin: 0 8px;
 }
 
-.add-opd-appt ion-content > h1 {
+.register-nurse ion-radio {
+    margin: 0 7px;
+}
+
+.register-nurse ion-content > h1 {
     text-align: center;
 }
 
-.add-opd-appt ion-content > .button-container {
+.register-nurse ion-content > .button-container {
     display: flex;
     justify-content: center;
 }
