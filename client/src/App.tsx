@@ -36,6 +36,13 @@ import OPDCreatePrescription from './opdPages/OPDCreatePrescription';
 import OPDGetPatientDetails from './opdPages/OPDGetPatientDetails';
 import OPDViewPatients from './opdPages/OPDViewPatients';
 import PatientDetails from './ipd/PatientDetails';
+import NurseViewPatients from './ipd/NurseViewPatients';
+import NurseCreateEncounter from './ipd/NurseCreateEncounter';
+import NurseGetPatientDetails from './ipd/NurseGetPatientDetails';
+import LabSearch from './labPages/LabSearch';
+import LabIP from './labPages/LabIP';
+import PharmaSearch from './pharmaPages/PharmaSearch';
+import PharmaPrescription from './pharmaPages/PharmaPrescription';
 
 setupIonicReact();
 
@@ -98,7 +105,7 @@ const App: React.FC = () => (
           <NurseViewPatients />
         </Route>
         <Route exact path="/nurse-view-patients/details">
-          <NurseGetPaitentDetails />
+          <NurseGetPatientDetails />
         </Route>
         <Route exact path="/nurse-encounter">
           <NurseCreateEncounter />
