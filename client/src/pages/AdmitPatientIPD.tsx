@@ -8,14 +8,39 @@ import TextInput from '../components/TextInput';
 type FormInputs = {
   patiendId: string,
   dept: string,
-  wardNo: string
+  ward_no: number,
+  bed_no: number
 }
 
 const AdmitPatientIPD: React.FC = () => {
 
-  const { control, handleSubmit } = useForm();
+  const { control, handleSubmit,reset } = useForm();
+  
+  // const onSubmit = (data: any) => console.log(data);
+  const onSubmit = async (data: any) => {
+    
+    try{
+      const response = await fetch("http://localhost:8081/patient/ipdappointment", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
 
-  const onSubmit = (data: any) => console.log(data);
+      if (!response.ok) {
+        throw new Error('Failed to register patient');
+      }
+
+      // Clear the form after successful submission
+      reset();
+
+      console.log('Patient registetered to IPD successfully');
+
+    } catch(error){
+      console.error('Error registering patient:', error);
+    }
+  };
 
   return (
     <div className='admit-patient-ipd'>
@@ -32,15 +57,15 @@ const AdmitPatientIPD: React.FC = () => {
               </IonRow>
               <IonRow>
                 <IonCol>
-                  <TextInput name='dept' placeHolder='Enter admission department' label='Department' control={control}/>
+                  <TextInput name='Department' placeHolder='Enter admission department' label='Department' control={control}/>
                 </IonCol>
               </IonRow>
               <IonRow>
                 <IonCol>
-                  <TextInput name='wardNo' placeHolder='Enter ward number' label='Ward No' control={control}/>
+                  <TextInput name='ward_no' placeHolder='Enter ward number' label='Ward No' control={control}/>
                 </IonCol>
                 <IonCol>
-                  <TextInput name='bedNo' placeHolder='Enter bed number' label='Bed No' control={control}/>
+                  <TextInput name='bed_no' placeHolder='Enter bed number' label='Bed No' control={control}/>
                 </IonCol>
               </IonRow>
             </IonGrid>

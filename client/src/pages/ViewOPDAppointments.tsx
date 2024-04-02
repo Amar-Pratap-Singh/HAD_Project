@@ -11,9 +11,19 @@ const ViewOPDAppointments: React.FC = () => {
 		fetchData();
 	}, []);
 
-	const fetchData = async () => {
-		setAppointments([{id:13,name:"Veenu",appt_reason:"Test",appt_date:"11th Sep 2001",doctor:"Amar Pratap Singh"},{id:13,name:"Sujit",appt_reason:"Test",appt_date:"11th Sep 2001",doctor:"Amar Pratap Singh"}])
+  const fetchData = async () => {
+		try {
+			const response = await fetch('http://localhost:8081/patient/get-opd-appointments');
+			if (!response.ok) {
+				throw new Error('Failed to fetch data');
+			}
+			const data = await response.json();
+			setAppointments(data);
+		} catch (error) {
+			console.error('Error fetching data:', error);
+		}
 	};
+	
 
 	return(
 		<div className='view-opd-appts'>
@@ -31,10 +41,10 @@ const ViewOPDAppointments: React.FC = () => {
             </IonRow>
             {
               appointments.map(patient => (
-                <IonRow key={patient.id}>
-                  <IonCol>{patient.id}</IonCol>
+                <IonRow key={patient.patientId}>
+                  <IonCol>{patient.patientId}</IonCol>
                   <IonCol>{patient.name}</IonCol>
-                  <IonCol>{patient.appt_reason}</IonCol>
+                  <IonCol>{patient.reason}</IonCol>
                   <IonCol>{patient.appt_date}</IonCol>
                   <IonCol>{patient.doctor}</IonCol>
                 </IonRow>

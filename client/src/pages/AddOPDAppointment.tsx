@@ -13,9 +13,33 @@ type FormInputs = {
 
 const AddOPDAppointment: React.FC = () => {
 
-  const { control, handleSubmit } = useForm();
+  const { control, handleSubmit, reset } = useForm();
 
-  const onSubmit = (data: any) => console.log(data);
+  // const onSubmit = (data: any) => console.log(data);
+  const onSubmit = async (data: any) => {
+    
+    try{
+      const response = await fetch("http://localhost:8081/patient/opdappointment", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to register patient');
+      }
+
+      // Clear the form after successful submission
+      reset();
+
+      console.log('Patient registetered to IPD successfully');
+
+    } catch(error){
+      console.error('Error registering patient:', error);
+    }
+  };
 
   return (
     <div className='add-opd-appt'>
@@ -37,7 +61,7 @@ const AddOPDAppointment: React.FC = () => {
               </IonRow>
               <IonRow>
                 <IonCol>
-                  <TextInput name='doctorName' placeHolder='Enter doctor name' label='Doctor Name' control={control}/>
+                  <TextInput name='doctor' placeHolder='Enter doctor name' label='Doctor Name' control={control}/>
                 </IonCol>
               </IonRow>
             </IonGrid>
