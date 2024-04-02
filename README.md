@@ -33,3 +33,9 @@ SELECT * FROM patient;
 ionic serve
 ```
 
+# Forms in Ionic
+
+* [Forms And Validation In Ionic React — Smashing Magazine](https://www.smashingmagazine.com/2020/08/forms-validation-ionic-react/)
+* [control](https://react-hook-form.com/docs/useform/control)
+* [Controller](https://react-hook-form.com/docs/usecontroller/controller)
+
