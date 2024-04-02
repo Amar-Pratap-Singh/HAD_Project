@@ -16,33 +16,31 @@ type FormInputs = {
 
 const RegisterPatient: React.FC = () => {
 
-  const { control, handleSubmit } = useForm();
+  const { control, handleSubmit, reset } = useForm();
 
   const onSubmit = async (data: any) => {
     
-    // try{
-    //   const response = await fetch("http://localhost:8081/patient/add-patient", {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(data),
-    //   });
+    try{
+      const response = await fetch("http://localhost:8081/patient/add-patient", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
 
-    //   if (!response.ok) {
-    //     throw new Error('Failed to register patient');
-    //   }
+      if (!response.ok) {
+        throw new Error('Failed to register patient');
+      }
 
-    //   // Clear the form after successful submission
-    //   // TODO
+      // Clear the form after successful submission
+      reset();
 
-    //   console.log('Patient registered successfully');
+      console.log('Patient registered successfully');
 
-    // } catch(error){
-    //   console.error('Error registering patient:', error);
-    // }
-    
-    console.log(data);
+    } catch(error){
+      console.error('Error registering patient:', error);
+    }
   };
 
   return (

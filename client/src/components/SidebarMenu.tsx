@@ -18,23 +18,23 @@ const SidebarMenu: React.FC = () => {
             </IonItem>
           </IonMenuToggle>
           <IonMenuToggle>
-            <IonItem routerLink="/view-patients" routerDirection="none">
-              <IonLabel>View All Patients</IonLabel>
-            </IonItem>
-          </IonMenuToggle>
-          <IonMenuToggle>
             <IonItem routerLink="/add-opd-appt" routerDirection="none">
               <IonLabel>Add OPD Appointment</IonLabel>
             </IonItem>
           </IonMenuToggle>
           <IonMenuToggle>
-            <IonItem routerLink="/view-opd-appts" routerDirection="none">
-              <IonLabel>View OPD Appointments</IonLabel>
+            <IonItem routerLink="/admit-patient-ipd" routerDirection="none">
+              <IonLabel>Admit Patient to IPD</IonLabel>
             </IonItem>
           </IonMenuToggle>
           <IonMenuToggle>
-            <IonItem routerLink="/admit-patient-ipd" routerDirection="none">
-              <IonLabel>Admit Patient to IPD</IonLabel>
+            <IonItem routerLink="/view-patients" routerDirection="none">
+              <IonLabel>View All Patients</IonLabel>
+            </IonItem>
+          </IonMenuToggle>
+          <IonMenuToggle>
+            <IonItem routerLink="/view-opd-appts" routerDirection="none">
+              <IonLabel>View OPD Appointments</IonLabel>
             </IonItem>
           </IonMenuToggle>
           <IonMenuToggle>
