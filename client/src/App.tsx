@@ -43,6 +43,8 @@ import LabSearch from './labPages/LabSearch';
 import LabIP from './labPages/LabIP';
 import PharmaSearch from './pharmaPages/PharmaSearch';
 import PharmaPrescription from './pharmaPages/PharmaPrescription';
+import SignUp from './pages/SignUp';
+import SignIn from './pages/SignIn';
 
 setupIonicReact();
 
@@ -53,6 +55,19 @@ const App: React.FC = () => (
     <SidebarMenu/>
     <IonReactRouter>
       <IonRouterOutlet id="main-content">
+
+        <Route exact path="/">
+          <Redirect to="/sign-in" />
+        </Route>
+        
+        <Route exact path="/sign-up">
+          <SignUp />
+        </Route>
+        <Route exact path="/sign-in">
+          <SignIn />
+        </Route>
+
+
         <Route exact path="/register-patient">
           <RegisterPatient />
         </Route>
@@ -95,12 +110,7 @@ const App: React.FC = () => (
         <Route exact path="/opd-view-patients">
           <OPDViewPatients />
         </Route>
-        <Route exact path="/">
-          <Redirect to="/register-patient" />
-        </Route>
-        <Route exact path="/home">
-          <Redirect to="/register-patient" />
-        </Route>
+        
         
         <Route exact path="/nurse-view-patients">
           <NurseViewPatients />
