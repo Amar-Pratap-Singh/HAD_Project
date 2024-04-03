@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.had</groupId>
-	<artifactId>authentication-service</artifactId>
+	<artifactId>auth</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>authentication-service</name>
 	<description>Authentication service for HIS</description>
