@@ -1,0 +1,13 @@
+/Users/amar/Documents/Sem8/HAD/HAD_Project/authentication-service/src/main/java/com/had/authenticationservice/repository/UserRepository.java
+/Users/amar/Documents/Sem8/HAD/HAD_Project/authentication-service/src/main/java/com/had/authenticationservice/dto/SignupRequest.java
+/Users/amar/Documents/Sem8/HAD/HAD_Project/authentication-service/src/main/java/com/had/authenticationservice/controller/TestAccessController.java
+/Users/amar/Documents/Sem8/HAD/HAD_Project/authentication-service/src/main/java/com/had/authenticationservice/controller/AuthenticationController.java
+/Users/amar/Documents/Sem8/HAD/HAD_Project/authentication-service/src/main/java/com/had/authenticationservice/config/SecurityConfiguration.java
+/Users/amar/Documents/Sem8/HAD/HAD_Project/authentication-service/src/main/java/com/had/authenticationservice/service/UserService.java
+/Users/amar/Documents/Sem8/HAD/HAD_Project/authentication-service/src/main/java/com/had/authenticationservice/dto/LoginRequest.java
+/Users/amar/Documents/Sem8/HAD/HAD_Project/authentication-service/src/main/java/com/had/authenticationservice/jwt/JwtService.java
+/Users/amar/Documents/Sem8/HAD/HAD_Project/authentication-service/src/main/java/com/had/authenticationservice/service/AuthenticationService.java
+/Users/amar/Documents/Sem8/HAD/HAD_Project/authentication-service/src/main/java/com/had/authenticationservice/model/Role.java
+/Users/amar/Documents/Sem8/HAD/HAD_Project/authentication-service/src/main/java/com/had/authenticationservice/AuthenticationServiceApplication.java
+/Users/amar/Documents/Sem8/HAD/HAD_Project/authentication-service/src/main/java/com/had/authenticationservice/jwt/JwtAuthenticationFilter.java
+/Users/amar/Documents/Sem8/HAD/HAD_Project/authentication-service/src/main/java/com/had/authenticationservice/model/User.java

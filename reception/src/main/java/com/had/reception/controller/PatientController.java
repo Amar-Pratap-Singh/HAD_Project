@@ -32,6 +32,7 @@ public class PatientController {
     public List<Patient> getAllPatients(){
         return patientService.getAllPatients();
     }
+    
     @GetMapping("/get-demographics")
     public Optional<Patient> getDemographics(@RequestParam("id") Integer id){
         return patientService.getDemographics(id);

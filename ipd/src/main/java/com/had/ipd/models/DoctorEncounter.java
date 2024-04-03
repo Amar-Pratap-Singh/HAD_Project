@@ -27,9 +27,11 @@ public class DoctorEncounter {
     private int doctorEncounterId;
     private int patientId;
     private int doctorId;
-    private String notes;
-    private String instructions;
-    private String prescriptions;
+    private int prescriptionId;
+
+    // private String notes;
+    // private String instructions;
+    // private String prescriptions;
 
     @CreationTimestamp
     private Timestamp encounterTimestamp;

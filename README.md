@@ -39,3 +39,20 @@ ionic serve
 * [control](https://react-hook-form.com/docs/useform/control)
 * [Controller](https://react-hook-form.com/docs/usecontroller/controller)
 
+
+
+
+
+
+
+## How to add a doctor encounter in IPD?
+
+Get all the data from form -> namely
+
+prescription data
+medicine data
+
+Add prescription Data to prescription table and get the id
+Add medicine data to medicine table and get the id
+Add the prescriptionId and medicineId to another join table
+Add the doctor encounter to Doctor Encounter table
