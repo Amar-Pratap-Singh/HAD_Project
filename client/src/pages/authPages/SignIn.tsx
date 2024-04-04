@@ -1,14 +1,18 @@
 import { IonButton, IonPage } from '@ionic/react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom';
-import TextInput from '../../components/TextInput'
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { jwtDecode } from 'jwt-decode';
+import TextInput from '../../components/TextInput'
+import { authSuccess } from '../../redux/user/userSlice';
 
 function SignIn() {
 
   const { control, handleSubmit, reset } = useForm();
   const history = useHistory();
   const [error, setError] = useState(false);
+  const dispath = useDispatch();
 
   const onSubmit = async (data: any) => {
     try{
@@ -25,12 +29,14 @@ function SignIn() {
         reset();
         return;
       }
-      const resMsg = await res.text();
-      console.log(resMsg);
+      const token = await res.text(); // this is the jwt token
+      const user = jwtDecode(token);
+      // console.log(user)
+      // localStorage.setItem('token', token);
+      dispath(authSuccess({jwt: token, user}));
       history.push('/register-patient');
     }
     catch(error) {
-      console.log(error);
       setError(true);
       reset();
     }
