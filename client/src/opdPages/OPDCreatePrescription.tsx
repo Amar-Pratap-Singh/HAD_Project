@@ -2,24 +2,25 @@ import React, { useState, useEffect } from 'react';
 import { IonPage, IonContent, IonCol, IonGrid, IonRow, IonButton,IonInput } from '@ionic/react';
 import TopToolbar from '../components/TopToolbar';
 import './OPDCreatePrescription.css';
+import { useForm } from 'react-hook-form';
+import TextInput from "../components/TextInput";
+
+type FormInputs = {
+	complaint: string,
+	vitals: string,
+	diagnosis: string,
+	medicines: string,
+	advice: string,
+	followup: string
+}
 
 const OPDCreatePrescription: React.FC = () => {
 
-	const [complaint,setComplaint]=useState('')
-	const [vitals,setVitals]=useState('')
-	const [diagnosis,setDiagnosis]=useState('')
-	const [medicines,setMedicines]=useState('')
-	const [advice,setAdvice]=useState('')
-	const [followup,setFollowup]=useState('')
+	const { control,handleSubmit,reset } = useForm()
 
-	const handleFormSubmit = () => {
-		console.log('Form submitted:', { complaint,vitals,diagnosis,medicines,advice,followup });
-		setComplaint('')
-		setVitals('')
-		setDiagnosis('')
-		setMedicines('')
-		setAdvice('')
-		setFollowup('')
+	const handleFormSubmit = (data:any) => {
+		console.log('Form submitted:', { data });
+		reset();
 	};
 
 	return(
@@ -28,41 +29,43 @@ const OPDCreatePrescription: React.FC = () => {
 				<TopToolbar/>
 				<IonContent className="ion-padding">
 				<h1>Create Prescription</h1>
+				<form onSubmit={handleSubmit(handleFormSubmit)}>
 				<IonGrid>
 					<IonRow>
 					<IonCol>
-						<IonInput value={complaint} onIonChange={(e) => setComplaint(e.detail.value!)} label="Complaint:" labelPlacement='floating' placeholder="Enter complaint"></IonInput>
+						<TextInput name='complaint' placeHolder='Enter complaint' label='Complaint:' control={control}/>
 					</IonCol>
 					</IonRow>
 					<IonRow>
 					<IonCol>
-						<IonInput value={vitals} onIonChange={(e) => setVitals(e.detail.value!)} label="Vitals:" labelPlacement='floating' placeholder="Enter vitals"></IonInput>
+						<TextInput name='vitals' placeHolder='Enter vitals' label='Vitals:' control={control}/>
 					</IonCol>
 					</IonRow>
 					<IonRow>
 					<IonCol>
-						<IonInput value={diagnosis} onIonChange={(e) => setDiagnosis(e.detail.value!)} label="Diagnosis:" labelPlacement='floating' placeholder="Enter diagnosis"></IonInput>
+						<TextInput name='diagnosis' placeHolder='Enter Diagnosis' label='Diagnosis:' control={control}/>
 					</IonCol>
 					</IonRow>
 					<IonRow>
 					<IonCol>
-						<IonInput value={medicines} onIonChange={(e) => setMedicines(e.detail.value!)} label="Medicines:" labelPlacement='floating' placeholder="Enter medicines"></IonInput>
+						<TextInput name='medicines' placeHolder='Enter Medicines' label='Medicines:' control={control}/>
 					</IonCol>
 					</IonRow>
 					<IonRow>
 					<IonCol>
-						<IonInput value={advice} onIonChange={(e) => setAdvice(e.detail.value!)} label="Advice/Notes:" labelPlacement='floating' placeholder="Enter notes"></IonInput>
+						<TextInput name='advice' placeHolder='Enter advice' label='Advice:' control={control}/>
 					</IonCol>
 					</IonRow>
 					<IonRow>
 					<IonCol>
-						<IonInput value={followup} onIonChange={(e) => setComplaint(e.detail.value!)} label="Follow Up:" labelPlacement='floating' placeholder="Enter follow up"></IonInput>
+						<TextInput name='followup' placeHolder='Enter followup' label='Follow Up:' control={control}/>
 					</IonCol>
 					</IonRow>
 				</IonGrid>
 				<div className='button-container'>
-					<IonButton onClick={handleFormSubmit} shape='round'>Create Prescription</IonButton>
+					<IonButton type='submit' shape='round'>Create Prescription</IonButton>
 				</div>
+				</form>
 				</IonContent>
 			</IonPage>
 		</div>
