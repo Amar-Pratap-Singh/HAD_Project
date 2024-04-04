@@ -11,7 +11,7 @@ export interface InputProps {
 
 const TextInput: FC<InputProps> = ({ name, placeHolder, label, control }) => {
   return (
-    <IonItem className="border-2 border-solid border-black my-2">
+    <IonItem className="border-2 border-solid border-black my-3">
       <Controller
         name={name}
         control={control}

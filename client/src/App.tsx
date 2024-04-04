@@ -17,128 +17,123 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
-import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
+import { useSelector } from 'react-redux';
 
-import SidebarMenu from './components/SidebarMenu';
+// components
+import PrivateRoute from './components/PrivateRoute';
 
-import RegisterPatient from './pages/receptionPages/RegisterPatient';
-import AddOPDAppointment from './pages/receptionPages/AddOPDAppointment';
-import AdmitPatientIPD from './pages/receptionPages/AdmitPatientIPD';
-import ViewPatients from './pages/receptionPages/ViewPatients';
-import ViewOPDAppointments from './pages/receptionPages/ViewOPDAppointments';
-import ViewIPDBeds from './pages/receptionPages/ViewIPDBeds';
+// menus
+import ReceptionMenu from './components/menus/ReceptionMenu';
+import PharmaMenu from './components/menus/PharmaMenu';
+import NurseMenu from './components/menus/NurseMenu';
+import LabMenu from './components/menus/LabMenu';
+import DoctorMenu from './components/menus/DoctorMenu';
+import AdminMenu from './components/menus/AdminMenu';
 
-import SignUp from './pages/authPages/SignUp';
-import SignIn from './pages/authPages/SignIn';
+// reception pages
+import PatientRegistrationForm from './pages/reception/PatientRegistrationForm';
+import OPDAppointmentForm from './pages/reception/OPDAppointmentForm';
+import IPDAdmissionForm from './pages/reception/IPDAdmissionForm';
+import PatientList from './pages/reception/PatientList';
+import OPDAppointmentsList from './pages/reception/OPDAppointmentsList';
+import IPDBedsList from './pages/reception/IPDBedsList';
 
-import OPDCreatePrescription from './pages/opdPages/OPDCreatePrescription';
-import OPDGetPatientDetails from './pages/opdPages/OPDGetPatientDetails';
-import OPDViewPatients from './pages/opdPages/OPDViewPatients';
+// pharma pages
+import PharmaPrescription from './pages/pharma/PharmaPrescription';
+import PharmaSearch from './pages/pharma/PharmaSearch';
 
-import AddEncounter from './pages/ipdPages/AddEncounter';
-import NurseCreateEncounter from './pages/ipdPages/NurseCreateEncounter';
-import NurseGetPatientDetails from './pages/ipdPages/NurseGetPatientDetails';
-import NurseViewPatients from './pages/ipdPages/NurseViewPatients';
-import PatientDetails from './pages/ipdPages/PatientDetails';
+// nurse pages
+import NurseCreateEncounter from './pages/nurse/NurseCreateEncounter';
+import NurseGetPatientDetails from './pages/nurse/NurseGetPatientDetails';
+import NurseViewPatients from './pages/nurse/NurseViewPatients';
 
-import LabIP from './pages/labPages/LabIP';
-import LabSearch from './pages/labPages/LabSearch';
+// lab pages
+import LabIP from './pages/lab/LabIP';
+import LabSearch from './pages/lab/LabSearch';
 
-import PharmaPrescription from './pages/pharmaPages/PharmaPrescription';
-import PharmaSearch from './pages/pharmaPages/PharmaSearch';
+// doctor pages - ipd
+import AddEncounter from './pages/doctor/ipd/AddEncounter';
+import PatientDetails from './pages/doctor/ipd/PatientDetails';
 
+// doctor pages - opd
+import OPDCreatePrescription from './pages/doctor/opd/OPDCreatePrescription';
+import OPDViewPatients from './pages/doctor/opd/OPDViewPatients';
+import OPDGetPatientDetails from './pages/doctor/opd/OPDGetPatientDetails';
+
+// admin pages
+import SignUp from './pages/admin/SignUp';
+import TestSignUpDoctor from './pages/admin/TestSignUpDoctor';
+import TestSignUpNurse from './pages/admin/TestSignUpNurse';
+
+// sign in page
+import SignIn from './pages/SignIn';
 
 setupIonicReact();
 
-const App: React.FC = () => (
-  <IonApp>
-    <SidebarMenu/>
-    <IonReactRouter>
-      <IonRouterOutlet id="main-content">
+const App = () => {
 
-        <Route exact path="/">
-          <Redirect to="/sign-in" />
-        </Route>
-        
-        {/* Auth Pages */}
-        <Route exact path="/sign-in">
-          <SignIn />
-        </Route>
+  const user = useSelector((state: any) => state.user.currentUser);
 
-        <Route exact path="/sign-up">
-          <SignUp />
-        </Route>
+  return (  
+    <IonApp>
+      {user.role === 'RECEPTIONIST' && <ReceptionMenu />}
+      {user.role === 'PHARMACIST' && <PharmaMenu />}
+      {user.role === 'CLINICAL_ASSISTANT' && <NurseMenu />}
+      {user.role === 'LAB_USER' && <LabMenu />}
+      {user.role === 'DOCTOR' && <DoctorMenu />}
+      {user.role === 'ADMIN' && <AdminMenu />}
+      <IonReactRouter>
+        <IonRouterOutlet id="main-content">
 
-        {/* Reception Pages */}
-        <Route exact path="/register-patient">
-          <RegisterPatient />
-        </Route>
-        <Route exact path="/view-patients">
-          <ViewPatients />
-        </Route>
-        <Route exact path="/add-opd-appt">
-          <AddOPDAppointment />
-        </Route>
-        <Route exact path="/view-opd-appts">
-          <ViewOPDAppointments />
-        </Route>
-        <Route exact path="/admit-patient-ipd">
-          <AdmitPatientIPD />
-        </Route>
-        <Route exact path="/view-ipd-beds">
-          <ViewIPDBeds />
-        </Route>
-        
-        {/* Doctor Pages */}
-        <Route exact path="/add-encounter">
-          <AddEncounter />
-        </Route>
-        <Route exact path="/ipd-patient-details">
-          <PatientDetails name={'Rishi'} patientId={'44'} age={12} reasonForAdmit={'Malaria'} />
-        </Route>
-        <Route exact path="/opd-create-prescription">
-          <OPDCreatePrescription />
-        </Route>
-        <Route exact path="/opd-get-patient-details">
-          <OPDGetPatientDetails />
-        </Route>
-        <Route exact path="/opd-view-patients">
-          <OPDViewPatients />
-        </Route>
-        
-        {/* Nurse Pages */}
-        <Route exact path="/nurse-view-patients">
-          <NurseViewPatients />
-        </Route>
-        <Route exact path="/nurse-view-patients/details">
-          <NurseGetPatientDetails />
-        </Route>
-        <Route exact path="/nurse-encounter">
-          <NurseCreateEncounter />
-        </Route>
+          {/* Sign In Page (Starting Page) */}
+          <Route exact path="/">
+            <Redirect to="/sign-in" />
+          </Route>
 
-        {/* Lab Pages */}
-        <Route exact path="/lab-search">
-          <LabSearch />
-        </Route>
-        <Route exact path="/lab-ip">
-          <LabIP />
-        </Route>
+          <Route exact path="/sign-in" component={SignIn} />
 
-        {/* Pharma Pages */}
-        <Route exact path="/pharma-search">
-          <PharmaSearch />
-        </Route>
-        <Route exact path="/pharma-prescription">
-          <PharmaPrescription />
-        </Route>
-        
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
-);
+          {/* Reception Pages */}
+          <PrivateRoute allowedRoles={['RECEPTIONIST']} exact path="/reception/register-patient" component={PatientRegistrationForm} />
+          <PrivateRoute allowedRoles={['RECEPTIONIST']} exact path="/reception/add-opd-appointment" component={OPDAppointmentForm} />
+          <PrivateRoute allowedRoles={['RECEPTIONIST']} exact path="/reception/admit-ipd-patient" component={IPDAdmissionForm} />
+          <PrivateRoute allowedRoles={['RECEPTIONIST']} exact path="/reception/patient-list" component={PatientList} />
+          <PrivateRoute allowedRoles={['RECEPTIONIST']} exact path="/reception/opd-appointments-list" component={OPDAppointmentsList} />
+          <PrivateRoute allowedRoles={['RECEPTIONIST']} exact path="/reception/ipd-beds-list" component={IPDBedsList} />
+
+          {/* Pharma Pages */}
+          <PrivateRoute allowedRoles={['PHARMACIST']} exact path="/pharma/search" component={PharmaSearch} />
+          <PrivateRoute allowedRoles={['PHARMACIST']} exact path="/pharma/prescription" component={PharmaPrescription} />
+
+          {/* Nurse Pages */}
+          <PrivateRoute allowedRoles={['CLINICAL_ASSISTANT']} exact path="/nurse/patient-list" component={NurseViewPatients} />
+          <PrivateRoute allowedRoles={['CLINICAL_ASSISTANT']} exact path="/nurse/patient-details" component={NurseGetPatientDetails} />
+          <PrivateRoute allowedRoles={['CLINICAL_ASSISTANT']} exact path="/nurse/add-encounter" component={NurseCreateEncounter} />
+
+          {/* Lab Pages */}
+          <PrivateRoute allowedRoles={['LAB_USER']} exact path="/lab/search" component={LabSearch} />
+          <PrivateRoute allowedRoles={['LAB_USER']} exact path="/lab/ip" component={LabIP} />
+
+          {/* Doctor Pages - IPD */}
+          <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/ipd/add-encounter" component={AddEncounter} />
+          <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/ipd/patient-details" component={PatientDetails} />
+
+          {/* Doctor Pages - OPD */}
+          <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/opd/create-prescription" component={OPDCreatePrescription} />
+          <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/opd/patient-list" component={OPDViewPatients} />
+          <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/opd/patient-details" component={OPDGetPatientDetails} />
+
+          {/* Admin Pages */}
+          <PrivateRoute allowedRoles={['ADMIN']} exact path="/admin/sign-up" component={SignUp} />
+          <PrivateRoute allowedRoles={['ADMIN']} exact path="/admin/add-doctor" component={TestSignUpDoctor} />
+          <PrivateRoute allowedRoles={['ADMIN']} exact path="/admin/add-nurse" component={TestSignUpNurse} />  
+          
+        </IonRouterOutlet>
+      </IonReactRouter>
+    </IonApp>
+  );
+};
 
 export default App;
