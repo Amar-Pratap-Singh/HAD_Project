@@ -1,18 +1,3 @@
-import React from 'react';
-import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
-import { IonReactRouter } from '@ionic/react-router';
-import RegisterPatient from './pages/RegisterPatient';
-import AddOPDAppointment from './pages/AddOPDAppointment';
-import AdmitPatientIPD from './pages/AdmitPatientIPD';
-import ViewPatients from './pages/ViewPatients';
-import ViewOPDAppointments from './pages/ViewOPDAppointments';
-import ViewIPDBeds from './pages/ViewIPDBeds';
-import TestLogin from './authPages/TestLogin';
-import TestSignUpDoctor from './authPages/TestSignUpDoctor';
-import TestSignUpNurse from './authPages/TestSignUpNurse';
-import SidebarMenu from './components/SidebarMenu';
-
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
 
@@ -31,24 +16,42 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import AddEncounter from './ipd/AddEncounter';
-import OPDCreatePrescription from './opdPages/OPDCreatePrescription';
-import OPDGetPatientDetails from './opdPages/OPDGetPatientDetails';
-import OPDViewPatients from './opdPages/OPDViewPatients';
-import PatientDetails from './ipd/PatientDetails';
-import NurseViewPatients from './ipd/NurseViewPatients';
-import NurseCreateEncounter from './ipd/NurseCreateEncounter';
-import NurseGetPatientDetails from './ipd/NurseGetPatientDetails';
-import LabSearch from './labPages/LabSearch';
-import LabIP from './labPages/LabIP';
-import PharmaSearch from './pharmaPages/PharmaSearch';
-import PharmaPrescription from './pharmaPages/PharmaPrescription';
-import SignUp from './pages/SignUp';
-import SignIn from './pages/SignIn';
+
+import React from 'react';
+import { Redirect, Route } from 'react-router-dom';
+import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
+import { IonReactRouter } from '@ionic/react-router';
+
+import SidebarMenu from './components/SidebarMenu';
+
+import RegisterPatient from './pages/receptionPages/RegisterPatient';
+import AddOPDAppointment from './pages/receptionPages/AddOPDAppointment';
+import AdmitPatientIPD from './pages/receptionPages/AdmitPatientIPD';
+import ViewPatients from './pages/receptionPages/ViewPatients';
+import ViewOPDAppointments from './pages/receptionPages/ViewOPDAppointments';
+import ViewIPDBeds from './pages/receptionPages/ViewIPDBeds';
+
+import SignUp from './pages/authPages/SignUp';
+import SignIn from './pages/authPages/SignIn';
+
+import OPDCreatePrescription from './pages/opdPages/OPDCreatePrescription';
+import OPDGetPatientDetails from './pages/opdPages/OPDGetPatientDetails';
+import OPDViewPatients from './pages/opdPages/OPDViewPatients';
+
+import AddEncounter from './pages/ipdPages/AddEncounter';
+import NurseCreateEncounter from './pages/ipdPages/NurseCreateEncounter';
+import NurseGetPatientDetails from './pages/ipdPages/NurseGetPatientDetails';
+import NurseViewPatients from './pages/ipdPages/NurseViewPatients';
+import PatientDetails from './pages/ipdPages/PatientDetails';
+
+import LabIP from './pages/labPages/LabIP';
+import LabSearch from './pages/labPages/LabSearch';
+
+import PharmaPrescription from './pages/pharmaPages/PharmaPrescription';
+import PharmaSearch from './pages/pharmaPages/PharmaSearch';
+
 
 setupIonicReact();
-
-/*Jinpe test hai wo reception wale nhi login/signupwale pages hai*/
 
 const App: React.FC = () => (
   <IonApp>
@@ -60,14 +63,16 @@ const App: React.FC = () => (
           <Redirect to="/sign-in" />
         </Route>
         
-        <Route exact path="/sign-up">
-          <SignUp />
-        </Route>
+        {/* Auth Pages */}
         <Route exact path="/sign-in">
           <SignIn />
         </Route>
 
+        <Route exact path="/sign-up">
+          <SignUp />
+        </Route>
 
+        {/* Reception Pages */}
         <Route exact path="/register-patient">
           <RegisterPatient />
         </Route>
@@ -86,15 +91,8 @@ const App: React.FC = () => (
         <Route exact path="/view-ipd-beds">
           <ViewIPDBeds />
         </Route>
-        <Route exact path="/test-login">
-          <TestLogin />
-        </Route>
-        <Route exact path="/test-signup-doctor">
-          <TestSignUpDoctor />
-        </Route>
-        <Route exact path="/test-signup-nurse">
-          <TestSignUpNurse />
-        </Route>
+        
+        {/* Doctor Pages */}
         <Route exact path="/add-encounter">
           <AddEncounter />
         </Route>
@@ -111,7 +109,7 @@ const App: React.FC = () => (
           <OPDViewPatients />
         </Route>
         
-        
+        {/* Nurse Pages */}
         <Route exact path="/nurse-view-patients">
           <NurseViewPatients />
         </Route>
@@ -122,6 +120,7 @@ const App: React.FC = () => (
           <NurseCreateEncounter />
         </Route>
 
+        {/* Lab Pages */}
         <Route exact path="/lab-search">
           <LabSearch />
         </Route>
@@ -129,12 +128,14 @@ const App: React.FC = () => (
           <LabIP />
         </Route>
 
+        {/* Pharma Pages */}
         <Route exact path="/pharma-search">
           <PharmaSearch />
         </Route>
         <Route exact path="/pharma-prescription">
           <PharmaPrescription />
         </Route>
+        
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>

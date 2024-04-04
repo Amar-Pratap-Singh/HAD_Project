@@ -1,15 +1,14 @@
 import { IonHeader, IonToolbar, IonTitle, IonButtons, IonMenuButton } from '@ionic/react';
-import './TopToolbar.css';
 
 const TopToolbar: React.FC = () => {
 
   return (
-    <IonHeader className='top-toolbar'>
+    <IonHeader>
       <IonToolbar>
       <IonButtons slot="start">
         <IonMenuButton></IonMenuButton>
       </IonButtons>
-      <IonTitle>Hospital System</IonTitle>
+      <IonTitle className='text-black font-bold'>Hospital System</IonTitle>
       </IonToolbar>
     </IonHeader>
   );

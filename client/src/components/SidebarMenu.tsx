@@ -1,15 +1,16 @@
 import { IonMenu, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonMenuToggle, IonItem, IonLabel } from '@ionic/react';
-import './SidebarMenu.css';
 
 const SidebarMenu: React.FC = () => {
 
   return (
-    <IonMenu className='sidebar-menu' contentId="main-content">
+    <IonMenu contentId="main-content">
+      
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Navigation</IonTitle>
+          <IonTitle className='text-black font-bold'>Navigation</IonTitle>
         </IonToolbar>
       </IonHeader>
+
       <IonContent className="ion-padding">
         <IonList>
           <IonMenuToggle>
@@ -42,21 +43,7 @@ const SidebarMenu: React.FC = () => {
               <IonLabel>View IPD Beds</IonLabel>
             </IonItem>
           </IonMenuToggle>
-          <IonMenuToggle>
-            <IonItem routerLink="/test-login" routerDirection="none">
-              <IonLabel>Test Login Page</IonLabel>
-            </IonItem>
-          </IonMenuToggle>
-          <IonMenuToggle>
-            <IonItem routerLink="/test-signup-doctor" routerDirection="none">
-              <IonLabel>Test Doctor Signup Page</IonLabel>
-            </IonItem>
-          </IonMenuToggle>
-          <IonMenuToggle>
-            <IonItem routerLink="/test-signup-nurse" routerDirection="none">
-              <IonLabel>Test Nurse Signup Page</IonLabel>
-            </IonItem>
-          </IonMenuToggle>
+
           <IonMenuToggle>
             <IonItem routerLink="/add-encounter" routerDirection="none">
               <IonLabel>IPD Add Encounter</IonLabel>
