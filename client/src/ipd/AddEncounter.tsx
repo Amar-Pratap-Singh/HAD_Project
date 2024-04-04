@@ -3,23 +3,34 @@ import { IonButton, IonCol, IonContent, IonGrid, IonInput, IonPage, IonRow } fro
 import TopToolbar from '../components/TopToolbar';
 import './styles.css';
 import MedicineInputField from './MedicineInputField';
+import { useForm } from 'react-hook-form';
+import TextInput from "../components/TextInput";
+
+type FormInputs = {
+  notes: string,
+  instructions: string,
+  medicineName: string,
+  medicineQty: string,
+  medicineTiming: string,
+  medicineDuration: string,
+  medicineFields: number[]
+}
+
+/*Bug: Showing only 1 medicine info instead of all*/
 
 const AddEncounter: React.FC = () => {
 
-  const [notes, setNotes] = useState('');
-  const [instructions, setInstructions] = useState('');
-  const [medicineName, setMedicineName] = useState('');
-  const [medicineQty, setMedicineQty] = useState('');
-  const [medicineTiming, setMedicineTiming] = useState('');
-  const [medicineDuration, setMedicineDuration] = useState('');
+  const { control, handleSubmit } = useForm();
+
   const [medicineFields, setMedicineFields] = useState([0]);
 
   const addMedicineField = () => {
     setMedicineFields([...medicineFields, medicineFields.length]);
   };
 
-  const handleFormSubmit = () => {
-    console.log('Form submitted:', { notes, instructions, medicineName });
+
+  const handleFormSubmit = (data:any) => {
+    console.log('Form submitted:', {data});
   };
 
   return (
@@ -28,29 +39,35 @@ const AddEncounter: React.FC = () => {
         <TopToolbar/>
         <IonContent className="ion-padding">
           <h1>Add IPD Encounter</h1>
+          <form onSubmit={handleSubmit(handleFormSubmit)}>
           <IonGrid>
             <IonRow>
               <IonCol>
-                <IonInput value={notes} onIonChange={(e) => setNotes(e.detail.value!)} label="Notes:" labelPlacement='floating' placeholder="Enter notes"></IonInput>
+                <TextInput name='notes' placeHolder='Enter notes' label='Notes' control={control}/>     
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol>
-                <IonInput value={instructions} onIonChange={(e) => setInstructions(e.detail.value!)} label="Instructions:" labelPlacement='floating' placeholder="Enter instructions"></IonInput>
+                <TextInput name='instructions' placeHolder='Enter instructions' label='Instructions' control={control}/>
               </IonCol>
             </IonRow>
             <IonRow>
               <IonCol>
-                <IonInput value={medicineName} onIonChange={(e) => setMedicineName(e.detail.value!)} label="Medicine Name:" labelPlacement='floating' placeholder="paracetamol"></IonInput>
+                <TextInput name='medicineName' placeHolder='' label='Medicine Name' control={control}/>
               </IonCol>
               <IonCol>
-                <IonInput value={medicineQty} onIonChange={(e) => setMedicineQty(e.detail.value!)} label="Qty:" labelPlacement='floating' placeholder="1"></IonInput>
+                <TextInput name='medicineQty' placeHolder='' label='Quantity' control={control}/>
               </IonCol>
               <IonCol>
-                <IonInput value={medicineTiming} onIonChange={(e) => setMedicineTiming(e.detail.value!)} label="When:" labelPlacement='floating' placeholder="morning"></IonInput>
+                <TextInput name='medicineTiming' placeHolder='' label='Medicine Timing' control={control}/>
               </IonCol>
               <IonCol>
-                <IonInput value={medicineDuration} onIonChange={(e) => setMedicineDuration(e.detail.value!)} label="Duration:" labelPlacement='floating' placeholder="3 days"></IonInput>
+                <TextInput name='medicineDuration' placeHolder='' label='Medicine Duration' control={control}/>
+              </IonCol>
+              <IonCol>
+                <div className='button-container'>
+                <IonButton shape='round'>Delete</IonButton>
+                </div>
               </IonCol>
             </IonRow>
             {medicineFields.map((_, index) => (
@@ -61,8 +78,9 @@ const AddEncounter: React.FC = () => {
             </div>
           </IonGrid>
           <div className='button-container'>
-            <IonButton onClick={handleFormSubmit} shape='round'>Add Encounter</IonButton>
+            <IonButton type='submit' shape='round'>Add Encounter</IonButton>
           </div>
+        </form>
         </IonContent>
       </IonPage>
     </div>

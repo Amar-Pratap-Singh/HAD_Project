@@ -2,20 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { IonPage, IonContent, IonCol, IonGrid, IonRow, IonButton,IonInput } from '@ionic/react';
 import TopToolbar from '../components/TopToolbar';
 import './NurseCreateEncounter.css';
+import { useForm } from 'react-hook-form';
+import TextInput from "../components/TextInput";
+
+type FormInputs = {
+	bp: string,
+	bpm: string,
+	temp: string,
+	o2: string
+}
 
 const NurseCreateEncounter: React.FC = () => {
 
-	const [bp,setBP] = useState('')
-	const [bpm,setBPM] = useState('')
-	const [temp,setTemp] = useState('')
-	const [o2,setO2] = useState('')
+	const { control, handleSubmit, reset } = useForm();
 
-	const handleFormSubmit = () => {
-		console.log('Form submitted:', {bp,bpm,temp,o2} );
-		setBP('');
-		setBPM('');
-		setTemp('');
-		setO2('');
+	const handleFormSubmit = (data:any) => {
+		console.log('Form submitted:', {data} );
+		reset();
 	};
 
 	return(
@@ -24,31 +27,33 @@ const NurseCreateEncounter: React.FC = () => {
 				<TopToolbar/>
 				<IonContent className="ion-padding">
 				<h1>Create Encounter</h1>
+				<form onSubmit={handleSubmit(handleFormSubmit)}>
 				<IonGrid>
 					<IonRow>
 					<IonCol>
-						<IonInput value={bp} onIonChange={(e) => setBP(e.detail.value!)} label="Blood Pressure:" labelPlacement='floating' placeholder="Enter Blood Pressure"></IonInput>
+						<TextInput name='bp' placeHolder='Enter blood pressure' label='Blood Pressure' control={control}/>
 					</IonCol>
 					</IonRow>
 					<IonRow>
 					<IonCol>
-						<IonInput value={bpm} onIonChange={(e) => setBPM(e.detail.value!)} label="Heart Rate(bpm):" labelPlacement='floating' placeholder="Enter Heart Rate"></IonInput>
+						<TextInput name='bpm' placeHolder='Enter heart rate' label='Heart Rate(bpm)' control={control}/>
 					</IonCol>
 					</IonRow>
 					<IonRow>
 					<IonCol>
-						<IonInput value={temp} onIonChange={(e) => setTemp(e.detail.value!)} label="Temperature(F):" labelPlacement='floating' placeholder="Enter Temperature"></IonInput>
+						<TextInput name='temp' placeHolder='Enter temperature' label='Temperature(F)' control={control}/>
 					</IonCol>
 					</IonRow>
 					<IonRow>
 					<IonCol>
-						<IonInput value={o2} onIonChange={(e) => setO2(e.detail.value!)} label="Oxygen:" labelPlacement='floating' placeholder="Enter Oxygen"></IonInput>
+						<TextInput name='o2' placeHolder='Enter oxygen level' label='Oxygen Level' control={control}/>
 					</IonCol>
 					</IonRow>
 				</IonGrid>
 				<div className='button-container'>
-					<IonButton onClick={handleFormSubmit} shape='round'>Create Prescription</IonButton>
+					<IonButton type='submit' shape='round'>Create Prescription</IonButton>
 				</div>
+				</form>
 				</IonContent>
 			</IonPage>
 		</div>
