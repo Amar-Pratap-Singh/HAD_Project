@@ -21,7 +21,7 @@ type FormInputs = {
 
 const AddEncounter: React.FC = () => {
 
-  const { register, control, handleSubmit } = useForm<FormInputs>({mode:"onBlur"});
+  const { register, control, handleSubmit } = useForm<any>({mode:"onBlur"});
 
   const { fields, append , remove } = useFieldArray({
     name:"medicineFields",
