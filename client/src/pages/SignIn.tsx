@@ -35,7 +35,7 @@ function SignIn() {
       console.log(user)
       switch(user.role) {
         case 'DOCTOR':
-          history.push('/doctor/ipd/add-encounter');
+          history.push('/doctor/ipd/patient-list');
           break;
         case 'CLINICAL_ASSISTANT':
           history.push('/nurse/patient-list');

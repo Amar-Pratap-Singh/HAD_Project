@@ -103,6 +103,7 @@ interface Encounter {
   prescriptionId: number;
 }
 
+
 const PatientDetails: React.FC = () => {
 
   const { patientId } = useParams<{ patientId: string }>();
@@ -114,6 +115,8 @@ const PatientDetails: React.FC = () => {
     fetchPatientDetails();
     fetchEncounters();
   }, []);
+
+
 
   const fetchPatientDetails = async () => {
     try {
@@ -128,6 +131,7 @@ const PatientDetails: React.FC = () => {
     }
   };
 
+
   const fetchEncounters = async () => {
     try {
       const response = await fetch(`http://localhost:8085/ipd/get-doctor-encounter-by-patient-id?patientId=`+ patientId);
@@ -136,10 +140,15 @@ const PatientDetails: React.FC = () => {
       }
       const data = await response.json();
       setEncounters(data);
+
     } catch (error) {
       console.error('Error fetching encounters:', error);
     }
   };
+
+
+
+
 
   if (!patientDetails) {
     return <div>Loading...</div>;
@@ -165,12 +174,84 @@ const PatientDetails: React.FC = () => {
             <IonCardTitle>Encounter {index + 1}</IonCardTitle>
           </IonCardHeader>
           <IonCardContent>
-            <p>Notes: {encounter.patientId}</p>
+            {/* <p>Notes: {encounter.patientId}</p>
             <p>Nurse Instructions: {encounter.doctorId}</p>
-            <p>Medicines:{encounter.prescriptionId}</p>
+            <p>Medicines:{encounter.prescriptionId}</p> */}
+            <PrescriptionData prescriptionId={encounter.prescriptionId} />
           </IonCardContent>
         </IonCard>
       ))}
+    </>
+  );
+};
+
+
+interface PrescriptionDataProps {
+  prescriptionId: any;
+}
+
+const PrescriptionData: React.FC<PrescriptionDataProps> = ({ prescriptionId }) => {
+  const [prescriptionData, setPrescriptionData] = useState<any | null>(null);
+  const [medicationIds, setMedicationIds] = useState<any[]>([]);
+  const [medicationData, setMedicationData] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const prescriptionResponse = await fetch(`http://localhost:8085/ipd/get-prescription?prescriptionId=${prescriptionId}`);
+        if (!prescriptionResponse.ok) {
+          throw new Error('Failed to fetch prescription');
+        }
+        const prescriptionData = await prescriptionResponse.json();
+        setPrescriptionData(prescriptionData);
+  
+        const medicationIdsResponse = await fetch(`http://localhost:8085/ipd/get-prescription-medication?prescriptionId=${prescriptionId}`);
+        if (!medicationIdsResponse.ok) {
+          throw new Error('Failed to fetch medication IDs');
+        }
+        const medicationIdsData = await medicationIdsResponse.json();
+        setMedicationIds(medicationIdsData);
+  
+        for (let i = 0; i < medicationIdsData.length; i++) {
+          const medicationId = medicationIdsData[i].medicationId;
+          const medicationResponse = await fetch(`http://localhost:8085/ipd/get-medication?medicationId=${medicationId}`);
+          if (!medicationResponse.ok) {
+            throw new Error('Failed to fetch medication');
+          }
+          const medicationData = await medicationResponse.json();
+          setMedicationData(prevMedicationData => [...prevMedicationData, medicationData]);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+  
+    fetchData();
+  }, [prescriptionId]);
+
+  if (!prescriptionData) {
+    return <p>Loading prescription data...</p>;
+  }
+
+  return (
+    <>
+      <h1>Advice</h1>
+      <p>Notes: {prescriptionData.notes}</p>
+      <p>Instructions: {prescriptionData.instructions}</p>
+      <br></br>
+      <h1> Medication </h1>
+      <ul>
+        {medicationData.map((medication) => (
+          <li key={medication.medicationId}>
+            <p>Name: {medication.medicineName}</p>
+            <p>Quantity: {medication.quantity}</p>
+            <p>Time: {medication.time}</p>
+            <p>Duration: {medication.duration}</p>
+            <br></br>
+          </li>
+        ))}
+
+      </ul>
     </>
   );
 };
