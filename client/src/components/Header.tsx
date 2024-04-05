@@ -14,6 +14,7 @@ const Header: React.FC = () => {
         </IonButtons>
         <IonTitle className='text-black font-bold'>Hospital System</IonTitle>
         <IonButtons slot='end'>
+          <IonButton className='text-black font-bold'>{user.id}</IonButton>
           <IonButton className='text-black font-bold'>{user.sub}</IonButton>
           <IonButton className='text-black font-bold'>{user.role}</IonButton>
         </IonButtons>
