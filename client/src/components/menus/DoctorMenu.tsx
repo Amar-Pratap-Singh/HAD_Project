@@ -14,16 +14,10 @@ const DoctorMenu: React.FC = () => {
       <IonContent className="ion-padding">
         <IonList>
           <IonMenuToggle>
-            <IonItem routerLink="/doctor/ipd/add-encounter" routerDirection="none">
-              <IonLabel>IPD - Add Encounter</IonLabel>
+            <IonItem routerLink="/doctor/ipd/patient-list" routerDirection="none">
+              <IonLabel>IPD - View Patient List</IonLabel>
             </IonItem>
           </IonMenuToggle>
-          <IonMenuToggle>
-            <IonItem routerLink="/doctor/ipd/patient-details" routerDirection="none">
-              <IonLabel>IPD - View Patient Details</IonLabel>
-            </IonItem>
-          </IonMenuToggle>
-
           <IonMenuToggle>
             <IonItem routerLink="/doctor/opd/create-prescription" routerDirection="none">
               <IonLabel>OPD - Create Prescription</IonLabel>
