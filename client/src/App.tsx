@@ -79,12 +79,12 @@ const App = () => {
 
   return (  
     <IonApp>
-      {user.role === 'RECEPTIONIST' && <ReceptionMenu />}
-      {user.role === 'PHARMACIST' && <PharmaMenu />}
-      {user.role === 'CLINICAL_ASSISTANT' && <NurseMenu />}
-      {user.role === 'LAB_USER' && <LabMenu />}
-      {user.role === 'DOCTOR' && <DoctorMenu />}
-      {user.role === 'ADMIN' && <AdminMenu />}
+      {user && user.role === 'RECEPTIONIST' && <ReceptionMenu />}
+      {user && user.role === 'PHARMACIST' && <PharmaMenu />}
+      {user && user.role === 'CLINICAL_ASSISTANT' && <NurseMenu />}
+      {user && user.role === 'LAB_USER' && <LabMenu />}
+      {user && user.role === 'DOCTOR' && <DoctorMenu />}
+      {user && user.role === 'ADMIN' && <AdminMenu />}
       <IonReactRouter>
         <IonRouterOutlet id="main-content">
 
