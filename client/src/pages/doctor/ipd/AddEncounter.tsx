@@ -69,12 +69,13 @@ const AddEncounter: React.FC = () => {
               </IonRow>
               {fields.map((field, index) => {
                 return (
-                  <IonRow>
+                  <IonRow key={field.id}>
                     <IonCol>
                       <TextInput
                         placeHolder=""
                         label="Medicine Name"
                         {...register(`medicineFields.${index}.medicineName`)}
+                        control={control}
                       />
                     </IonCol>
                     <IonCol>
@@ -82,6 +83,7 @@ const AddEncounter: React.FC = () => {
                         placeHolder=""
                         label="Quantity"
                         {...register(`medicineFields.${index}.medicineQty`)}
+                        control={control}
                       />
                     </IonCol>
                     <IonCol>
@@ -89,6 +91,7 @@ const AddEncounter: React.FC = () => {
                         placeHolder=""
                         label="Medicine Timing"
                         {...register(`medicineFields.${index}.medicineTiming`)}
+                        control={control}
                       />
                     </IonCol>
                     <IonCol>
@@ -96,6 +99,7 @@ const AddEncounter: React.FC = () => {
                         placeHolder=""
                         label="Medicine Duration"
                         {...register(`medicineFields.${index}.medicineTiming`)}
+                        control={control}
                       />
                     </IonCol>
                     <IonCol>
