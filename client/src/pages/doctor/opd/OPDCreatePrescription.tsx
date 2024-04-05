@@ -8,22 +8,34 @@ import {
   IonButton,
   IonInput,
 } from "@ionic/react";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import Header from "../../../components/Header";
 import TextInput from "../../../components/TextInput";
 import "./OPDCreatePrescription.css";
 
 type FormInputs = {
-  complaint: string;
-  vitals: string;
-  diagnosis: string;
-  medicines: string;
+  patientComplaints: string;
+  weight: number;
+  height: number;
+  temperature: number;
+  lowBP: number;
+  highBP: number;
+  medicines: {
+    medicineName: string;
+    count: number;
+    instruction: string;
+  }[];
   advice: string;
-  followup: string;
+  followUp: string;
 };
 
 const OPDCreatePrescription: React.FC = () => {
-  const { control, handleSubmit, reset } = useForm();
+  const { register,control, handleSubmit, reset } = useForm();
+
+  const {fields,append,remove} = useFieldArray({
+    name:'medicines',
+    control
+  });
 
   const handleFormSubmit = (data: any) => {
     console.log("Form submitted:", { data });
@@ -41,7 +53,7 @@ const OPDCreatePrescription: React.FC = () => {
               <IonRow>
                 <IonCol>
                   <TextInput
-                    name="complaint"
+                    name="patientComplaints"
                     placeHolder="Enter complaint"
                     label="Complaint:"
                     control={control}
@@ -51,33 +63,100 @@ const OPDCreatePrescription: React.FC = () => {
               <IonRow>
                 <IonCol>
                   <TextInput
-                    name="vitals"
-                    placeHolder="Enter vitals"
-                    label="Vitals:"
+                    name="weight"
+                    placeHolder="Enter weight"
+                    label="Weight:"
                     control={control}
                   />
                 </IonCol>
-              </IonRow>
-              <IonRow>
                 <IonCol>
                   <TextInput
-                    name="diagnosis"
-                    placeHolder="Enter Diagnosis"
-                    label="Diagnosis:"
+                    name="height"
+                    placeHolder="Enter height"
+                    label="Height:"
                     control={control}
                   />
                 </IonCol>
-              </IonRow>
-              <IonRow>
                 <IonCol>
                   <TextInput
-                    name="medicines"
-                    placeHolder="Enter Medicines"
-                    label="Medicines:"
+                    name="temperature"
+                    placeHolder="Enter temperature(F)"
+                    label="Temperature:"
+                    control={control}
+                  />
+                </IonCol>
+                <IonCol>
+                  Blood Pressure:
+                </IonCol>
+                <IonCol>
+                  <TextInput
+                    name="lowBP"
+                    placeHolder=""
+                    label=""
+                    control={control}
+                  />
+                </IonCol>
+                <IonCol>
+                  <TextInput
+                    name="highBP"
+                    placeHolder=""
+                    label=""
                     control={control}
                   />
                 </IonCol>
               </IonRow>
+              {
+                fields.map((field,index) => {
+                  return (
+                    <IonRow key={field.id}>
+                    <IonCol>
+                      <TextInput
+                        placeHolder=""
+                        label="Medicine Name"
+                        {...register(`medicines.${index}.medicineName`)}
+                        control={control}
+                      />
+                    </IonCol>
+                    <IonCol>
+                      <TextInput
+                        placeHolder=""
+                        label="Quantity"
+                        {...register(`medicines.${index}.count`)}
+                        control={control}
+                      />
+                    </IonCol>
+                    <IonCol>
+                      <TextInput
+                        placeHolder=""
+                        label="Medicine Instructions"
+                        {...register(`medicines.${index}.instruction`)}
+                        control={control}
+                      />
+                    </IonCol>
+                    <IonCol>
+                      <div className="button-container">
+                        <IonButton onClick={() => remove(index)} shape="round">
+                          Delete
+                        </IonButton>
+                      </div>
+                    </IonCol>
+                  </IonRow>
+                  );
+              })}
+              <div className="button-container">
+                <IonButton
+                  onClick={() =>
+                    append({
+                      medicineName: "",
+                      count: "",
+                      instruction: "",
+                    })
+                  }
+                  shape="round"
+                >
+                  Add Medicines
+                </IonButton>
+              </div>
               <IonRow>
                 <IonCol>
                   <TextInput
@@ -91,7 +170,7 @@ const OPDCreatePrescription: React.FC = () => {
               <IonRow>
                 <IonCol>
                   <TextInput
-                    name="followup"
+                    name="followUp"
                     placeHolder="Enter followup"
                     label="Follow Up:"
                     control={control}
