@@ -12,9 +12,13 @@ const userSlice = createSlice({
         authSuccess: (state, action) => {
             state.jwt = action.payload.jwt;
             state.currentUser = action.payload.user;
+        },
+        signOut: (state) => {
+            state.jwt = null;
+            state.currentUser = null;
         }
     }
 });
 
-export const {authSuccess} = userSlice.actions;
+export const {authSuccess, signOut} = userSlice.actions;
 export default userSlice.reducer;

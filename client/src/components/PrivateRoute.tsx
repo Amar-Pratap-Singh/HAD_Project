@@ -10,7 +10,7 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ allowedRoles, ...routeProps
 
   const user = useSelector((state: any) => state.user.currentUser);
 
-  if(user.role && allowedRoles.includes(user.role)) {
+  if(user && user.role && allowedRoles.includes(user.role)) {
     // role allowed, render the route
     return <Route {...routeProps} />;
   }
