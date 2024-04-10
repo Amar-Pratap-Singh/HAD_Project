@@ -12,6 +12,8 @@ import { useFieldArray, useForm } from "react-hook-form";
 import Header from "../../../components/Header";
 import TextInput from "../../../components/TextInput";
 import "./OPDCreatePrescription.css";
+import { useParams } from "react-router";
+import { useSelector } from "react-redux";
 
 type FormInputs = {
   patientComplaints: string;
@@ -30,16 +32,54 @@ type FormInputs = {
 };
 
 const OPDCreatePrescription: React.FC = () => {
-  const { register,control, handleSubmit, reset } = useForm();
+  const { register,control, handleSubmit, reset } = useForm(); 
+  const { patientId } = useParams<{ patientId: string }>();
+
+  const user = useSelector((state: any) => state.user.currentUser);
 
   const {fields,append,remove} = useFieldArray({
     name:'medicines',
     control
   });
 
-  const handleFormSubmit = (data: any) => {
-    console.log("Form submitted:", { data });
-    reset();
+  
+  const handleFormSubmit = async (data: any) => {
+    const riyal_data = {
+      "patientComplaints":data.patientComplaints,
+      "hospitalData":"Test",
+      "weight":data.weight,
+      "height":data.height,
+      "temperature":data.temperature,
+      "lowBP":data.lowBP,
+      "highBP":data.highBP,
+      "medicines":data.medicines,
+      "advice":data.advice,
+      "followUp":data.followUp,
+      "patientId":patientId,
+      "doctorId":user.id
+    }
+    console.log("Form submitted:", {...data,"patientId":patientId,"doctorId":user.id});
+    try{
+      const response = await fetch("http://localhost:8083/opd/add-patient-record/", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(riyal_data),
+      });
+      if (!response.ok) {
+        throw new Error('Error adding patient record');
+      }
+
+      
+      // Clear the form after successful submission
+      reset();
+
+      console.log('Success');
+
+    } catch(error){
+      console.error('Error adding patient record:', error);
+    }
   };
 
   return (
