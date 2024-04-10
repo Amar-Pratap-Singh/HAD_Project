@@ -12,20 +12,45 @@ import { useForm } from "react-hook-form";
 import TextInput from "../../components/TextInput";
 import Header from "../../components/Header";
 import "./NurseCreateEncounter.css";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 type FormInputs = {
-  bp: string;
-  bpm: string;
-  temp: string;
-  o2: string;
+  temperature: number;
+  lowBP: number;
+  highBP: number;
+  healthCondition: string;
 };
 
 const NurseCreateEncounter: React.FC = () => {
   const { control, handleSubmit, reset } = useForm();
+  const { patientId } = useParams<{ patientId: string }>();
 
-  const handleFormSubmit = (data: any) => {
+  const user = useSelector((state: any) => state.user.currentUser);
+
+  const handleFormSubmit = async (data: any) => {
     console.log("Form submitted:", { data });
-    reset();
+    try{
+      const response = await fetch("http://localhost:8085/ipd/add-nurse-encounter/", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({...data,"patientId":patientId,"nurseId":user.id}),
+      });
+      if (!response.ok) {
+        throw new Error('Error adding patient record');
+      }
+
+      
+      // Clear the form after successful submission
+      reset();
+
+      console.log('Success');
+
+    } catch(error){
+      console.error('Error adding patient record:', error);
+    }
   };
 
   return (
@@ -38,10 +63,21 @@ const NurseCreateEncounter: React.FC = () => {
             <IonGrid>
               <IonRow>
                 <IonCol>
+                  Blood Pressure:
+                </IonCol>
+                <IonCol>
                   <TextInput
-                    name="bp"
-                    placeHolder="Enter blood pressure"
-                    label="Blood Pressure"
+                    name="lowBP"
+                    placeHolder=""
+                    label=""
+                    control={control}
+                  />
+                </IonCol>
+                <IonCol>
+                  <TextInput
+                    name="highBP"
+                    placeHolder=""
+                    label=""
                     control={control}
                   />
                 </IonCol>
@@ -49,17 +85,7 @@ const NurseCreateEncounter: React.FC = () => {
               <IonRow>
                 <IonCol>
                   <TextInput
-                    name="bpm"
-                    placeHolder="Enter heart rate"
-                    label="Heart Rate(bpm)"
-                    control={control}
-                  />
-                </IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol>
-                  <TextInput
-                    name="temp"
+                    name="temperature"
                     placeHolder="Enter temperature"
                     label="Temperature(F)"
                     control={control}
@@ -69,9 +95,9 @@ const NurseCreateEncounter: React.FC = () => {
               <IonRow>
                 <IonCol>
                   <TextInput
-                    name="o2"
-                    placeHolder="Enter oxygen level"
-                    label="Oxygen Level"
+                    name="healthCondition"
+                    placeHolder="Enter health condition"
+                    label="Health Condition"
                     control={control}
                   />
                 </IonCol>
@@ -79,7 +105,7 @@ const NurseCreateEncounter: React.FC = () => {
             </IonGrid>
             <div className="button-container">
               <IonButton type="submit" shape="round">
-                Create Prescription
+                Add Encounter
               </IonButton>
             </div>
           </form>
