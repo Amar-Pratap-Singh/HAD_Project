@@ -12,9 +12,12 @@ import { useFieldArray, useForm } from "react-hook-form";
 import Header from "../../../components/Header";
 import TextInput from "../../../components/TextInput";
 import "./OPDCreatePrescription.css";
+import { useParams } from "react-router";
+import { useSelector } from "react-redux";
 
 type FormInputs = {
   patientComplaints: string;
+  hospitalName: string;
   weight: number;
   height: number;
   temperature: number;
@@ -30,16 +33,41 @@ type FormInputs = {
 };
 
 const OPDCreatePrescription: React.FC = () => {
-  const { register,control, handleSubmit, reset } = useForm();
+  const { register,control, handleSubmit, reset } = useForm(); 
+  const { patientId } = useParams<{ patientId: string }>();
+
+  const user = useSelector((state: any) => state.user.currentUser);
 
   const {fields,append,remove} = useFieldArray({
     name:'medicines',
     control
   });
 
-  const handleFormSubmit = (data: any) => {
-    console.log("Form submitted:", { data });
-    reset();
+  
+  const handleFormSubmit = async (data: any) => {
+    data.hospitalName='test'
+    console.log("Form submitted:", {...data,"patientId":patientId,"doctorId":user.id});
+    try{
+      const response = await fetch("http://localhost:8083/opd/add-patient-record/", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({...data,"patientId":patientId,"doctorId":user.id}),
+      });
+      if (!response.ok) {
+        throw new Error('Error adding patient record');
+      }
+
+      
+      // Clear the form after successful submission
+      reset();
+
+      console.log('Success');
+
+    } catch(error){
+      console.error('Error adding patient record:', error);
+    }
   };
 
   return (
