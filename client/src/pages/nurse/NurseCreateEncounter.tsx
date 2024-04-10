@@ -29,14 +29,22 @@ const NurseCreateEncounter: React.FC = () => {
   const user = useSelector((state: any) => state.user.currentUser);
 
   const handleFormSubmit = async (data: any) => {
-    console.log("Form submitted:", { data });
+    const riyal_data = {
+      "temperature":data.temperature,
+      "highBP":data.lowBP,
+      "lowBP":data.highBP,
+      "healthCondition":data.healthCondition,
+      "patientId":patientId,
+      "nurseId":user.id
+    }
+    console.log(riyal_data)
     try{
-      const response = await fetch("http://localhost:8085/ipd/add-nurse-encounter/", {
+      const response = await fetch(`http://localhost:8085/ipd/add-nurse-encounter/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({...data,"patientId":patientId,"nurseId":user.id}),
+        body: JSON.stringify(riyal_data),
       });
       if (!response.ok) {
         throw new Error('Error adding patient record');
