@@ -17,7 +17,6 @@ import { useSelector } from "react-redux";
 
 type FormInputs = {
   patientComplaints: string;
-  hospitalName: string;
   weight: number;
   height: number;
   temperature: number;
@@ -45,7 +44,20 @@ const OPDCreatePrescription: React.FC = () => {
 
   
   const handleFormSubmit = async (data: any) => {
-    data.hospitalName='test'
+    const riyal_data = {
+      "patientComplaints":data.patientComplaints,
+      "hospitalData":"Test",
+      "weight":data.weight,
+      "height":data.height,
+      "temperature":data.temperature,
+      "lowBP":data.lowBP,
+      "highBP":data.highBP,
+      "medicines":data.medicines,
+      "advice":data.advice,
+      "followUp":data.followUp,
+      "patientId":patientId,
+      "doctorId":user.id
+    }
     console.log("Form submitted:", {...data,"patientId":patientId,"doctorId":user.id});
     try{
       const response = await fetch("http://localhost:8083/opd/add-patient-record/", {
@@ -53,7 +65,7 @@ const OPDCreatePrescription: React.FC = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({...data,"patientId":patientId,"doctorId":user.id}),
+        body: JSON.stringify(riyal_data),
       });
       if (!response.ok) {
         throw new Error('Error adding patient record');
