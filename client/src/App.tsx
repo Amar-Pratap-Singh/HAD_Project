@@ -53,6 +53,7 @@ import NurseViewPatients from './pages/nurse/NurseViewPatients';
 // lab pages
 import LabIP from './pages/lab/LabIP';
 import LabSearch from './pages/lab/LabSearch';
+import LabAddDiag from './pages/lab/LabAddDiag'
 
 // doctor pages - ipd
 import AddEncounter from './pages/doctor/ipd/AddEncounter';
@@ -115,7 +116,8 @@ const App = () => {
 
           {/* Lab Pages */}
           <PrivateRoute allowedRoles={['LAB_USER']} exact path="/lab/search" component={LabSearch} />
-          <PrivateRoute allowedRoles={['LAB_USER']} exact path="/lab/ip" component={LabIP} />
+          <PrivateRoute allowedRoles={['LAB_USER']} exact path="/lab/ip/:patientId" component={LabIP} />
+          <PrivateRoute allowedRoles={['LAB_USER']} exact path="/lab/add-diag/:patientId" component={LabAddDiag} />
 
           {/* Doctor Pages - IPD */}
           <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/ipd/add-encounter/:patientId" component={AddEncounter} />
