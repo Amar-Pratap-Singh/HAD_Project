@@ -1,5 +1,6 @@
 package com.had.ipd.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,11 @@ public class MedicationServiceImpl implements MedicationService{
     @Override
     public Optional<Medication> getMedicationById(Integer medicationId){
         return medicationRepo.findById(medicationId);
+    }
+
+    @Override
+    public List<Medication> getMedicationByPrescriptionId(Integer prescriptionId){
+        return medicationRepo.findAllMedicationByPrescriptionId(prescriptionId);
     }
 
 }

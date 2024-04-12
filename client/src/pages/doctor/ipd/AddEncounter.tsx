@@ -38,8 +38,9 @@ const AddEncounter: React.FC = () => {
   });
   const user = useSelector((state: any) => state.user.currentUser);
 
-  const handleMedication = async (data: any,prescriptionId: any) =>{
+  const handleMedication = async (data: any, prescriptionId: any) =>{
       const medication_data = {
+        "prescriptionId": prescriptionId,
         "medicineName": data.medicineName,
         "quantity": data.medicineQty,
         "time": data.medicineTiming,
@@ -73,31 +74,31 @@ const AddEncounter: React.FC = () => {
         console.error('Error adding medication:', error);
       }
     
-      const pres_med_data = {
-        "prescriptionId":prescriptionId,
-        "medicationId":medicationId
-      } 
-      console.log(medication_data)
-      try{
-        const response = await fetch("http://localhost:8085/ipd/add-prescription-medication", {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(pres_med_data),
-        });
-        if (!response.ok) {
-          throw new Error('Error creating prescriptionId, medicationId table');
-        }
+      // const pres_med_data = {
+      //   "prescriptionId":prescriptionId,
+      //   "medicationId":medicationId
+      // } 
+      // console.log(medication_data)
+      // try{
+      //   const response = await fetch("http://localhost:8085/ipd/add-prescription-medication", {
+      //     method: 'POST',
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //     },
+      //     body: JSON.stringify(pres_med_data),
+      //   });
+      //   if (!response.ok) {
+      //     throw new Error('Error creating prescriptionId, medicationId table');
+      //   }
   
         // Clear the form after successful submission
-        reset();
+      //   reset();
   
-        console.log('Creating prescriptionId, medicationId table created successfully');
+      //   console.log('Creating prescriptionId, medicationId table created successfully');
   
-      } catch(error){
-        console.error('Error creating prescriptionId, medicationId table:', error);
-      }
+      // } catch(error){
+      //   console.error('Error creating prescriptionId, medicationId table:', error);
+      // }
   }
 
   // OnClick
@@ -141,7 +142,7 @@ const AddEncounter: React.FC = () => {
     
     for(var i=0;i<data.medicineFields.length;i++)
     {
-      handleMedication(data.medicineFields[i],prescriptionId); 
+      handleMedication(data.medicineFields[i], prescriptionId); 
     }
 
     //Need Patient Id
