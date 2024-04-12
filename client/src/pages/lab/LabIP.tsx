@@ -6,27 +6,73 @@ import {
   IonGrid,
   IonRow,
   IonButton,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardContent,
 } from "@ionic/react";
 import Header from "../../components/Header";
 import "./LabStyle.css";
+import { useHistory, useParams } from "react-router";
+
+interface DiagnosticDetails{
+  patientId: number;
+  doctorId: number;
+  reportLink: string;
+}
+
+interface PatientDetails {
+  name: string;
+  patientId: string;
+  age: number;
+}
 
 const LabIP: React.FC = () => {
-  const [patient, setPatient] = useState({ id: 0, name: "", bill: 0 });
-  const [docNotes, setDocNotes] = useState("");
-  const [tests, setTests] = useState<any[]>([]);
+  const { patientId } = useParams<{patientId:string}>()
+  const [patientDetails, setPatientDetails] = useState<PatientDetails | null>(null);
+  const [diagnosticDetails, setDiagnosticDetails] = useState<DiagnosticDetails[]>([]);
+  const history = useHistory();
 
   useEffect(() => {
-    fetchData();
+    fetchPatientDetails();
+    fetchLink();
   }, []);
 
-  const fetchData = async () => {
-    setPatient({ id: 14, name: "Veenu", bill: 200 });
-    setDocNotes("Lorem Ipsum");
-    setTests([
-      { id: 1, testname: "x-ray", testcode: "MD123", bill: 180 },
-      { id: 32, testname: "blood test", testcode: "OTC222", bill: 20 },
-    ]);
+  const fetchPatientDetails = async () => {
+    try {
+      const response = await fetch(`http://localhost:8081/patient/get-demographics?id=`+ patientId);
+      if (!response.ok) {
+        throw new Error('Failed to fetch patient details');
+      }
+      const data = await response.json();
+      setPatientDetails(data);
+    } catch (error) {
+      console.error('Error fetching patient details:', error);
+    }
   };
+
+  const fetchLink = async () => {
+    try {
+      const response = await fetch(`http://localhost:8083/diagnosis/get-diagnosis-report?id=`+ patientId);
+      if (!response.ok) {
+        throw new Error('Failed to fetch patient details');
+      }
+      const data = await response.json();
+      setDiagnosticDetails(data);
+    } catch (error) {
+      console.error('Error fetching patient details:', error);
+    }  
+  };
+
+  const addPatientDiag = (patientId:any) => {
+    history.push(`/lab/add-diag/`+ patientId);
+  }
+
+  if(!patientDetails){
+    return (
+      <div>Loading...</div>
+    )
+  }
 
   return (
     <div className="view-bill">
@@ -34,39 +80,36 @@ const LabIP: React.FC = () => {
         <Header />
         <IonContent>
           <h1>Patients</h1>
-          <IonGrid className="table">
-            <IonRow className="table-header">
-              <IonCol>Patient ID</IonCol>
-              <IonCol>Name</IonCol>
-              <IonCol>Bill</IonCol>
+          <IonGrid>
+            <IonRow>
+              <IonCol>Name:{patientDetails.name}</IonCol>
             </IonRow>
             <IonRow>
-              <IonCol>{patient.id}</IonCol>
-              <IonCol>{patient.name}</IonCol>
-              <IonCol>Rs.{patient.bill}</IonCol>
+              <IonCol>Age:{patientDetails.age}</IonCol>
             </IonRow>
-          </IonGrid>
-          <IonGrid className="table">
-            <IonRow className="table-header">
-              <IonCol>Doctor's Notes</IonCol>
+            <IonRow>  
+              <IonCol>Patient ID:{patientId}</IonCol>
             </IonRow>
-            <IonRow>
-              <IonCol>{docNotes}</IonCol>
-            </IonRow>
-          </IonGrid>
-          <IonGrid className="table">
-            <IonRow className="table-header">
-              <IonCol>Test</IonCol>
-              <IonCol>Test Code</IonCol>
-              <IonCol>Bill(Rs)</IonCol>
-            </IonRow>
-            {tests.map((test) => (
-              <IonRow key={test.id}>
-                <IonCol>{test.testname}</IonCol>
-                <IonCol>{test.testcode}</IonCol>
-                <IonCol>{test.bill}</IonCol>
-              </IonRow>
-            ))}
+            {diagnosticDetails.map((diagnosis,index) => (
+              <IonCard key={index}>
+                <IonCardHeader>
+                  <IonCardTitle>Diagnosis {index + 1}</IonCardTitle>
+                </IonCardHeader>
+                <IonCardContent>
+                  <IonRow>  
+                    <IonCol>Doctor ID:{diagnosis.doctorId}</IonCol>
+                  </IonRow>
+                  {/*Abhi bas ye dekhna hai ki link clickable hai ki nhi*/}
+                  <IonRow>  
+                    <IonCol>Diagnostics Image Link: <a href={'http://localhost:8087/'+ diagnosis.reportLink}>{diagnosis.reportLink}</a></IonCol>
+                  </IonRow>
+                </IonCardContent>
+              </IonCard>
+              ))
+            }
+            <div className="button-container">
+                <IonButton onClick={() => addPatientDiag(patientId)}>Add Patient Diagnosis</IonButton>
+            </div>
           </IonGrid>
         </IonContent>
       </IonPage>

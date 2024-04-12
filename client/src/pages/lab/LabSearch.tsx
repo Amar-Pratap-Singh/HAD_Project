@@ -10,12 +10,14 @@ import {
 } from "@ionic/react";
 import Header from "../../components/Header";
 import "./LabStyle.css";
+import { useHistory } from "react-router";
 
 const LabSearch: React.FC = () => {
   const [pid, setPID] = useState("");
+  const history  = useHistory();
 
-  const handleFormSubmit = () => {
-    console.log("Form submitted:", { pid });
+  const handleFormSubmit = (patientId:any) => {
+    history.push(`/lab/ip/`+ patientId);
     setPID("");
   };
 
@@ -37,12 +39,11 @@ const LabSearch: React.FC = () => {
                 ></IonInput>
               </IonCol>
             </IonRow>
+            <div className="button-container">
+                <IonButton onClick={() => handleFormSubmit(pid)}>View Patient Details</IonButton>
+            </div>
           </IonGrid>
-          <div className="button-container">
-            <IonButton onClick={handleFormSubmit} shape="round">
-              Search
-            </IonButton>
-          </div>
+          
         </IonContent>
       </IonPage>
     </div>
