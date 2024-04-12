@@ -33,10 +33,12 @@ public class PatientRecord {
     private int lowBP;
     private int highBP;
 
-    // medicines
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "patientRecord")
-    private List<Medicine> medicines;
+    private int prescriptionId;
+    /* extras
+     * notes is when doctor wants some extra checkup like X-ray, EMR, etc.
+     * advice is similar to instructions in IPD
+     */
     
-    private String advice;
-    private String followUp; 
+    // date
+    private String followUp; // next date doctor gives to a patient
 }
