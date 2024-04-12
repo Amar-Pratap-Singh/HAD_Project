@@ -110,8 +110,8 @@ const App = () => {
 
           {/* Nurse Pages */}
           <PrivateRoute allowedRoles={['CLINICAL_ASSISTANT']} exact path="/nurse/patient-list" component={NurseViewPatients} />
-          <PrivateRoute allowedRoles={['CLINICAL_ASSISTANT']} exact path="/nurse/patient-details" component={NurseGetPatientDetails} />
-          <PrivateRoute allowedRoles={['CLINICAL_ASSISTANT']} exact path="/nurse/add-encounter" component={NurseCreateEncounter} />
+          <PrivateRoute allowedRoles={['CLINICAL_ASSISTANT']} exact path="/nurse/patient-details/:patientId" component={NurseGetPatientDetails} />
+          <PrivateRoute allowedRoles={['CLINICAL_ASSISTANT']} exact path="/nurse/add-encounter/:patientId" component={NurseCreateEncounter} />
 
           {/* Lab Pages */}
           <PrivateRoute allowedRoles={['LAB_USER']} exact path="/lab/search" component={LabSearch} />
@@ -123,9 +123,9 @@ const App = () => {
           <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/ipd/patient-list" component={IPDViewPatients} />
 
           {/* Doctor Pages - OPD */}
-          <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/opd/create-prescription" component={OPDCreatePrescription} />
+          <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/opd/create-prescription/:patientId" component={OPDCreatePrescription} />
           <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/opd/patient-list" component={OPDViewPatients} />
-          <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/opd/patient-details" component={OPDGetPatientDetails} />
+          <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/opd/patient-details/:patientId" component={OPDGetPatientDetails} />
 
           {/* Admin Pages */}
           <PrivateRoute allowedRoles={['ADMIN']} exact path="/admin/sign-up" component={SignUp} />
