@@ -18,6 +18,7 @@ public class Medication {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int medicationId;
+    private int prescriptionId;
     private String medicineName;
     private int quantity;
     private String time;
@@ -31,6 +32,14 @@ public class Medication {
 
     public void setMedicationId(int medicationId) {
         this.medicationId = medicationId;
+    }
+
+    public int getPrescriptionId(){
+        return prescriptionId;
+    }
+
+    public void setPrescriptionId(int prescriptionId){
+        this.prescriptionId = prescriptionId;
     }
 
     // Getter and Setter for medicineName

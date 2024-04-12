@@ -1,5 +1,6 @@
 package com.had.ipd.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,11 @@ public class MedicationController {
     @GetMapping("/get-medication")
     public Optional<Medication> getMedication(@RequestParam Integer medicationId) {
         return medicationService.getMedicationById(medicationId);
+    }
+
+    @GetMapping("/get-medication-by-prescription-id")
+    public List<Medication> getMedicationByPrescriptionId(@RequestParam Integer prescriptionId){
+        return medicationService.getMedicationByPrescriptionId(prescriptionId);
     }
     
 }

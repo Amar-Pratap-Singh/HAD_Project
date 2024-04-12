@@ -25,7 +25,8 @@ type FormInputs = {
   medicines: {
     medicineName: string;
     count: number;
-    instruction: string;
+    time: string;
+    duration: number;
   }[];
   advice: string;
   followUp: string;
@@ -42,36 +43,117 @@ const OPDCreatePrescription: React.FC = () => {
     control
   });
 
+
+  // handle medication
+  const handleMedication = async (data: any, prescriptionId: any) =>{
+    const medication_data = {
+      "prescriptionId": prescriptionId,
+      "medicineName": data.medicineName,
+      "quantity": data.count,
+      "time": data.time,
+      "duration": data.duration
+    } 
+    console.log(medication_data)
+    console.log("Prescription Id is: " + prescriptionId)
+    try{
+      const response = await fetch("http://localhost:8085/ipd/add-medication", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(medication_data),
+      });
+
+      var responseData = await response.json();
+      if (!response.ok) {
+        throw new Error('Error adding medication');
+      }
+
+      // Clear the form after successful submission
+      reset();
+
+      console.log('Medication added successfully');
+
+    } catch(error){
+      console.error('Error adding medication:', error);
+    }
+}
+
+
   
   const handleFormSubmit = async (data: any) => {
-    const riyal_data = {
+
+    console.log("Form submitted:", {...data,"patientId":patientId,"doctorId":user.id});
+    // Add prescription
+    var medicationId;
+    var prescriptionId;
+    var responseData; 
+
+    const prescription_data = {
+      "notes":data.notes,
+      "instructions":data.advice
+    }
+    try{
+      const response = await fetch("http://localhost:8085/ipd/add-prescription", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(prescription_data),
+      });
+
+      responseData = await response.json();
+      prescriptionId = responseData.prescriptionId; 
+      console.log("Prescription Id is: " + prescriptionId)
+
+      if (!response.ok) {
+        throw new Error('Error adding prescription');
+      }
+
+      // Clear the form after successful submission
+      reset();
+
+      console.log('Presciption added successfully');
+
+    } catch(error){
+      console.error('Error adding prescription:', error);
+    }
+    
+    console.log(data)
+    
+    for(var i=0; i<data.medicines.length; i++)
+    {
+      handleMedication(data.medicines[i], prescriptionId); 
+    }
+
+
+    const record_data = {
+      "patientId":patientId,
+      "doctorId":user.id,
+      "prescriptionId": prescriptionId,
       "patientComplaints":data.patientComplaints,
-      "hospitalData":"Test",
+      "hospitalName":"ABC Hospital",
       "weight":data.weight,
       "height":data.height,
       "temperature":data.temperature,
       "lowBP":data.lowBP,
       "highBP":data.highBP,
-      "medicines":data.medicines,
-      "advice":data.advice,
-      "followUp":data.followUp,
-      "patientId":patientId,
-      "doctorId":user.id
+      "followUp":data.followUp
     }
-    console.log("Form submitted:", {...data,"patientId":patientId,"doctorId":user.id});
+
     try{
-      const response = await fetch("http://localhost:8083/opd/add-patient-record/", {
+      const response = await fetch("http://localhost:8083/opd/add-patient-record", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(riyal_data),
+        body: JSON.stringify(record_data),
       });
-      if (!response.ok) {
-        throw new Error('Error adding patient record');
-      }
 
-      
+      if (!response.ok) {
+        throw new Error('Error adding patient record OPD');
+      }
+        
       // Clear the form after successful submission
       reset();
 
@@ -168,8 +250,16 @@ const OPDCreatePrescription: React.FC = () => {
                     <IonCol>
                       <TextInput
                         placeHolder=""
-                        label="Medicine Instructions"
-                        {...register(`medicines.${index}.instruction`)}
+                        label="Time"
+                        {...register(`medicines.${index}.time`)}
+                        control={control}
+                      />
+                    </IonCol>
+                    <IonCol>
+                      <TextInput
+                        placeHolder=""
+                        label="Duration"
+                        {...register(`medicines.${index}.duration`)}
                         control={control}
                       />
                     </IonCol>
@@ -197,6 +287,16 @@ const OPDCreatePrescription: React.FC = () => {
                   Add Medicines
                 </IonButton>
               </div>
+              <IonRow>
+                <IonCol>
+                  <TextInput
+                    name="notes"
+                    placeHolder="Enter notes"
+                    label="Notes:"
+                    control={control}
+                  />
+                </IonCol>
+              </IonRow>
               <IonRow>
                 <IonCol>
                   <TextInput

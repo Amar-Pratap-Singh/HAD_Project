@@ -29,12 +29,15 @@ interface PatientRecord{
   temperature: number;
   lowBP: number;
   highBP: number;
-  medicines: {
-    medicineName: string;
-    count: number;
-    instruction: string;
-  }[];
-  advice: string;
+  prescriptionId: number;
+  // medicines: {
+  //   medicineName: string;
+  //   count: number;
+  //   time: string;
+  //   duration: number;
+  // }[];
+  // notes:string;
+  // advice: string;
   followUp: string;
 };
 
@@ -99,6 +102,7 @@ const OPDGetPatientDetails: React.FC = () => {
               <IonCol>Patient ID</IonCol>
               <IonCol>{patientId}</IonCol>
             </IonRow>
+
             {patientRecords.map((record,index) => (
                 <IonCard key={index}>
                 <IonCardHeader>
@@ -115,27 +119,36 @@ const OPDGetPatientDetails: React.FC = () => {
                     <IonCol>Temperature:{record.temperature} F</IonCol>
                     <IonCol>Blood Pressure:{record.highBP}/{record.lowBP} mmHg</IonCol>
                   </IonRow>
-                  <IonRow class='table-header'>
+
+             
+                  <PrescriptionData prescriptionId={record.prescriptionId} />
+                  {/* <IonRow class='table-header'>
                     <IonCol>Medicines:</IonCol>
-                  </IonRow>
-                  <IonRow>
+                  </IonRow> */}
+                  {/* <IonRow>
                     <IonCol>Medicine Name</IonCol>
                     <IonCol>Quantity</IonCol>
-                    <IonCol>Dosage</IonCol>
+                    <IonCol>Time</IonCol>
+                    <IonCol>Duration</IonCol>
                   </IonRow>
                   {
                     record.medicines.map((medicine,index) => (
                       <IonRow key={index}>
                         <IonCol>{medicine.medicineName}</IonCol>
                         <IonCol>{medicine.count}</IonCol>
-                        <IonCol>{medicine.instruction}</IonCol>
+                        <IonCol>{medicine.time}</IonCol>
+                        <IonCol>{medicine.duration}</IonCol>
                       </IonRow>
                     ))
-                  }
+                  } */}
+                  {/* <IonRow>
+                    <IonCol>Notes:</IonCol>
+                    <IonCol>{record.notes}</IonCol>
+                  </IonRow>
                   <IonRow>
                     <IonCol>Advice:</IonCol>
                     <IonCol>{record.advice}</IonCol>
-                  </IonRow>
+                  </IonRow> */}
                   <IonRow>
                     <IonCol>Follow-up:</IonCol>
                     <IonCol>{record.followUp}</IonCol>
@@ -148,6 +161,69 @@ const OPDGetPatientDetails: React.FC = () => {
         </IonContent>
       </IonPage>
     </div>
+  );
+};
+
+
+
+interface PrescriptionDataProps {
+  prescriptionId: any;
+}
+
+const PrescriptionData: React.FC<PrescriptionDataProps> = ({ prescriptionId }) => {
+  const [prescriptionData, setPrescriptionData] = useState<any | null>(null);
+  const [medicationData, setMedicationData] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const prescriptionResponse = await fetch(`http://localhost:8085/ipd/get-prescription?prescriptionId=${prescriptionId}`);
+        if (!prescriptionResponse.ok) {
+          throw new Error('Failed to fetch prescription');
+        }
+        const prescriptionData = await prescriptionResponse.json();
+        setPrescriptionData(prescriptionData);
+  
+
+        const medicationDataResponse = await fetch(`http://localhost:8085/ipd/get-medication-by-prescription-id?prescriptionId=${prescriptionId}`);
+        if (!medicationDataResponse.ok) {
+          throw new Error('Failed to fetch medication IDs');
+        }
+        const medicationData = await medicationDataResponse.json();
+        setMedicationData(medicationData);
+  
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+  
+    fetchData();
+  }, [prescriptionId]);
+
+  if (!prescriptionData) {
+    return <p>Loading prescription data...</p>;
+  }
+
+  return (
+    <>
+      <br></br>
+      <p>Notes: {prescriptionData.notes}</p>
+      <p>Advice: {prescriptionData.instructions}</p>
+      <br></br>
+      <h1> Medication </h1>
+      <ul>
+        {medicationData.map((medication) => (
+          <li key={medication.medicationId}>
+            <p>Name: {medication.medicineName}</p>
+            <p>Quantity: {medication.quantity}</p>
+            <p>Time: {medication.time}</p>
+            <p>Duration: {medication.duration}</p>
+            <br></br>
+          </li>
+        ))}
+
+      </ul>
+    </>
   );
 };
 
