@@ -39,7 +39,7 @@ const NurseCreateEncounter: React.FC = () => {
     }
     console.log(riyal_data)
     try{
-      const response = await fetch(`http://localhost:8085/ipd/add-nurse-encounter/`, {
+      const response = await fetch(`http://localhost:8085/ipd/add-nurse-encounter`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
