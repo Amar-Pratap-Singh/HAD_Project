@@ -5,6 +5,7 @@ import {
   IonCardHeader,
   IonCardSubtitle,
   IonCardTitle,
+  IonPage,
 } from "@ionic/react";
 import Header from "../../../components/Header";
 import { useParams } from "react-router";
@@ -22,11 +23,9 @@ interface Encounter {
   prescriptionId: number;
 }
 
-
-const PatientDetails: React.FC = () => {
+const IPDPatientDetails: React.FC = () => {
 
   const { patientId } = useParams<{ patientId: string }>();
-  console.log(patientId);
   const [patientDetails, setPatientDetails] = useState<PatientDetails | null>(null);
   const [encounters, setEncounters] = useState<Encounter[]>([]);
 
@@ -34,8 +33,6 @@ const PatientDetails: React.FC = () => {
     fetchPatientDetails();
     fetchEncounters();
   }, []);
-
-
 
   const fetchPatientDetails = async () => {
     try {
@@ -45,11 +42,11 @@ const PatientDetails: React.FC = () => {
       }
       const data = await response.json();
       setPatientDetails(data);
-    } catch (error) {
+    } 
+    catch (error) {
       console.error('Error fetching patient details:', error);
     }
   };
-
 
   const fetchEncounters = async () => {
     try {
@@ -65,17 +62,14 @@ const PatientDetails: React.FC = () => {
     }
   };
 
-
-
-
-
   if (!patientDetails) {
     return <div>Loading...</div>;
   }
 
   return (
-    <>
+    <IonPage>
       <Header />
+
       <IonCard>
         <IonCardHeader>
           <IonCardSubtitle>Patient ID: {patientDetails.patientId}</IonCardSubtitle>
@@ -93,14 +87,12 @@ const PatientDetails: React.FC = () => {
             <IonCardTitle>Encounter {index + 1}</IonCardTitle>
           </IonCardHeader>
           <IonCardContent>
-            {/* <p>Notes: {encounter.patientId}</p>
-            <p>Nurse Instructions: {encounter.doctorId}</p>
-            <p>Medicines:{encounter.prescriptionId}</p> */}
             <PrescriptionData prescriptionId={encounter.prescriptionId} />
           </IonCardContent>
         </IonCard>
       ))}
-    </>
+
+    </IonPage>
   );
 };
 
@@ -110,34 +102,34 @@ interface PrescriptionDataProps {
 }
 
 const PrescriptionData: React.FC<PrescriptionDataProps> = ({ prescriptionId }) => {
+
   const [prescriptionData, setPrescriptionData] = useState<any | null>(null);
-  // const [medicationIds, setMedicationIds] = useState<any[]>([]);
   const [medicationData, setMedicationData] = useState<any[]>([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const prescriptionResponse = await fetch(`http://localhost:8085/ipd/get-prescription?prescriptionId=${prescriptionId}`);
-        if (!prescriptionResponse.ok) {
-          throw new Error('Failed to fetch prescription');
-        }
-        const prescriptionData = await prescriptionResponse.json();
-        setPrescriptionData(prescriptionData);
-  
-        const medicationDataResponse = await fetch(`http://localhost:8085/ipd/get-medication-by-prescription-id?prescriptionId=${prescriptionId}`);
-        if (!medicationDataResponse.ok) {
-          throw new Error('Failed to fetch medication IDs');
-        }
-        const medicationData = await medicationDataResponse.json();
-        setMedicationData(medicationData);
-  
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-  
     fetchData();
   }, [prescriptionId]);
+
+  const fetchData = async () => {
+    try {
+      const prescriptionResponse = await fetch(`http://localhost:8085/ipd/get-prescription?prescriptionId=${prescriptionId}`);
+      if (!prescriptionResponse.ok) {
+        throw new Error('Failed to fetch prescription');
+      }
+      const prescriptionData = await prescriptionResponse.json();
+      setPrescriptionData(prescriptionData);
+
+      const medicationDataResponse = await fetch(`http://localhost:8085/ipd/get-medication-by-prescription-id?prescriptionId=${prescriptionId}`);
+      if (!medicationDataResponse.ok) {
+        throw new Error('Failed to fetch medication IDs');
+      }
+      const medicationData = await medicationDataResponse.json();
+      setMedicationData(medicationData);
+    } 
+    catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
 
   if (!prescriptionData) {
     return <p>Loading prescription data...</p>;
@@ -166,4 +158,4 @@ const PrescriptionData: React.FC<PrescriptionDataProps> = ({ prescriptionId }) =
   );
 };
 
-export default PatientDetails;
+export default IPDPatientDetails;

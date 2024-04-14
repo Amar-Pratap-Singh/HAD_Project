@@ -55,9 +55,9 @@ import LabIP from './pages/lab/LabIP';
 import LabSearch from './pages/lab/LabSearch';
 
 // doctor pages - ipd
-import AddEncounter from './pages/doctor/ipd/AddEncounter';
-import PatientDetails from './pages/doctor/ipd/PatientDetails';
 import IPDViewPatients from './pages/doctor/ipd/IPDViewPatients'
+import IPDAddEncounter from './pages/doctor/ipd/IPDAddEncounter';
+import IPDPatientDetails from './pages/doctor/ipd/IPDPatientDetails';
 
 // doctor pages - opd
 import OPDCreatePrescription from './pages/doctor/opd/OPDCreatePrescription';
@@ -118,9 +118,9 @@ const App = () => {
           <PrivateRoute allowedRoles={['LAB_USER']} exact path="/lab/ip" component={LabIP} />
 
           {/* Doctor Pages - IPD */}
-          <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/ipd/add-encounter/:patientId" component={AddEncounter} />
-          <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/ipd/patient-details/:patientId" component={PatientDetails} />
           <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/ipd/patient-list" component={IPDViewPatients} />
+          <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/ipd/add-encounter/:patientId" component={IPDAddEncounter} />
+          <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/ipd/patient-details/:patientId" component={IPDPatientDetails} />
 
           {/* Doctor Pages - OPD */}
           <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/opd/create-prescription/:patientId" component={OPDCreatePrescription} />

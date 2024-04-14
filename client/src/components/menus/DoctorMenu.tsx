@@ -15,7 +15,7 @@ const DoctorMenu: React.FC = () => {
         <IonList>
           <IonMenuToggle>
             <IonItem routerLink="/doctor/ipd/patient-list" routerDirection="none">
-              <IonLabel>IPD - View Patient List</IonLabel>
+              <IonLabel>View IPD Patients</IonLabel>
             </IonItem>
           </IonMenuToggle>
           <IonMenuToggle>
