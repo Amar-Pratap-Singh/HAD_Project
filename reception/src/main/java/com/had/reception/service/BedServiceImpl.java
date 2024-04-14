@@ -22,11 +22,11 @@ public class BedServiceImpl implements BedService {
 
     @Override
     public Bed updateBedStatusToOccupied(IpdAppointment ipdAppointment) {
-        Integer bed_no = ipdAppointment.getBed_no();
-        Integer ward_no = ipdAppointment.getWard_no();
+        Integer bedNo = ipdAppointment.getBedNo();
+        Integer wardNo = ipdAppointment.getWardNo();
         Integer patientId = ipdAppointment.getPatientId();
 
-        Optional<Bed> optionalBed = bedRepo.findByBedNoAndWardNo(bed_no, ward_no);
+        Optional<Bed> optionalBed = bedRepo.findByBedNoAndWardNo(bedNo, wardNo);
        
         if (optionalBed.isPresent()) {
             Bed bed = optionalBed.get();
@@ -40,7 +40,7 @@ public class BedServiceImpl implements BedService {
             bedRepo.save(bed);
             return bed;
         } else {
-            System.out.println("Bed not found with bed_no: " + bed_no + " and ward_no: " + ward_no);
+            System.out.println("Bed not found with bed_no: " + bedNo + " and ward_no: " + wardNo);
         }
         return null;
         
@@ -52,6 +52,11 @@ public class BedServiceImpl implements BedService {
         return bedRepo.findAll();
     }
 
+    @Override
+    public List<Integer> getAllWards()
+    {
+        return bedRepo.findAllDistinctWards();
+    }
     @Override
     public void populateDummyData() {
         Random random = new Random();
@@ -76,6 +81,10 @@ public class BedServiceImpl implements BedService {
                 uniqueCombinations.add(combination); // Add the combination to the set
             }
         }
+    }
+    @Override
+    public List<Bed> getAvailableBedsByWardNo(Integer wardNo) {
+        return bedRepo.findByWardNoAndStatus(wardNo, "Available");
     }
 
 }
