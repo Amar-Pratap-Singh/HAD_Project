@@ -27,6 +27,10 @@ public class Prescription {
     private int prescriptionId;
     private String notes;
     private String instructions;
+    private String scribbleNotes; // ALTER TABLE your_table MODIFY COLUMN scribble_instructions MEDIUMTEXT;
+    private String scribbleInstructions;
+    private String audioNotes;
+    private String audioInstructions;
 
     @CreationTimestamp
     private Timestamp timestamp;
@@ -58,4 +62,46 @@ public class Prescription {
     public void setInstructions(String instructions) {
         this.instructions = instructions;
     }
+
+
+    // Getter for scribbleNotes
+    public String getScribbleNotes() {
+        return scribbleNotes;
+    }
+
+    // Setter for scribbleNotes
+    public void setScribbleNotes(String scribbleNotes) {
+        this.scribbleNotes = scribbleNotes;
+    }
+
+    // Getter for scribbleInstructions
+    public String getScribbleInstructions() {
+        return scribbleInstructions;
+    }
+
+    // Setter for scribbleInstructions
+    public void setScribbleInstructions(String scribbleInstructions) {
+        this.scribbleInstructions = scribbleInstructions;
+    }
+
+    // Getter for audioNotes
+    public String getAudioNotes() {
+        return audioNotes;
+    }
+
+    // Setter for audioNotes
+    public void setAudioNotes(String audioNotes) {
+        this.audioNotes = audioNotes;
+    }
+
+    // Getter for audioInstructions
+    public String getAudioInstructions() {
+        return audioInstructions;
+    }
+
+    // Setter for audioInstructions
+    public void setAudioInstructions(String audioInstructions) {
+        this.audioInstructions = audioInstructions;
+    }
+
 }
