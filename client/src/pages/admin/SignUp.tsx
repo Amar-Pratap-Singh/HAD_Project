@@ -3,7 +3,6 @@ import { Controller, set, useForm } from 'react-hook-form';
 import { useState } from 'react';
 import TextInput from '../../components/TextInput';
 import Header from '../../components/Header';
-import AudioRecord from '../../toolkit/AudioRecord';
 
 function SignUp() {
 
@@ -61,7 +60,6 @@ function SignUp() {
           <p className='text-green-600 mt-5 text-center'>{success && 'User added successfully!'}</p>
         </div>
       </IonContent>
-      <AudioRecord />
     </IonPage>
   )
 }
