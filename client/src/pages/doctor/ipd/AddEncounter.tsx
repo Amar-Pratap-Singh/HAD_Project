@@ -7,6 +7,7 @@ import {
   IonInput,
   IonPage,
   IonRow,
+  IonText,
 } from "@ionic/react";
 import MedicineInputField from "./MedicineInputField";
 import { useFieldArray, useForm } from "react-hook-form";
@@ -15,6 +16,8 @@ import TextInput from "../../../components/TextInput";
 import Header from "../../../components/Header";
 import "./styles.css";
 import { useParams } from "react-router-dom";
+import PencilTool from "../../../toolkit/PencilTool";
+import AudioRecord from "../../../toolkit/AudioRecord";
 
 type FormInputs = {
   notes: string;
@@ -37,6 +40,65 @@ const AddEncounter: React.FC = () => {
     control,
   });
   const user = useSelector((state: any) => state.user.currentUser);
+
+  const [notesData, setNotesData] = useState({ textArea: false, scribbleArea: false, voiceNote: false });
+  const [instructionData, setInstructionData] = useState({ textArea: false, scribbleArea: false, voiceNote: false });
+
+  
+  const [notesScribbleData, setNotesScribbleData] = useState();
+  const [instructionScribbleData, setInstructionScribbleData] = useState();
+  const [notesAudioData, setNotesAudioData] = useState(null);
+  const [instructionAudioData, setInstructionAudioData] = useState(null);
+
+
+  const [textArea, setTextArea] = useState(false);
+  const [scribbleArea, setScribbleArea] = useState(false);
+  const [voiceNote, setVoiceNote] = useState(false);
+
+
+
+
+  // Functions to create image file
+  const createImageFile = (imageData:any, path:string) => {
+    // Convert base64 image data to a Blob
+    const blob = base64ToBlob(imageData);
+
+    // Create a File object from the Blob
+    if (blob === null)
+      return;
+
+    const file = new File([blob], path, { type: 'image/png' });
+
+    // Save the File object or perform further operations
+    console.log('Image file created:', file);
+  };
+
+
+  const base64ToBlob = (base64String:string) => {
+    console.log(base64String);
+    base64String = base64String.substring(22);
+    // Check if the base64 string is invalid
+    if (!base64String || typeof base64String !== 'string') {
+      console.error('Invalid base64 string');
+      return null;
+    }
+  
+    try {
+      const byteCharacters = atob(base64String);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      return new Blob([byteArray], { type: 'image/png' });
+    } catch (error) {
+      console.error('Error decoding base64 string:', error);
+      return null;
+    }
+  };
+
+
+
 
   const handleMedication = async (data: any, prescriptionId: any) =>{
       const medication_data = {
@@ -76,6 +138,10 @@ const AddEncounter: React.FC = () => {
     
   }
 
+
+
+
+
   // OnClick
   const handleFormSubmit = async (data: any) => {
     
@@ -83,10 +149,27 @@ const AddEncounter: React.FC = () => {
     var prescriptionId;
     var responseData; 
 
+    // download the images of notes scribble
+    // and instruction scribble and get path
+    
+    // var path1 = "/Users/amar/Documents/Sem8/HAD/HAD_Project/client/src/pages/doctor/ipd/imageData/notes.png";
+    // createImageFile(notesScribbleData, path1);
+
+    // var path2 = "/Users/amar/Documents/Sem8/HAD/HAD_Project/client/src/pages/doctor/ipd/imageData/instructions.png";
+    // createImageFile(instructionScribbleData, path2);
+
+    // One more api call to save the imageData and get the path
+
+    // Adding Prescription Data
     const prescription_data = {
       "notes":data.notes,
-      "instructions":data.instructions
+      "instructions":data.instructions,
+      "scribbleNotes": notesScribbleData,
+      "scribbleInstructions": instructionScribbleData,
+      "audioNotes": notesAudioData,
+      "audioInstructions": instructionAudioData
     }
+
     try{
       const response = await fetch("http://localhost:8085/ipd/add-prescription", {
         method: 'POST',
@@ -107,12 +190,14 @@ const AddEncounter: React.FC = () => {
       // Clear the form after successful submission
       reset();
 
-      console.log('Presciption added successfully');
+      console.log('Prescription added successfully');
 
     } catch(error){
       console.error('Error adding prescription:', error);
     }
     
+
+
     console.log(data)
     
     for(var i=0;i<data.medicineFields.length;i++)
@@ -147,10 +232,10 @@ const AddEncounter: React.FC = () => {
     } catch(error){
       console.error('Error adding doctor encounter:', error);
     }
-    
+  };
 
 
-};
+
 
   return (
     <div className="add-encounter">
@@ -160,26 +245,56 @@ const AddEncounter: React.FC = () => {
           <h1>Add IPD Encounter</h1>
           <form onSubmit={handleSubmit(handleFormSubmit)}>
             <IonGrid>
+
+              <h1 className="headers">Notes</h1>
               <IonRow>
-                <IonCol>
+                <IonButton onClick={() => {const textBool = !notesData['textArea']; const scribbleBool = notesData['scribbleArea']; const voiceBool = notesData['voiceNote']; setNotesData({textArea: textBool, scribbleArea: scribbleBool, voiceNote: voiceBool})}}>Text</IonButton>
+                <IonButton onClick={() => {const textBool = notesData['textArea']; const scribbleBool = !notesData['scribbleArea']; const voiceBool = notesData['voiceNote']; setNotesData({textArea: textBool, scribbleArea: scribbleBool, voiceNote: voiceBool})}}>Scribble</IonButton>
+                <IonButton onClick={() => {const textBool = notesData['textArea']; const scribbleBool = notesData['scribbleArea']; const voiceBool = !notesData['voiceNote']; setNotesData({textArea: textBool, scribbleArea: scribbleBool, voiceNote: voiceBool})}}>Voice Note</IonButton>
+
+                {notesData['textArea'] && 
+                 <div className="text-area">  
                   <TextInput
                     name="notes"
                     placeHolder="Enter notes"
                     label="Notes"
                     control={control}
-                  />
-                </IonCol>
+                  /></div> 
+                }
+                {notesData['scribbleArea'] ? <div className="pencil-tool"> <PencilTool setData={setNotesScribbleData}/> </div> : <></>}
+                {notesData['voiceNote'] ? <div className="audio-record"><AudioRecord setData={setNotesAudioData}/></div> : <></>}
+
               </IonRow>
+                
+              <h1 className="headers">Instructions</h1>
               <IonRow>
-                <IonCol>
+                <IonButton onClick={() => {const textBool = !instructionData['textArea']; const scribbleBool = instructionData['scribbleArea']; const voiceBool = instructionData['voiceNote']; setInstructionData({textArea: textBool, scribbleArea: scribbleBool, voiceNote: voiceBool})}}>Text</IonButton>
+                <IonButton onClick={() => {const textBool = instructionData['textArea']; const scribbleBool = !instructionData['scribbleArea']; const voiceBool = instructionData['voiceNote']; setInstructionData({textArea: textBool, scribbleArea: scribbleBool, voiceNote: voiceBool})}}>Scribble</IonButton>
+                <IonButton onClick={() => {const textBool = instructionData['textArea']; const scribbleBool = instructionData['scribbleArea']; const voiceBool = !instructionData['voiceNote']; setInstructionData({textArea: textBool, scribbleArea: scribbleBool, voiceNote: voiceBool})}}>Voice Note</IonButton>
+
+                {instructionData['textArea'] && 
+                 <div className="text-area">  
                   <TextInput
-                    name="instructions"
-                    placeHolder="Enter instructions"
-                    label="Instructions"
+                    name="notes"
+                    placeHolder="Enter notes"
+                    label="Notes"
                     control={control}
-                  />
-                </IonCol>
+                  /></div> 
+                }
+                {instructionData['scribbleArea'] ? <div className="pencil-tool"> <PencilTool setData={setInstructionScribbleData}/> </div> : <></>}
+                {instructionData['voiceNote'] ? <div className="audio-record"><AudioRecord setData={setInstructionAudioData}/></div> : <></>}
+
               </IonRow>
+
+              {/* <IonRow>
+                <h1>Extras</h1>
+                <div className="pencil-tool">
+                  <PencilTool />
+                </div>
+              </IonRow> */}
+
+
+              
               {fields.map((field, index) => {
                 return (
                   <IonRow key={field.id}>

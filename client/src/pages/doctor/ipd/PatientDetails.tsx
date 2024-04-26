@@ -8,6 +8,8 @@ import {
 } from "@ionic/react";
 import Header from "../../../components/Header";
 import { useParams } from "react-router";
+import DrawingImage from "../../../toolkit/DrawingImage";
+import AudioPlayback from "../../../toolkit/AudioPlayback";
 
 interface PatientDetails {
   name: string;
@@ -147,7 +149,13 @@ const PrescriptionData: React.FC<PrescriptionDataProps> = ({ prescriptionId }) =
     <>
       <h1>Advice</h1>
       <p>Notes: {prescriptionData.notes}</p>
+      <DrawingImage imageData={prescriptionData.scribbleNotes}/>
+      <AudioPlayback audioData={prescriptionData.audioNotes}/>
+
       <p>Instructions: {prescriptionData.instructions}</p>
+      <DrawingImage imageData={prescriptionData.scribbleInstructions}/>
+      <AudioPlayback audioData={prescriptionData.audioInstructions}/>
+
       <br></br>
       <h1> Medication </h1>
       <ul>
