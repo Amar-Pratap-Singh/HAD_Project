@@ -15,7 +15,6 @@ public interface BedRepo extends JpaRepository<Bed,Integer>{
     // Bed findByBedNo(Integer bed_no);
     Optional<Bed> findByBedNoAndWardNo(Integer bedNo, Integer wardNo);
     List<Bed> findByWardNoAndStatus(Integer wardNo, String status);
-     @Query("SELECT DISTINCT b.wardNo FROM Bed b")
+    @Query("SELECT DISTINCT b.wardNo FROM Bed b")
     List<Integer> findAllDistinctWards();
-
 }

@@ -9,12 +9,14 @@ function SignUp() {
 
   const { control, handleSubmit, reset } = useForm();
   const [error, setError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
   const onSubmit = async (data: any) => {
 
     try{
       setError(false);
+      setErrorMsg("");
       setSuccess(false);
       const res = await fetch('http://localhost:8082/api/auth/signup', {
         method: 'POST',
@@ -23,19 +25,21 @@ function SignUp() {
         },
         body: JSON.stringify(data),
       });
-      const resMsg = await res.json();
-      if (resMsg.success === false) {
+      if (res.ok === false) {
         setError(true);
+        setErrorMsg(await res.text());
         setSuccess(false);
         reset();
         return;
       }
       setSuccess(true);
       setError(false);
+      setErrorMsg("");
       reset();
     }
     catch(error) {
       setError(true);
+      setErrorMsg('Network error');
       setSuccess(false);
       reset();
     }
@@ -53,7 +57,7 @@ function SignUp() {
             <TextInput name='role' placeHolder='Enter role' label='Role' control={control}/>
             <IonButton type='submit'>Sign Up</IonButton>
           </form>    
-          <p className='text-red-700 mt-5 text-center'>{error && 'Something went wrong!'}</p>
+          <p className='text-red-700 mt-5 text-center'>{error && errorMsg}</p>
           <p className='text-green-600 mt-5 text-center'>{success && 'User added successfully!'}</p>
         </div>
       </IonContent>

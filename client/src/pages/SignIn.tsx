@@ -12,11 +12,13 @@ function SignIn() {
   const { control, handleSubmit, reset } = useForm();
   const history = useHistory();
   const [error, setError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
   const dispath = useDispatch();
 
   const onSubmit = async (data: any) => {
     try{
       setError(false);
+      setErrorMsg("");
       const res = await fetch('http://localhost:8082/api/auth/login', {
         method: 'POST',
         headers: {
@@ -26,13 +28,13 @@ function SignIn() {
       });
       if (res.ok === false) {
         setError(true);
+        setErrorMsg(await res.text());
         reset();
         return;
       }
       const token = await res.text(); // this is the jwt token
       const user = jwtDecode(token) as {sub: string, role: string};
       dispath(authSuccess({jwt: token, user}));
-      console.log(user)
       switch(user.role) {
         case 'DOCTOR':
           history.push('/doctor/ipd/patient-list');
@@ -56,6 +58,7 @@ function SignIn() {
     }
     catch(error) {
       setError(true);
+      setErrorMsg('Network error');
       reset();
     }
   };
@@ -69,7 +72,7 @@ function SignIn() {
             <TextInput name='password' placeHolder='Enter password' label='Password' control={control}/>
             <IonButton type='submit'>Sign In</IonButton>
           </form>    
-          <p className='text-red-700 mt-5'>{error && 'Something went wrong!'}</p>
+          <p className='text-red-700 mt-5'>{error && errorMsg}</p>
         </div>
     </IonPage>
   )

@@ -11,6 +11,4 @@ public interface BedService {
     public List<Integer> getAllWards();
     public void populateDummyData() ;
     List<Bed> getAvailableBedsByWardNo(Integer wardNo);
-
-
 }
