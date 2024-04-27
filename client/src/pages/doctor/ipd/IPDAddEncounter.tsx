@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   IonButton,
   IonContent,
   IonPage,
+  IonSelect,
+  IonSelectOption,
 } from "@ionic/react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { useSelector } from 'react-redux';
@@ -10,6 +12,7 @@ import { useParams } from "react-router-dom";
 import TextInput from "../../../components/TextInput";
 import Header from "../../../components/Header";
 
+import { Storage } from '@capacitor/storage';
 type FormInputs = {
   notes: string;
   instructions: string;
@@ -29,6 +32,8 @@ const IPDAddEncounter: React.FC = () => {
     name: "medicineFields",
     control,
   });
+  const [medicineOptions, setMedicineOptions] = useState<string[]>(["Medicine 1", "Medicine 2", "Medicine 3", "Medicine 4", "Medicine 5", "Medicine 6", "Medicine 7", "Medicine 8", "Medicine 9", "Medicine 10"]);
+
   const user = useSelector((state: any) => state.user.currentUser);
 
   const handleMedication = async (data: any, prescriptionId: any) =>{
@@ -42,7 +47,7 @@ const IPDAddEncounter: React.FC = () => {
     } 
     console.log(medication_data)
     console.log("Prescription Id is: " + prescriptionId)
-
+  
     try{
       const response = await fetch("http://localhost:8085/ipd/add-medication", {
         method: 'POST',
@@ -153,9 +158,19 @@ const IPDAddEncounter: React.FC = () => {
             {fields.map((field, index) => {
               return (
                 <div className="flex flex-row justify-between items-center">
-                  <TextInput placeHolder="" label="Medicine Name" {...register(`medicineFields.${index}.medicineName`)} control={control}/>
+                  <IonSelect placeholder="Select Medicine Name" {...register(`medicineFields.${index}.medicineName`)} control={control}>
+                    {medicineOptions.map((medicine, i) => (
+                      <IonSelectOption key={i} value={medicine}>{medicine}</IonSelectOption>
+                    ))}
+                  </IonSelect>
                   <TextInput placeHolder="" label="Quantity" {...register(`medicineFields.${index}.medicineQty`)} control={control} />
-                  <TextInput placeHolder="" label="Timing" {...register(`medicineFields.${index}.medicineTiming`)} control={control} />
+                    <div className="ion-select-container">
+                    <IonSelect placeholder="Select Timing" {...register(`medicineFields.${index}.medicineTiming`)} control={control}>
+                      <IonSelectOption value="Morning">Morning</IonSelectOption>
+                      <IonSelectOption value="Evening">Evening</IonSelectOption>
+                      <IonSelectOption value="Night">Night</IonSelectOption>
+                    </IonSelect>
+                  </div>
                   <TextInput placeHolder="" label="Duration" {...register(`medicineFields.${index}.medicineDuration`)} control={control} />
                   <IonButton className="h-8" onClick={() => remove(index)} shape="round">-</IonButton>
                 </div>

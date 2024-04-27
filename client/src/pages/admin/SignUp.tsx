@@ -1,4 +1,4 @@
-import { IonButton, IonContent, IonPage } from '@ionic/react'
+import { IonButton, IonContent, IonPage, IonSelect, IonSelectOption } from '@ionic/react'
 import { Controller, set, useForm } from 'react-hook-form';
 import { useState } from 'react';
 import TextInput from '../../components/TextInput';
@@ -50,7 +50,21 @@ function SignUp() {
           <form className='flex flex-col' onSubmit={handleSubmit(onSubmit)}>
             <TextInput name='email' placeHolder='Enter email' label='Email' control={control}/>
             <TextInput name='password' placeHolder='Enter password' label='Password' control={control}/>
-            <TextInput name='role' placeHolder='Enter role' label='Role' control={control}/>
+            {/* <TextInput name='role' placeHolder='Enter role' label='Role' control={control}/> */}
+            <Controller
+              control={control}
+              name="role"
+              render={({ field: { onChange, value } }) => (
+                <IonSelect value={value} placeholder= "ROLE" onIonChange={onChange}>
+                  <IonSelectOption value="DOCTOR">Doctor</IonSelectOption>
+                  <IonSelectOption value="CLINICAL_ASSISTANT">Clinical Assistant</IonSelectOption>
+                  <IonSelectOption value="PHARMACIST">Pharmacist</IonSelectOption>
+                  <IonSelectOption value="LAB_USER">Lab User</IonSelectOption>
+                  <IonSelectOption value="RECEPTIONIST">Receptionist</IonSelectOption>
+                  <IonSelectOption value="ADMIN">Admin</IonSelectOption>
+                </IonSelect>
+              )}
+            />
             <IonButton type='submit'>Sign Up</IonButton>
           </form>    
           <p className='text-red-700 mt-5 text-center'>{error && 'Something went wrong!'}</p>

@@ -66,11 +66,11 @@ const IPDViewPatients: React.FC = () => {
             <IonCol>View Details</IonCol>
             <IonCol>Add Encounter</IonCol>
           </IonRow>
-          {dummyPatients.map((patient) => (
+          {patients.map((patient) => (
             <IonRow key={patient.patientId} className="flex flex-row items-center">
               <IonCol>{patient.patientId}</IonCol>
-              <IonCol>{patient.bed_no}</IonCol>
-              <IonCol>{patient.ward_no}</IonCol>
+              <IonCol>{patient.bedNo}</IonCol>
+              <IonCol>{patient.wardNo}</IonCol>
               <IonCol><IonButton onClick={() => viewPatientDetails(patient.patientId)}>View Details</IonButton></IonCol>
               <IonCol><IonButton onClick={() => addEncounter(patient.patientId)}>Add Encounter</IonButton></IonCol>
             </IonRow>

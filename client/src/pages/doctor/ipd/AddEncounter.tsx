@@ -368,4 +368,4 @@ const AddEncounter: React.FC = () => {
   );
 };
 
-export default AddEncounter;
+export default IPDAddEncounter;
