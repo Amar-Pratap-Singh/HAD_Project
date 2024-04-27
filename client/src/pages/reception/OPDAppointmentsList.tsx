@@ -1,4 +1,4 @@
-import { IonCol, IonContent, IonGrid, IonPage, IonRow } from '@ionic/react';
+import { IonButton, IonCol, IonContent, IonGrid, IonPage, IonRow } from '@ionic/react';
 import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header';
 
@@ -22,6 +22,25 @@ const OPDAppointmentsList: React.FC = () => {
 			console.error('Error fetching data:', error);
 		}
 	};
+
+  const delData = async(id) => {
+    const newData=appointments.filter(patient => patient.patientId !== id);
+    setAppointments(newData)
+    try {
+			const response = await fetch('http://localhost:8081/patient/delete-opd-appointment?patientId=' + id, {
+        method:'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(id),
+      });
+			if (!response.ok) {
+				throw new Error('Failed to delete data');
+			}
+		} catch (error) {
+			console.error('Error deleting data:', error);
+		}
+  }
 	
 
 	return(
@@ -32,22 +51,22 @@ const OPDAppointmentsList: React.FC = () => {
         <IonGrid className="border-2 border-solid border-black mx-20 mb-5">
           <IonRow className="border-b-2 border-solid border-black font-semibold">
             <IonCol>Patient ID</IonCol>
-            <IonCol>Name</IonCol>
-            <IonCol>Appt Reason</IonCol>
             <IonCol>Appt Date</IonCol>
             <IonCol>Doctor</IonCol>
+            <IonCol></IonCol>
           </IonRow>
           {
             appointments.map(patient => (
               <IonRow key={patient.patientId}>
                 <IonCol>{patient.patientId}</IonCol>
-                <IonCol>{patient.name}</IonCol>
                 <IonCol>{patient.reason}</IonCol>
-                <IonCol>{patient.appt_date}</IonCol>
                 <IonCol>{patient.doctor}</IonCol>
+                <IonCol>
+                  <IonButton onClick={() => delData(patient.patientId)}>Cancel Appointment</IonButton>
+                </IonCol>
               </IonRow>
             ))
-        }
+          }
         </IonGrid>
       </IonContent>
     </IonPage>

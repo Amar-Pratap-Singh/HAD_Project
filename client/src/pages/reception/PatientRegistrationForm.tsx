@@ -19,6 +19,8 @@ const PatientRegistrationForm: React.FC = () => {
 
   const onSubmit = async (data: any) => {
     
+    data={...data,redacted:false}
+    console.log(data)
     try{
       const response = await fetch("http://localhost:8081/patient/add-patient", {
         method: 'POST',

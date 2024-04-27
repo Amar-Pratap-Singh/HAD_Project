@@ -24,5 +24,5 @@ public class Patient {
     private String gender;
     private String phoneNo;
     private String address;
-    
+    private boolean redacted;
 }

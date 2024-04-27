@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.had.reception.models.Patient;
 import com.had.reception.repository.PatientRepo;
 
+
 @Service
 public class PatientServiceImpl implements PatientService{
 
@@ -22,12 +23,33 @@ public class PatientServiceImpl implements PatientService{
 
     @Override
     public List<Patient> getAllPatients(){
-        return patientRepo.findAll();
+        return patientRepo.findAllByRedactedFalse();
     }
     
     @Override
     public Optional<Patient> getDemographics(Integer id){
         return patientRepo.findById(id);
     }
-    
+
+    @Override
+    public Patient deletePatient(Integer id) {
+
+        Optional<Patient> deletedPatient=patientRepo.findById(id);
+        System.out.println(deletedPatient.isEmpty());
+        if(deletedPatient.isEmpty())
+            return null;
+        Patient dPatient = deletedPatient.get();
+        dPatient.setName("***********");
+        int agemod=dPatient.getAge()%10;
+        int age=(dPatient.getAge()/10) * 10;
+        if(agemod > 5)
+            age+=10;
+        dPatient.setAge(age);
+        dPatient.setAddress("************");
+        dPatient.setPhoneNo("************");
+        dPatient.setRedacted(true);
+        return patientRepo.save(dPatient);
+    }
+
+
 }

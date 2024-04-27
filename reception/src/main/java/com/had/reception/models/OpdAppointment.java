@@ -15,4 +15,5 @@ public class OpdAppointment {
     private int patientId;
     private String doctor;
     private String reason;
+    private boolean isactive;
 }
