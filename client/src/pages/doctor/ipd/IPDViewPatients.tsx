@@ -9,9 +9,9 @@ import {
 } from "@ionic/react";
 import { Route, useHistory, useParams } from "react-router-dom";
 import Header from "../../../components/Header";
-import "./IPDViewPatients.css";
 
 const IPDViewPatients: React.FC = () => {
+
   const [patients, setPatients] = useState<any[]>([]);
   const { wardNo } = useParams<{ wardNo: any }>();
   const history = useHistory();
@@ -32,13 +32,14 @@ const IPDViewPatients: React.FC = () => {
       }
       const data = await response.json();
       setPatients(data);
-    } catch (error) {
+    } 
+    catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
   const viewPatientDetails = (patientId: any) => {
-    // Navigate to the patient details page with the patient ID
+    //navigate to the patient details page
     history.push(`/doctor/ipd/patient-details/` + patientId);
     location.reload();
   };

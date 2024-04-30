@@ -13,16 +13,18 @@ import {
   IonCardTitle
 } from "@ionic/react";
 import Header from "../../../components/Header";
-import "./OPDGetPatientDetails.css";
 import { useParams } from "react-router";
 
 interface PatientDetails {
+  id: number;
   name: string;
-  patientId: number;
   age: number;
+  bloodGroup: string;
+  gender: string;
 }
 
 interface PatientRecord{
+  doctorId: number;
   patientComplaints: string;
   weight: number;
   height: number;
@@ -30,22 +32,39 @@ interface PatientRecord{
   lowBP: number;
   highBP: number;
   prescriptionId: number;
-  // medicines: {
-  //   medicineName: string;
-  //   count: number;
-  //   time: string;
-  //   duration: number;
-  // }[];
-  // notes:string;
-  // advice: string;
   followUp: string;
 };
 
+interface Prescription {
+  prescriptionId: number;
+  notes: string;
+  instructions: string;
+  scribbleNotes: string;
+  scribbleInstructions: string;
+  audioNotes: string;
+  audioInstructions: string;
+}
+
+interface Medication {
+  medicationId: number;
+  prescriptionId: number;
+  medicineName: string;
+  quantity: number;
+  time: string;
+  duration: string;
+}
+
+interface EncounterWrapper {
+  patientRecord: PatientRecord;
+  prescription: Prescription;
+  medications: Medication[];
+}
 
 const OPDGetPatientDetails: React.FC = () => {
+
   const { patientId } = useParams<{ patientId: string }>();
-  const [patientDetails, setPatientDetails] = useState<PatientDetails | null>(null);
-  const [patientRecords , setPatientRecords] = useState<PatientRecord[]>([]); 
+  const [patientDetails, setPatientDetails] = useState<PatientDetails>();
+  const [encounters, setEncounters] = useState<EncounterWrapper[]>([]);
 
   useEffect(() => {
     fetchPatientDetails();
@@ -60,170 +79,95 @@ const OPDGetPatientDetails: React.FC = () => {
       }
       const data = await response.json();
       setPatientDetails(data);
-    } catch (error) {
+    } 
+    catch (error) {
       console.error('Error fetching patient details:', error);
     }
   };
 
   const fetchPatientRecords = async () => {
     try {
+
       const response = await fetch(`http://localhost:8083/opd/get-patient-records-patient-id?id=`+ patientId);
       if (!response.ok) {
         throw new Error('Failed to fetch patient records');
       }
       const data = await response.json();
-      setPatientRecords(data);
 
-    } catch (error) {
-      console.error('Error fetching patient records:', error);
-    }
-  };
+      const encountersData = await Promise.all(data.map(async (item: any) => {
 
-  if (!patientDetails) {
-    return <div>Loading...</div>;
-  }
-
-  return (
-    <div className="get-patient-details">
-      <IonPage>
-        <Header />
-        <IonContent>
-          <h1>Patient Details</h1>
-          <IonGrid className="table">
-            <IonRow>
-              <IonCol>Patient Name</IonCol>
-              <IonCol>{patientDetails.name}</IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol>Patient Age</IonCol>
-              <IonCol>{patientDetails.age}</IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol>Patient ID</IonCol>
-              <IonCol>{patientId}</IonCol>
-            </IonRow>
-
-            {patientRecords.map((record,index) => (
-                <IonCard key={index}>
-                <IonCardHeader>
-                  <IonCardTitle>Record {index + 1}</IonCardTitle>
-                </IonCardHeader>
-                <IonCardContent>
-                  <IonRow>
-                    <IonCol>Complaint:</IonCol>
-                    <IonCol>{record.patientComplaints}</IonCol>
-                  </IonRow>
-                  <IonRow>
-                    <IonCol>Weight:{record.weight}</IonCol>
-                    <IonCol>Height:{record.height}</IonCol>
-                    <IonCol>Temperature:{record.temperature} F</IonCol>
-                    <IonCol>Blood Pressure:{record.highBP}/{record.lowBP} mmHg</IonCol>
-                  </IonRow>
-
-             
-                  <PrescriptionData prescriptionId={record.prescriptionId} />
-                  {/* <IonRow class='table-header'>
-                    <IonCol>Medicines:</IonCol>
-                  </IonRow> */}
-                  {/* <IonRow>
-                    <IonCol>Medicine Name</IonCol>
-                    <IonCol>Quantity</IonCol>
-                    <IonCol>Time</IonCol>
-                    <IonCol>Duration</IonCol>
-                  </IonRow>
-                  {
-                    record.medicines.map((medicine,index) => (
-                      <IonRow key={index}>
-                        <IonCol>{medicine.medicineName}</IonCol>
-                        <IonCol>{medicine.count}</IonCol>
-                        <IonCol>{medicine.time}</IonCol>
-                        <IonCol>{medicine.duration}</IonCol>
-                      </IonRow>
-                    ))
-                  } */}
-                  {/* <IonRow>
-                    <IonCol>Notes:</IonCol>
-                    <IonCol>{record.notes}</IonCol>
-                  </IonRow>
-                  <IonRow>
-                    <IonCol>Advice:</IonCol>
-                    <IonCol>{record.advice}</IonCol>
-                  </IonRow> */}
-                  <IonRow>
-                    <IonCol>Follow-up:</IonCol>
-                    <IonCol>{record.followUp}</IonCol>
-                  </IonRow>
-                </IonCardContent>
-              </IonCard>
-              ))
-            }
-          </IonGrid>
-        </IonContent>
-      </IonPage>
-    </div>
-  );
-};
-
-
-
-interface PrescriptionDataProps {
-  prescriptionId: any;
-}
-
-const PrescriptionData: React.FC<PrescriptionDataProps> = ({ prescriptionId }) => {
-  const [prescriptionData, setPrescriptionData] = useState<any | null>(null);
-  const [medicationData, setMedicationData] = useState<any[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const prescriptionResponse = await fetch(`http://localhost:8085/ipd/get-prescription?prescriptionId=${prescriptionId}`);
+        const prescriptionResponse = await fetch(`http://localhost:8085/ipd/get-prescription?prescriptionId=${item.prescriptionId}`);
         if (!prescriptionResponse.ok) {
           throw new Error('Failed to fetch prescription');
         }
         const prescriptionData = await prescriptionResponse.json();
-        setPrescriptionData(prescriptionData);
-  
 
-        const medicationDataResponse = await fetch(`http://localhost:8085/ipd/get-medication-by-prescription-id?prescriptionId=${prescriptionId}`);
-        if (!medicationDataResponse.ok) {
-          throw new Error('Failed to fetch medication IDs');
+        const medicationResponse = await fetch(`http://localhost:8085/ipd/get-medication-by-prescription-id?prescriptionId=${item.prescriptionId}`);
+        if (!medicationResponse.ok) {
+          throw new Error('Failed to fetch medication');
         }
-        const medicationData = await medicationDataResponse.json();
-        setMedicationData(medicationData);
-  
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-  
-    fetchData();
-  }, [prescriptionId]);
+        const medicationData = await medicationResponse.json();
 
-  if (!prescriptionData) {
-    return <p>Loading prescription data...</p>;
-  }
+        return {
+          encounter: item,
+          prescription: prescriptionData,
+          medications: medicationData
+        }
+      }))
+
+      setEncounters(encountersData);
+    }
+     catch (error) {
+      console.error('Error fetching patient records:', error);
+    }
+  };
 
   return (
-    <>
-      <br></br>
-      <p>Notes: {prescriptionData.notes}</p>
-      <p>Advice: {prescriptionData.instructions}</p>
-      <br></br>
-      <h1> Medication </h1>
-      <ul>
-        {medicationData.map((medication) => (
-          <li key={medication.medicationId}>
-            <p>Name: {medication.medicineName}</p>
-            <p>Quantity: {medication.quantity}</p>
-            <p>Time: {medication.time}</p>
-            <p>Duration: {medication.duration}</p>
-            <br></br>
-          </li>
-        ))}
+    <IonPage>
+      <Header/>
+      <IonContent>
 
-      </ul>
-    </>
+        <div className="border-2 border-solid border-black mx-10 my-5 p-3">
+          <p>Patient ID: {patientDetails?.id}</p>
+          <p>Name: {patientDetails?.name}</p>
+          <p>Age: {patientDetails?.age}</p>
+          <p>Gender: {patientDetails?.gender}</p>
+          <p>Blood Group: {patientDetails?.bloodGroup}</p>
+        </div>
+
+        {encounters.map((encounter, index) => (
+          <div key={index} className="border-2 border-solid border-black mx-10 my-5 p-3 flex flex-col gap-4">
+            <h1 className="text-2xl font-semibold">Encounter {index + 1}</h1>
+            
+            <p>Doctor Id: {encounter.patientRecord?.doctorId}</p>
+
+            <p>Patient Complaint: {encounter.patientRecord?.patientComplaints}</p>
+            <p>Weight: {encounter.patientRecord?.weight} kg</p>
+            <p>Height: {encounter.patientRecord?.height} cm</p>
+            <p>Temperature: {encounter.patientRecord?.temperature}</p>
+            <p>Blood Pressure: {encounter.patientRecord?.highBP}/{encounter.patientRecord?.lowBP} mmHg</p>
+
+            <p>Notes: {encounter.prescription?.notes}</p>
+            <p>Advice: {encounter.prescription?.instructions}</p>
+
+            <h2 className="text-xl font-semibold">Medicines</h2>
+            <ul className="flex flex-col gap-4">
+              {encounter.medications.map((medication,index) => (
+                <li key={index}>
+                  <h3 className="text-lg font-semibold">Medicine {index + 1}</h3>
+                  <p>Name: {medication.medicineName}</p>
+                  <p>Quantity: {medication.quantity}</p>
+                  <p>Time: {medication.time}</p>
+                  <p>Duration: {medication.duration}</p>
+                </li>
+              ))}
+            </ul>
+
+            <p>Follow up:{encounter.patientRecord?.followUp}</p>
+          </div>
+        ))}  
+      </IonContent>
+    </IonPage>
   );
 };
 

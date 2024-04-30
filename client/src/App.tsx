@@ -126,8 +126,8 @@ const App = () => {
           <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/ipd/patient-list/:wardNo" component={IPDViewPatients} />
 
           {/* Doctor Pages - OPD */}
-          <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/opd/create-prescription/:patientId" component={OPDCreatePrescription} />
           <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/opd/patient-list" component={OPDViewPatients} />
+          <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/opd/create-prescription/:patientId" component={OPDCreatePrescription} />
           <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/opd/patient-details/:patientId" component={OPDGetPatientDetails} />
 
           {/* Admin Pages */}
