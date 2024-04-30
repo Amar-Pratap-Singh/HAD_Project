@@ -71,6 +71,7 @@ import TestSignUpNurse from './pages/admin/TestSignUpNurse';
 
 // sign in page
 import SignIn from './pages/SignIn';
+import ViewWards from './pages/doctor/ipd/ViewWards';
 
 setupIonicReact();
 
@@ -120,7 +121,9 @@ const App = () => {
           {/* Doctor Pages - IPD */}
           <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/ipd/patient-list" component={IPDViewPatients} />
           <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/ipd/add-encounter/:patientId" component={AddEncounter} />
+          <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/ipd/view-wards/" component={ViewWards} />
           <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/ipd/patient-details/:patientId" component={PatientDetails} />
+          <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/ipd/patient-list/:wardNo" component={IPDViewPatients} />
 
           {/* Doctor Pages - OPD */}
           <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/opd/create-prescription/:patientId" component={OPDCreatePrescription} />

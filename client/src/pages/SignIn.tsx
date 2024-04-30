@@ -37,7 +37,7 @@ function SignIn() {
       dispath(authSuccess({jwt: token, user}));
       switch(user.role) {
         case 'DOCTOR':
-          history.push('/doctor/ipd/patient-list');
+          history.push('/doctor/ipd/view-wards');
           break;
         case 'CLINICAL_ASSISTANT':
           history.push('/nurse/patient-list');

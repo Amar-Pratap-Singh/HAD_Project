@@ -47,3 +47,66 @@
     margin-bottom: -15px;
     margin-left: 0px;
 }
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly; /* Adjust spacing between blocks */
+    font-size: 30px;
+    justify-content: center;
+    /* align-items: center; */
+    /* align-content: center; */
+}
+  
+.block {
+    flex: 0 0 calc(30% - 20px); /* Adjust the width as needed */
+    /* You can adjust the percentage value to control the width of each block */
+    /* The 20px is for padding and margin */
+    cursor: pointer;
+    padding: 100px;
+    margin-top: 3%; /* Adjust margin for spacing between blocks */
+    margin-left: 4%;
+    margin-bottom: 3%;
+    /* margin-right: 1; */
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    box-sizing: border-box; /* Include padding and border in width calculation */
+}
+
+.block:hover {
+    background-color: #e0e0e0;
+}
+
+.selected {
+    background-color: #8df3b8; /* Example color for selected block */
+}
+
+
+.container-bed {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    font-size: 20px;
+    justify-content: center;
+}
+  
+.block-bed {
+    flex: 0 0 calc(20% - 20px); /* Adjust the width as needed */
+    /* You can adjust the percentage value to control the width of each block */
+    /* The 20px is for padding and margin */
+    cursor: pointer;
+    
+    padding-top: 100px; /* Increase padding for length */
+    padding-bottom: 10px; /* Increase padding for length */
+    padding-left: 10px; /* Adjust padding for width */
+    padding-right: 15px; /* Adjust padding for width */
+    
+    margin-top: 3%; /* Adjust margin for spacing between blocks */
+    margin-left: 3%; /* Adjust margin for spacing between blocks */
+    margin-right: 0; /* Adjust margin for spacing between blocks */
+    margin-bottom: 3%; /* Adjust margin for spacing between blocks */
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  

@@ -146,31 +146,32 @@ const PrescriptionData: React.FC<PrescriptionDataProps> = ({ prescriptionId }) =
   }
 
   return (
-    <>
-      <h1>Advice</h1>
-      <p>Notes: {prescriptionData.notes}</p>
-      <DrawingImage imageData={prescriptionData.scribbleNotes}/>
-      <AudioPlayback audioData={prescriptionData.audioNotes}/>
+    <div>
+      <>
+        <h1>Advice</h1>
+        <p>Notes: {prescriptionData.notes}</p>
+        <DrawingImage imageData={prescriptionData.scribbleNotes}/>
+        <AudioPlayback audioData={prescriptionData.audioNotes}/>
 
-      <p>Instructions: {prescriptionData.instructions}</p>
-      <DrawingImage imageData={prescriptionData.scribbleInstructions}/>
-      <AudioPlayback audioData={prescriptionData.audioInstructions}/>
+        <p>Instructions: {prescriptionData.instructions}</p>
+        <DrawingImage imageData={prescriptionData.scribbleInstructions}/>
+        <AudioPlayback audioData={prescriptionData.audioInstructions}/>
 
-      <br></br>
-      <h1> Medication </h1>
-      <ul>
-        {medicationData.map((medication) => (
-          <li key={medication.medicationId}>
-            <p>Name: {medication.medicineName}</p>
-            <p>Quantity: {medication.quantity}</p>
-            <p>Time: {medication.time}</p>
-            <p>Duration: {medication.duration}</p>
-            <br></br>
-          </li>
-        ))}
-
-      </ul>
-    </>
+        <br></br>
+        <h1> Medication </h1>
+        <ul>
+          {medicationData.map((medication) => (
+            <li key={medication.medicationId}>
+              <p>Name: {medication.medicineName}</p>
+              <p>Quantity: {medication.quantity}</p>
+              <p>Time: {medication.time}</p>
+              <p>Duration: {medication.duration}</p>
+              <br></br>
+            </li>
+          ))}
+        </ul>
+      </>
+    </div>
   );
 };
 
