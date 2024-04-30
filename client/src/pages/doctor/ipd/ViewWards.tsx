@@ -9,12 +9,11 @@ import {
 } from "@ionic/react";
 import { Route, useHistory } from "react-router-dom";
 import Header from "../../../components/Header";
-import "./IPDViewPatients.css";
+import "./styles.css";
 
 const ViewWards: React.FC = () => {
   const history = useHistory();
   const [wards, setWards] = useState([1, 2, 3, 4, 5, 6, 7, 8]);
-
 
   const [selectedKey, setSelectedKey] = useState(null);
 

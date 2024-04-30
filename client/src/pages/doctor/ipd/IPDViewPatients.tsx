@@ -66,15 +66,18 @@ const IPDViewPatients: React.FC = () => {
             </IonRow> */}
             <div className="container-bed">
               {patients.map((patient, key) => (
-                (patient.ward_no == wardNo) &&
+                // patient.ward_no
+                (patient.wardNo == wardNo) &&
                 <div key={key} className={`block-bed`}>
-                    PatientId: {patient.patientId}
+                    {/* PatientId: {patient.patientId}
                     <br></br>
-                    Bed No: {patient.bed_no}
-                    
-                  <IonCol size="1">{patient.patientId}</IonCol>
-                  <IonCol size="1">{patient.wardNo}</IonCol>
-                  <IonCol size="1">{patient.bedNo}</IonCol>
+                    Bed No: {patient.bed_no} */}
+
+                  <IonCol size="1">ID: {patient.patientId}</IonCol>
+                  <br></br>
+                  <IonCol size="1">WardNo: {patient.wardNo}</IonCol>
+                  <br></br>
+                  <IonCol size="1">BedNo: {patient.bedNo}</IonCol>
                   <IonCol>{patient.department}</IonCol>
                   <IonCol>{patient.doctorName}</IonCol>
                    
