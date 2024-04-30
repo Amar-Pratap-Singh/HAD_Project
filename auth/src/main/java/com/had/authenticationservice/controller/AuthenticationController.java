@@ -6,6 +6,7 @@ import com.had.authenticationservice.model.User;
 import com.had.authenticationservice.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,12 +22,32 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/signup")
-    public ResponseEntity<User> signup(@RequestBody SignupRequest request){
-        return ResponseEntity.ok(authenticationService.signup(request));
+    public ResponseEntity<?> signup(@RequestBody SignupRequest request){
+        
+        //if user with email does not exist
+        try {
+            return ResponseEntity.ok(authenticationService.signup(request));
+        } 
+        //if user with email already exists
+        catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } 
     }
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest request){
-        return ResponseEntity.ok(authenticationService.login(request));
+
+        //if user with email is there and correct password
+        try {
+            return ResponseEntity.ok(authenticationService.login(request));
+        } 
+        //incorrect email
+        catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+        //incorrect password
+        catch (BadCredentialsException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }

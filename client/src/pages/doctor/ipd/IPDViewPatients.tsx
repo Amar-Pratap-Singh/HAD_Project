@@ -9,9 +9,9 @@ import {
 } from "@ionic/react";
 import { Route, useHistory, useParams } from "react-router-dom";
 import Header from "../../../components/Header";
-import "./IPDViewPatients.css";
 
 const IPDViewPatients: React.FC = () => {
+
   const [patients, setPatients] = useState<any[]>([]);
   const { wardNo } = useParams<{ wardNo: any }>();
   const history = useHistory();
@@ -32,13 +32,14 @@ const IPDViewPatients: React.FC = () => {
       }
       const data = await response.json();
       setPatients(data);
-    } catch (error) {
+    } 
+    catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
   const viewPatientDetails = (patientId: any) => {
-    // Navigate to the patient details page with the patient ID
+    //navigate to the patient details page
     history.push(`/doctor/ipd/patient-details/` + patientId);
     location.reload();
   };
@@ -65,14 +66,24 @@ const IPDViewPatients: React.FC = () => {
             </IonRow> */}
             <div className="container-bed">
               {patients.map((patient, key) => (
-                (patient.ward_no == wardNo) &&
+                // patient.ward_no
+                (patient.wardNo == wardNo) &&
                 <div key={key} className={`block-bed`}>
-                    PatientId: {patient.patientId}
+                    {/* PatientId: {patient.patientId}
                     <br></br>
-                    Bed No: {patient.bed_no}
+                    Bed No: {patient.bed_no} */}
+
+                  <IonCol size="1">ID: {patient.patientId}</IonCol>
+                  <br></br>
+                  <IonCol size="1">WardNo: {patient.wardNo}</IonCol>
+                  <br></br>
+                  <IonCol size="1">BedNo: {patient.bedNo}</IonCol>
+                  <IonCol>{patient.department}</IonCol>
+                  <IonCol>{patient.doctorName}</IonCol>
                    
-                    <IonButton style={{'width':'100%'}} onClick={() => viewPatientDetails(patient.patientId)}>View Details</IonButton>
-                    <IonButton style={{'width':'100%'}} onClick={() => addEncounter(patient.patientId)}>Add Encounter</IonButton>
+                  <IonButton style={{'width':'100%'}} onClick={() => viewPatientDetails(patient.patientId)}>View Details</IonButton>
+                  <IonButton style={{'width':'100%'}} onClick={() => addEncounter(patient.patientId)}>Add Encounter</IonButton>
+                  <IonButton style={{'width':'100%'}} onClick={() => console.log("Discharged")}>Discharge</IonButton>
                 </div>
               ))}
             </div>

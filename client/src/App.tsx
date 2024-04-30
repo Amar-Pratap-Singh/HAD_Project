@@ -55,9 +55,9 @@ import LabIP from './pages/lab/LabIP';
 import LabSearch from './pages/lab/LabSearch';
 
 // doctor pages - ipd
+import IPDViewPatients from './pages/doctor/ipd/IPDViewPatients'
 import AddEncounter from './pages/doctor/ipd/AddEncounter';
 import PatientDetails from './pages/doctor/ipd/PatientDetails';
-import IPDViewPatients from './pages/doctor/ipd/IPDViewPatients'
 
 // doctor pages - opd
 import OPDCreatePrescription from './pages/doctor/opd/OPDCreatePrescription';
@@ -111,22 +111,23 @@ const App = () => {
 
           {/* Nurse Pages */}
           <PrivateRoute allowedRoles={['CLINICAL_ASSISTANT']} exact path="/nurse/patient-list" component={NurseViewPatients} />
-          <PrivateRoute allowedRoles={['CLINICAL_ASSISTANT']} exact path="/nurse/patient-details" component={NurseGetPatientDetails} />
-          <PrivateRoute allowedRoles={['CLINICAL_ASSISTANT']} exact path="/nurse/add-encounter" component={NurseCreateEncounter} />
+          <PrivateRoute allowedRoles={['CLINICAL_ASSISTANT']} exact path="/nurse/patient-details/:patientId" component={NurseGetPatientDetails} />
+          <PrivateRoute allowedRoles={['CLINICAL_ASSISTANT']} exact path="/nurse/add-encounter/:patientId" component={NurseCreateEncounter} />
 
           {/* Lab Pages */}
           <PrivateRoute allowedRoles={['LAB_USER']} exact path="/lab/search" component={LabSearch} />
           <PrivateRoute allowedRoles={['LAB_USER']} exact path="/lab/ip" component={LabIP} />
 
           {/* Doctor Pages - IPD */}
+          <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/ipd/patient-list" component={IPDViewPatients} />
           <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/ipd/add-encounter/:patientId" component={AddEncounter} />
           <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/ipd/view-wards/" component={ViewWards} />
           <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/ipd/patient-details/:patientId" component={PatientDetails} />
           <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/ipd/patient-list/:wardNo" component={IPDViewPatients} />
 
           {/* Doctor Pages - OPD */}
-          <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/opd/create-prescription/:patientId" component={OPDCreatePrescription} />
           <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/opd/patient-list" component={OPDViewPatients} />
+          <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/opd/create-prescription/:patientId" component={OPDCreatePrescription} />
           <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/opd/patient-details/:patientId" component={OPDGetPatientDetails} />
 
           {/* Admin Pages */}

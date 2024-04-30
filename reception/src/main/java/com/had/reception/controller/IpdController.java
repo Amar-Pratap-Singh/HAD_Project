@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.had.reception.models.Bed;
@@ -40,10 +41,21 @@ public class IpdController {
         return ipdService.getIpdAppointments();
     }
 
+    @GetMapping("/get-available-bedNo-by-wardNo")
+    public List<Bed> getAvailableBedNumbers(@RequestParam Integer wardNo) {
+        return bedService.getAvailableBedsByWardNo(wardNo);
+    }
+
     @GetMapping("/view-beds")
     public List<Bed> getAllBeds()
     {
         return bedService.getAllBeds();
+    }
+
+    @GetMapping("/get-all-wards")
+    public List<Integer> getAllWards()
+    {
+        return bedService.getAllWards();
     }
 
     @GetMapping("/populate-beds")

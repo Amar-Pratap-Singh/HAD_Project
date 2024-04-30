@@ -13,8 +13,8 @@ import lombok.NoArgsConstructor;
 public class IpdAppointment {
     @Id
     private Integer patientId;
-    private String Department;
-    private Integer ward_no;
-    private Integer bed_no;
+    private String department;
+    private Integer wardNo;
+    private Integer bedNo;
     private String doctorName;
 }
