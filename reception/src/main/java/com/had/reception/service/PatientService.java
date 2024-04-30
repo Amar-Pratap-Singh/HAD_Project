@@ -9,4 +9,5 @@ public interface PatientService {
     public Patient savePatient(Patient patient); 
     public List<Patient> getAllPatients();   
     public Optional<Patient> getDemographics(Integer id);
+    public Patient deletePatient(Integer id);
 } 

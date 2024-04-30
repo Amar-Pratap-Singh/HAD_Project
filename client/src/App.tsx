@@ -72,7 +72,7 @@ import TestSignUpNurse from './pages/admin/TestSignUpNurse';
 // sign in page
 import SignIn from './pages/SignIn';
 import ViewWards from './pages/doctor/ipd/ViewWards';
-
+import DeletePatient from './pages/admin/DeletePatient';
 setupIonicReact();
 
 const App = () => {
@@ -104,6 +104,7 @@ const App = () => {
           <PrivateRoute allowedRoles={['RECEPTIONIST']} exact path="/reception/patient-list" component={PatientList} />
           <PrivateRoute allowedRoles={['RECEPTIONIST']} exact path="/reception/opd-appointments-list" component={OPDAppointmentsList} />
           <PrivateRoute allowedRoles={['RECEPTIONIST']} exact path="/reception/ipd-beds-list" component={IPDBedsList} />
+          
 
           {/* Pharma Pages */}
           <PrivateRoute allowedRoles={['PHARMACIST']} exact path="/pharma/search" component={PharmaSearch} />
@@ -133,7 +134,8 @@ const App = () => {
           {/* Admin Pages */}
           <PrivateRoute allowedRoles={['ADMIN']} exact path="/admin/sign-up" component={SignUp} />
           <PrivateRoute allowedRoles={['ADMIN']} exact path="/admin/add-doctor" component={TestSignUpDoctor} />
-          <PrivateRoute allowedRoles={['ADMIN']} exact path="/admin/add-nurse" component={TestSignUpNurse} />  
+          <PrivateRoute allowedRoles={['ADMIN']} exact path="/admin/add-nurse" component={TestSignUpNurse} />
+          <PrivateRoute allowedRoles={['ADMIN']} exact path="/admin/delete-patient" component={DeletePatient} />  
           
         </IonRouterOutlet>
       </IonReactRouter>

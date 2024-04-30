@@ -3,12 +3,7 @@ package com.had.reception.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.had.reception.models.OpdAppointment;
 import com.had.reception.service.OpdService;
@@ -30,5 +25,10 @@ public class OpdController {
     @GetMapping("/get-opd-appointments")
     public List<OpdAppointment> getOpdAppointments(){
         return opdService.getOpdAppointments();
+    }
+
+    @PutMapping("/delete-opd-appointment")
+    public void deleteOpdAppointment(@RequestParam Integer patientId){
+        opdService.deleteOpdAppointment(patientId);
     }
 }

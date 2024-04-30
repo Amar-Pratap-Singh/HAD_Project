@@ -6,8 +6,8 @@ import TextInput from '../../components/TextInput';
 
 type FormInputs = {
   patiendId: string,
-  apptDate: string,
-  doctorName: string
+  reason: string,
+  doctor: string
 }
 
 const OPDAppointmentForm: React.FC = () => {
@@ -15,6 +15,8 @@ const OPDAppointmentForm: React.FC = () => {
   const { control, handleSubmit, reset } = useForm();
 
   const onSubmit = async (data: any) => {
+
+    data={...data,isactive:true}
     
     try{
       const response = await fetch("http://localhost:8081/patient/opdappointment", {
@@ -46,7 +48,7 @@ const OPDAppointmentForm: React.FC = () => {
         <form onSubmit={handleSubmit(onSubmit)} className='max-w-lg mx-auto mt-12'>
           <h1 className='text-center text-xl font-semibold'>Add OPD Appointment</h1>
           <TextInput name='patientId' placeHolder='Enter patient ID' label='Patient ID' control={control}/>  
-          <TextInput name='apptDate' placeHolder='Enter appointment date' label='Appointment Date' control={control}/> 
+          <TextInput name='reason' placeHolder='Enter appointment date' label='Appointment Date' control={control}/> 
           <TextInput name='doctor' placeHolder='Enter doctor name' label='Doctor Name' control={control}/>
           <IonButton type='submit' shape='round'>Add Appointment</IonButton>
         </form>

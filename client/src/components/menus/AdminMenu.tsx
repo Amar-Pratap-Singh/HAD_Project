@@ -28,6 +28,11 @@ const AdminMenu: React.FC = () => {
               <IonLabel>Add Nurse</IonLabel>
             </IonItem>
           </IonMenuToggle>
+          <IonMenuToggle>
+            <IonItem routerLink="/admin/delete-patient" routerDirection="none">
+              <IonLabel color='danger'>Delete Patient</IonLabel>
+            </IonItem>
+          </IonMenuToggle>
         </IonList>
       </IonContent>
     </IonMenu>
