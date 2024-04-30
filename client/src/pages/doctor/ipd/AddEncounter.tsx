@@ -4,6 +4,8 @@ import {
   IonContent,
   IonPage,
   IonRow,
+  IonSelect,
+  IonSelectOption,
 } from "@ionic/react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { useSelector } from 'react-redux';
@@ -46,6 +48,9 @@ const AddEncounter: React.FC = () => {
   const [textArea, setTextArea] = useState(false);
   const [scribbleArea, setScribbleArea] = useState(false);
   const [voiceNote, setVoiceNote] = useState(false);
+
+  const [medicineOptions, setMedicineOptions] = useState<string[]>(["Medicine 1", "Medicine 2", "Medicine 3", "Medicine 4", "Medicine 5", "Medicine 6", "Medicine 7", "Medicine 8", "Medicine 9", "Medicine 10"]);
+
 
   //functions to create image file
   const createImageFile = (imageData:any, path:string) => {
@@ -232,9 +237,17 @@ const AddEncounter: React.FC = () => {
             {fields.map((field, index) => {
               return (
                 <div className="flex flex-row justify-between items-center">
-                  <TextInput placeHolder="" label="Medicine Name" {...register(`medicineFields.${index}.medicineName`)} control={control}/>
+                  <IonSelect placeholder="Select Medicine Name" {...register(`medicineFields.${index}.medicineName`)}>
+                    {medicineOptions.map((medicine, i) => (
+                      <IonSelectOption key={i} value={medicine}>{medicine}</IonSelectOption>
+                    ))}
+                  </IonSelect>
                   <TextInput placeHolder="" label="Quantity" {...register(`medicineFields.${index}.medicineQty`)} control={control} />
-                  <TextInput placeHolder="" label="Timing" {...register(`medicineFields.${index}.medicineTiming`)} control={control} />
+                  <IonSelect placeholder="Select Timing" {...register(`medicineFields.${index}.medicineTiming`)} >
+                      <IonSelectOption value="Morning">Morning</IonSelectOption>
+                      <IonSelectOption value="Evening">Evening</IonSelectOption>
+                      <IonSelectOption value="Night">Night</IonSelectOption>
+                    </IonSelect>
                   <TextInput placeHolder="" label="Duration" {...register(`medicineFields.${index}.medicineDuration`)} control={control} />
                   <IonButton className="h-8" onClick={() => remove(index)} shape="round">-</IonButton>
                 </div>
