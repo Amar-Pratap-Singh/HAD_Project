@@ -71,9 +71,16 @@ const IPDViewPatients: React.FC = () => {
                     PatientId: {patient.patientId}
                     <br></br>
                     Bed No: {patient.bed_no}
+                    
+                  <IonCol size="1">{patient.patientId}</IonCol>
+                  <IonCol size="1">{patient.wardNo}</IonCol>
+                  <IonCol size="1">{patient.bedNo}</IonCol>
+                  <IonCol>{patient.department}</IonCol>
+                  <IonCol>{patient.doctorName}</IonCol>
                    
-                    <IonButton style={{'width':'100%'}} onClick={() => viewPatientDetails(patient.patientId)}>View Details</IonButton>
-                    <IonButton style={{'width':'100%'}} onClick={() => addEncounter(patient.patientId)}>Add Encounter</IonButton>
+                  <IonButton style={{'width':'100%'}} onClick={() => viewPatientDetails(patient.patientId)}>View Details</IonButton>
+                  <IonButton style={{'width':'100%'}} onClick={() => addEncounter(patient.patientId)}>Add Encounter</IonButton>
+                  <IonButton style={{'width':'100%'}} onClick={() => console.log("Discharged")}>Discharge</IonButton>
                 </div>
               ))}
             </div>
