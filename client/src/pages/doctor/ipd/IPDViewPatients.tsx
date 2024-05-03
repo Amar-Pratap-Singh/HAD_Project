@@ -6,24 +6,153 @@ import {
   IonGrid,
   IonRow,
   IonButton,
+  IonSearchbar,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardSubtitle,
+  IonCardTitle,
 } from "@ionic/react";
 import { Route, useHistory, useParams } from "react-router-dom";
 import Header from "../../../components/Header";
 
 const IPDViewPatients: React.FC = () => {
 
-  const [patients, setPatients] = useState<any[]>([]);
+  const dummyData = [
+    {
+      patientId: 1,
+      wardNo: 1,
+      bedNo: 101,
+      department: "Cardiology",
+      doctorName: "Dr. John Doe",
+    },
+    {
+      patientId: 2,
+      wardNo: 1,
+      bedNo: 102,
+      department: "Neurology",
+      doctorName: "Dr. Jane Smith",
+    },
+    {
+      patientId: 3,
+      wardNo: 1,
+      bedNo: 201,
+      department: "Orthopedics",
+      doctorName: "Dr. David Johnson",
+    },
+    {
+      patientId: 3,
+      wardNo: 1,
+      bedNo: 201,
+      department: "Orthopedics",
+      doctorName: "Dr. David Johnson",
+    },
+    {
+      patientId: 3,
+      wardNo: 1,
+      bedNo: 201,
+      department: "Orthopedics",
+      doctorName: "Dr. David Johnson",
+    },
+    {
+      patientId: 3,
+      wardNo: 1,
+      bedNo: 201,
+      department: "Orthopedics",
+      doctorName: "Dr. David Johnson",
+    },
+    {
+      patientId: 4,
+      wardNo: 1,
+      bedNo: 202,
+      department: "Neurology",
+      doctorName: "Dr. Sarah Williams",
+    },
+    {
+      patientId: 5,
+      wardNo: 1,
+      bedNo: 203,
+      department: "Cardiology",
+      doctorName: "Dr. Michael Brown",
+    },
+    {
+      patientId: 6,
+      wardNo: 1,
+      bedNo: 204,
+      department: "Orthopedics",
+      doctorName: "Dr. Emily Davis",
+    },
+    {
+      patientId: 7,
+      wardNo: 1,
+      bedNo: 205,
+      department: "Neurology",
+      doctorName: "Dr. James Wilson",
+    },
+    {
+      patientId: 8,
+      wardNo: 1,
+      bedNo: 206,
+      department: "Cardiology",
+      doctorName: "Dr. Olivia Martinez",
+    },
+    {
+      patientId: 9,
+      wardNo: 1,
+      bedNo: 207,
+      department: "Orthopedics",
+      doctorName: "Dr. Ethan Taylor",
+    },
+    {
+      patientId: 10,
+      wardNo: 1,
+      bedNo: 208,
+      department: "Neurology",
+      doctorName: "Dr. Ava Anderson",
+    },
+    {
+      patientId: 11,
+      wardNo: 1,
+      bedNo: 209,
+      department: "Cardiology",
+      doctorName: "Dr. Noah Thomas",
+    },
+    {
+      patientId: 12,
+      wardNo: 1,
+      bedNo: 210,
+      department: "Orthopedics",
+      doctorName: "Dr. Sophia Garcia",
+    },
+    {
+      patientId: 13,
+      wardNo: 1,
+      bedNo: 211,
+      department: "Neurology",
+      doctorName: "Dr. Liam Martinez",
+    },
+    {
+      patientId: 14,
+      wardNo: 1,
+      bedNo: 212,
+      department: "Cardiology",
+      doctorName: "Dr. Isabella Johnson",
+    },
+  ];
+
+  const [patients, setPatients] = useState<any[]>(dummyData);
   const { wardNo } = useParams<{ wardNo: any }>();
   const history = useHistory();
 
+  const [searchText, setSearchText] = useState('');
+
   useEffect(() => {
-    console.log(wardNo);
-    fetchData();
+    // fetchData();
   }, []);
 
   const fetchData = async () => {
     try {
-      // fetching data from reception service
+      //fetching data from reception service
       const response = await fetch(
         "http://localhost:8081/patient/get-ipd-appointments"
       );
@@ -45,72 +174,42 @@ const IPDViewPatients: React.FC = () => {
   };
 
   const addEncounter = (patientId: any) => {
-    // Navigate to the add encounter page
+    //navigate to the add encounter page
     history.push(`/doctor/ipd/add-encounter/` + patientId);
   };
 
   return (
-    <div className="view-patients">
-      <IonPage>
-        <Header />
+    <IonPage>
+      <Header/>
+      <IonContent>
 
-        <IonContent>
-          <h1>Patients</h1>
-          {/* <IonGrid className="table">
-            <IonRow className="table-header">
-              <IonCol>Patient ID</IonCol>
-              <IonCol>Room No</IonCol>
-              <IonCol>Ward No</IonCol>
-              <IonCol></IonCol>
-              <IonCol></IonCol>
-            </IonRow> */}
-            <div className="container-bed">
-              {patients.map((patient, key) => (
-                // patient.ward_no
-                (patient.wardNo == wardNo) &&
-                <div key={key} className={`block-bed`}>
-                    {/* PatientId: {patient.patientId}
-                    <br></br>
-                    Bed No: {patient.bed_no} */}
+        <h1 className='text-center text-xl font-semibold my-5'>IPD Patients</h1>
 
-                  <IonCol size="1">ID: {patient.patientId}</IonCol>
-                  <br></br>
-                  <IonCol size="1">WardNo: {patient.wardNo}</IonCol>
-                  <br></br>
-                  <IonCol size="1">BedNo: {patient.bedNo}</IonCol>
-                  <IonCol>{patient.department}</IonCol>
-                  <IonCol>{patient.doctorName}</IonCol>
-                   
-                  <IonButton style={{'width':'100%'}} onClick={() => viewPatientDetails(patient.patientId)}>View Details</IonButton>
-                  <IonButton style={{'width':'100%'}} onClick={() => addEncounter(patient.patientId)}>Add Encounter</IonButton>
-                  <IonButton style={{'width':'100%'}} onClick={() => console.log("Discharged")}>Discharge</IonButton>
-                </div>
-              ))}
-            </div>
-          {/* </div>
-            {patients.map((patient) => (
-              <IonRow key={patient.id}>
-                <IonCol>{patient.patientId}</IonCol>
-                <IonCol>{patient.bed_no}</IonCol>
-                <IonCol>{patient.ward_no}</IonCol>
-                <IonCol>
-                  <IonButton
-                    onClick={() => viewPatientDetails(patient.patientId)}
-                  >
-                    View Details
-                  </IonButton>
-                </IonCol>
-                <IonCol>
-                  <IonButton onClick={() => addEncounter(patient.patientId)}>
-                    Add Encounter
-                  </IonButton>
-                </IonCol>
-              </IonRow>
-            ))} */}
-          {/* </IonGrid> */}
-        </IonContent>
-      </IonPage>
-    </div>
+        <IonSearchbar value={searchText} onIonInput={e => setSearchText(e.detail.value || '')}></IonSearchbar>
+        
+        <div className="flex flex-wrap justify-center">
+          {patients.filter(patient => (patient.wardNo==wardNo))
+            .filter(patient => searchText == '' || patient.patientId==searchText)
+            .map((patient, key) => (
+            <IonCard className="cursor-pointer" key={key}>
+              <IonCardHeader>
+                <IonCardTitle>Patient ID: {patient.patientId}</IonCardTitle>
+                <IonCardSubtitle>WardNo: {patient.wardNo}</IonCardSubtitle>
+                <IonCardSubtitle>BedNo: {patient.bedNo}</IonCardSubtitle>
+                <IonCardSubtitle>Dept: {patient.department}</IonCardSubtitle>
+                <IonCardSubtitle>Doctor: {patient.doctorName}</IonCardSubtitle>
+              </IonCardHeader>
+              <IonCardContent>
+                <IonButton className="w-full" onClick={() => viewPatientDetails(patient.patientId)}>View Details</IonButton>
+                <IonButton className="w-full" onClick={() => addEncounter(patient.patientId)}>Add Encounter</IonButton>
+                <IonButton className="w-full" onClick={() => console.log("Discharged")}>Discharge</IonButton>
+              </IonCardContent>
+            </IonCard>
+          ))}
+        </div>
+
+      </IonContent>
+    </IonPage>
   );
 };
 
