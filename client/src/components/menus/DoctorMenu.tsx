@@ -14,7 +14,7 @@ const DoctorMenu: React.FC = () => {
       <IonContent className="ion-padding">
         <IonList>
           <IonMenuToggle>
-            <IonItem routerLink="/doctor/ipd/patient-list" routerDirection="none">
+            <IonItem routerLink="/doctor/ipd/view-wards" routerDirection="none">
               <IonLabel>View my IPD Patients</IonLabel>
             </IonItem>
           </IonMenuToggle>
