@@ -18,136 +18,136 @@ import Header from "../../../components/Header";
 
 const IPDViewPatients: React.FC = () => {
 
-  const dummyData = [
-    {
-      patientId: 1,
-      wardNo: 1,
-      bedNo: 101,
-      department: "Cardiology",
-      doctorName: "Dr. John Doe",
-    },
-    {
-      patientId: 2,
-      wardNo: 1,
-      bedNo: 102,
-      department: "Neurology",
-      doctorName: "Dr. Jane Smith",
-    },
-    {
-      patientId: 3,
-      wardNo: 1,
-      bedNo: 201,
-      department: "Orthopedics",
-      doctorName: "Dr. David Johnson",
-    },
-    {
-      patientId: 3,
-      wardNo: 1,
-      bedNo: 201,
-      department: "Orthopedics",
-      doctorName: "Dr. David Johnson",
-    },
-    {
-      patientId: 3,
-      wardNo: 1,
-      bedNo: 201,
-      department: "Orthopedics",
-      doctorName: "Dr. David Johnson",
-    },
-    {
-      patientId: 3,
-      wardNo: 1,
-      bedNo: 201,
-      department: "Orthopedics",
-      doctorName: "Dr. David Johnson",
-    },
-    {
-      patientId: 4,
-      wardNo: 1,
-      bedNo: 202,
-      department: "Neurology",
-      doctorName: "Dr. Sarah Williams",
-    },
-    {
-      patientId: 5,
-      wardNo: 1,
-      bedNo: 203,
-      department: "Cardiology",
-      doctorName: "Dr. Michael Brown",
-    },
-    {
-      patientId: 6,
-      wardNo: 1,
-      bedNo: 204,
-      department: "Orthopedics",
-      doctorName: "Dr. Emily Davis",
-    },
-    {
-      patientId: 7,
-      wardNo: 1,
-      bedNo: 205,
-      department: "Neurology",
-      doctorName: "Dr. James Wilson",
-    },
-    {
-      patientId: 8,
-      wardNo: 1,
-      bedNo: 206,
-      department: "Cardiology",
-      doctorName: "Dr. Olivia Martinez",
-    },
-    {
-      patientId: 9,
-      wardNo: 1,
-      bedNo: 207,
-      department: "Orthopedics",
-      doctorName: "Dr. Ethan Taylor",
-    },
-    {
-      patientId: 10,
-      wardNo: 1,
-      bedNo: 208,
-      department: "Neurology",
-      doctorName: "Dr. Ava Anderson",
-    },
-    {
-      patientId: 11,
-      wardNo: 1,
-      bedNo: 209,
-      department: "Cardiology",
-      doctorName: "Dr. Noah Thomas",
-    },
-    {
-      patientId: 12,
-      wardNo: 1,
-      bedNo: 210,
-      department: "Orthopedics",
-      doctorName: "Dr. Sophia Garcia",
-    },
-    {
-      patientId: 13,
-      wardNo: 1,
-      bedNo: 211,
-      department: "Neurology",
-      doctorName: "Dr. Liam Martinez",
-    },
-    {
-      patientId: 14,
-      wardNo: 1,
-      bedNo: 212,
-      department: "Cardiology",
-      doctorName: "Dr. Isabella Johnson",
-    },
-  ];
+  // const dummyData = [
+  //   {
+  //     patientId: 1,
+  //     wardNo: 1,
+  //     bedNo: 101,
+  //     department: "Cardiology",
+  //     doctorName: "Dr. John Doe",
+  //   },
+  //   {
+  //     patientId: 2,
+  //     wardNo: 1,
+  //     bedNo: 102,
+  //     department: "Neurology",
+  //     doctorName: "Dr. Jane Smith",
+  //   },
+  //   {
+  //     patientId: 3,
+  //     wardNo: 1,
+  //     bedNo: 201,
+  //     department: "Orthopedics",
+  //     doctorName: "Dr. David Johnson",
+  //   },
+  //   {
+  //     patientId: 3,
+  //     wardNo: 1,
+  //     bedNo: 201,
+  //     department: "Orthopedics",
+  //     doctorName: "Dr. David Johnson",
+  //   },
+  //   {
+  //     patientId: 3,
+  //     wardNo: 1,
+  //     bedNo: 201,
+  //     department: "Orthopedics",
+  //     doctorName: "Dr. David Johnson",
+  //   },
+  //   {
+  //     patientId: 3,
+  //     wardNo: 1,
+  //     bedNo: 201,
+  //     department: "Orthopedics",
+  //     doctorName: "Dr. David Johnson",
+  //   },
+  //   {
+  //     patientId: 4,
+  //     wardNo: 1,
+  //     bedNo: 202,
+  //     department: "Neurology",
+  //     doctorName: "Dr. Sarah Williams",
+  //   },
+  //   {
+  //     patientId: 5,
+  //     wardNo: 1,
+  //     bedNo: 203,
+  //     department: "Cardiology",
+  //     doctorName: "Dr. Michael Brown",
+  //   },
+  //   {
+  //     patientId: 6,
+  //     wardNo: 1,
+  //     bedNo: 204,
+  //     department: "Orthopedics",
+  //     doctorName: "Dr. Emily Davis",
+  //   },
+  //   {
+  //     patientId: 7,
+  //     wardNo: 1,
+  //     bedNo: 205,
+  //     department: "Neurology",
+  //     doctorName: "Dr. James Wilson",
+  //   },
+  //   {
+  //     patientId: 8,
+  //     wardNo: 1,
+  //     bedNo: 206,
+  //     department: "Cardiology",
+  //     doctorName: "Dr. Olivia Martinez",
+  //   },
+  //   {
+  //     patientId: 9,
+  //     wardNo: 1,
+  //     bedNo: 207,
+  //     department: "Orthopedics",
+  //     doctorName: "Dr. Ethan Taylor",
+  //   },
+  //   {
+  //     patientId: 10,
+  //     wardNo: 1,
+  //     bedNo: 208,
+  //     department: "Neurology",
+  //     doctorName: "Dr. Ava Anderson",
+  //   },
+  //   {
+  //     patientId: 11,
+  //     wardNo: 1,
+  //     bedNo: 209,
+  //     department: "Cardiology",
+  //     doctorName: "Dr. Noah Thomas",
+  //   },
+  //   {
+  //     patientId: 12,
+  //     wardNo: 1,
+  //     bedNo: 210,
+  //     department: "Orthopedics",
+  //     doctorName: "Dr. Sophia Garcia",
+  //   },
+  //   {
+  //     patientId: 13,
+  //     wardNo: 1,
+  //     bedNo: 211,
+  //     department: "Neurology",
+  //     doctorName: "Dr. Liam Martinez",
+  //   },
+  //   {
+  //     patientId: 14,
+  //     wardNo: 1,
+  //     bedNo: 212,
+  //     department: "Cardiology",
+  //     doctorName: "Dr. Isabella Johnson",
+  //   },
+  // ];
 
-  const [patients, setPatients] = useState<any[]>(dummyData);
+  const [patients, setPatients] = useState<any[]>([]);
   const { wardNo } = useParams<{ wardNo: any }>();
   const history = useHistory();
 
   const [searchText, setSearchText] = useState('');
 
   useEffect(() => {
-    // fetchData();
+    fetchData();
   }, []);
 
   const fetchData = async () => {

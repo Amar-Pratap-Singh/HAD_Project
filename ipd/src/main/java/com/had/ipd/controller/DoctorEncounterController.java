@@ -39,4 +39,10 @@ public class DoctorEncounterController {
         return doctorEncounterService.getAllDoctorEncountersOfDoctor(patientId, doctorId);
     }
     
+
+    @GetMapping("/get-latest-doctor-encounter-by-patient-id")
+    public DoctorEncounter getLatestDoctorEncounters(@RequestParam("patientId") int patientId) {
+        List<DoctorEncounter> allDoctorEncounters =  doctorEncounterService.getAllDoctorEncounter(patientId);
+        return allDoctorEncounters.get(allDoctorEncounters.size()-1);
+    }
 }
