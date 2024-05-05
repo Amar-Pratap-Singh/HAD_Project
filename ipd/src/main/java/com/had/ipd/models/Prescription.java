@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,9 +28,17 @@ public class Prescription {
     private int prescriptionId;
     private String notes;
     private String instructions;
+
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String scribbleNotes; // ALTER TABLE your_table MODIFY COLUMN scribble_instructions MEDIUMTEXT;
+    
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String scribbleInstructions;
+    
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String audioNotes;
+
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String audioInstructions;
 
     @CreationTimestamp

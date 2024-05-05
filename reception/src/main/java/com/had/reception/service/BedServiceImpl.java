@@ -27,11 +27,10 @@ public class BedServiceImpl implements BedService {
         Integer patientId = ipdAppointment.getPatientId();
 
         Optional<Bed> optionalBed = bedRepo.findByBedNoAndWardNo(bedNo, wardNo);
-       
+
         if (optionalBed.isPresent()) {
             Bed bed = optionalBed.get();
-            if(bed.getStatus().equals("Occupied"))
-            {
+            if (bed.getStatus().equals("Occupied")) {
                 System.out.println("This bed is Not Available");
                 return null;
             }
@@ -43,45 +42,45 @@ public class BedServiceImpl implements BedService {
             System.out.println("Bed not found with bed_no: " + bedNo + " and ward_no: " + wardNo);
         }
         return null;
-        
+
     }
-    
+
     @Override
-    public List<Bed> getAllBeds()
-    {   
+    public List<Bed> getAllBeds() {
         return bedRepo.findAll();
     }
 
     @Override
-    public List<Integer> getAllWards()
-    {
+    public List<Integer> getAllWards() {
         return bedRepo.findAllDistinctWards();
     }
+
     @Override
     public void populateDummyData() {
-        Random random = new Random();
+        // Random random = new Random();
         Set<String> uniqueCombinations = new HashSet<>();
-        
-        // Create 200 rows of dummy data
-        for (int i = 0; i < 200; i++) {
-            int bedNo = random.nextInt(100) + 1; // Random bed number between 1 and 100
-            int wardNo = random.nextInt(10) + 1; // Random ward number between 1 and 10
-            String combination = bedNo + "_" + wardNo;
-            
-            // Check if the combination is unique
-            if (!uniqueCombinations.contains(combination)) {
-                Bed bed = new Bed();
-                bed.setBedNo(bedNo);
-                bed.setWardNo(wardNo);
-                bed.setFloorNo(random.nextInt(5) + 1); // Random floor number between 1 and 5
-                bed.setPatientId(null); // No patient assigned initially
-                bed.setStatus("Available"); // Set status to "Available"
-                bedRepo.save(bed); // Save the bed entity
-                
-                uniqueCombinations.add(combination); // Add the combination to the set
+
+        for (int wardNo = 1; wardNo <= 10; wardNo++) {
+            for (int bedNo = 1; bedNo <= 10; bedNo++) {
+
+                String combination = bedNo + "_" + wardNo;
+
+                // Check if the combination is unique
+                if (!uniqueCombinations.contains(combination)) {
+                    Bed bed = new Bed();
+                    bed.setBedNo(bedNo);
+                    bed.setWardNo(wardNo);
+                    bed.setFloorNo(1); // Random floor number between 1 and 5
+                    bed.setPatientId(null); // No patient assigned initially
+                    bed.setStatus("Available"); // Set status to "Available"
+                    bedRepo.save(bed); // Save the bed entity
+
+                    uniqueCombinations.add(combination); // Add the combination to the set
+                }
             }
         }
     }
+
     @Override
     public List<Bed> getAvailableBedsByWardNo(Integer wardNo) {
         return bedRepo.findByWardNoAndStatus(wardNo, "Available");
