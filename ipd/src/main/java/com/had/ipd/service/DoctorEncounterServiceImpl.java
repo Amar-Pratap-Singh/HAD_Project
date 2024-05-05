@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.had.ipd.models.DoctorEncounter;
-import com.had.ipd.repository.DoctorEncounterRepo;
+import com.had.ipd.repository.DoctorEncounterRepo; 
 
 @Service
 public class DoctorEncounterServiceImpl implements DoctorEncounterService{

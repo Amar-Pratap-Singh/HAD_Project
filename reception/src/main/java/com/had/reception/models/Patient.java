@@ -22,7 +22,7 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-     @Convert(converter = StringCryptoConverter.class) 
+    @Convert(converter = StringCryptoConverter.class) 
     private String name;
     private int age;
     private String bloodGroup;
