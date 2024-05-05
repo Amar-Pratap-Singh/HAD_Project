@@ -33,6 +33,11 @@ const AdminMenu: React.FC = () => {
               <IonLabel color='danger'>Delete Patient</IonLabel>
             </IonItem>
           </IonMenuToggle>
+          <IonMenuToggle>
+            <IonItem routerLink="/admin/patient-revoke-consent" routerDirection='none'>
+              <IonLabel color='danger'>Revoke Consent</IonLabel>
+            </IonItem>
+          </IonMenuToggle>
         </IonList>
       </IonContent>
     </IonMenu>
