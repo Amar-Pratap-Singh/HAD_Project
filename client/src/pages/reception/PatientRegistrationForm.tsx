@@ -10,7 +10,8 @@ type FormInputs = {
   bloodGroup: string,
   gender: string,
   phoneNo: string,
-  address: string
+  address: string,
+  emailId: string
 }
 
 const PatientRegistrationForm: React.FC = () => {
@@ -68,6 +69,7 @@ const PatientRegistrationForm: React.FC = () => {
           </IonItem>
           <TextInput name='phoneNo' placeHolder='Enter patient phone number' label='Phone Number' control={control}/>
           <TextInput name='address' placeHolder='Enter patient address' label='Address' control={control}/>
+          <TextInput name='emailId' placeHolder='Enter patient email-id' label='Email ID' control={control}/>          
           <IonButton type='submit' shape='round'>Register</IonButton>
         </form>
       </IonContent>

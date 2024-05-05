@@ -38,6 +38,7 @@ const PatientList: React.FC = () => {
             <IonCol>Blood Group</IonCol>
             <IonCol>Phone No</IonCol>
             <IonCol>Address</IonCol>
+            <IonCol>Email-ID</IonCol>
           </IonRow>
           {patients.map((patient) => (
             <IonRow key={patient.id}>
@@ -48,6 +49,7 @@ const PatientList: React.FC = () => {
               <IonCol>{patient.bloodGroup}</IonCol>
               <IonCol>{patient.phoneNo}</IonCol>
               <IonCol>{patient.address}</IonCol>
+              <IonCol>{patient.emailId}</IonCol>
             </IonRow>
           ))}
         </IonGrid>

@@ -24,6 +24,7 @@
     "@types/react-router-dom": "^5.3.3",
     "ionicons": "^7.0.0",
     "jwt-decode": "^4.0.0",
+    "nodemailer": "^6.9.13",
     "react": "^18.2.0",
     "react-audio-voice-recorder": "^2.2.0",
     "react-dom": "^18.2.0",
@@ -53,6 +54,7 @@
     "terser": "^5.4.0",
     "typescript": "^5.1.6",
     "vite": "^5.0.0",
+    "vite-plugin-node-polyfills": "^0.21.0",
     "vitest": "^0.34.6"
   },
   "description": "An Ionic project"

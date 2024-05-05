@@ -75,6 +75,7 @@ import ViewWards from './pages/doctor/ipd/ViewWards';
 import DeletePatient from './pages/admin/DeletePatient';
 import AddConsent from './pages/doctor/ipd/AddConsent';
 import RevokeConsent from './pages/admin/RevokeConsent';
+import ConsentForm from './pages/doctor/ipd/ConsentForm';
 setupIonicReact();
 
 const App = () => {
@@ -139,6 +140,8 @@ const App = () => {
           <PrivateRoute allowedRoles={['ADMIN']} exact path="/admin/add-nurse" component={TestSignUpNurse} />
           <PrivateRoute allowedRoles={['ADMIN']} exact path="/admin/delete-patient" component={DeletePatient} />  
           <PrivateRoute allowedRoles={['ADMIN']} exact path="/admin/patient-revoke-consent" component={RevokeConsent} /> 
+
+          <Route exact path="/patient/consent-form/:doctorId/:patientId" component={ConsentForm} />
           
         </IonRouterOutlet>
       </IonReactRouter>

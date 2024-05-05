@@ -1,41 +1,52 @@
-import { IonPage, IonContent, IonButton } from "@ionic/react"
+import { IonPage, IonContent, IonButton, IonAlert } from "@ionic/react"
 import { useForm } from "react-hook-form"
 import Header from "../../../components/Header"
-import React from "react"
+import React, { useEffect, useState } from "react"
 import TextInput from "../../../components/TextInput"
 import { useSelector } from "react-redux"
+
+interface pDetails{
+    id:number,
+    emailId:string
+}
 
 type FormInputs = {
     patientId:number
 }
 
 const AddConsent:React.FC = () => {
-
     const {control,handleSubmit,reset} = useForm()
     const user = useSelector((state: any) => state.user.currentUser);
+    const [eId,setEmailId] =useState<pDetails>();
+
+    useEffect(() => {
+        if(!eId)
+            return ;
+        sendEmail();
+    },[eId])
+
+    const sendEmail = () => {
+        /*Iske jagah pe ek mailer daalna hoga ki add-consent krte hi patient ke mail-id mein chalejae,fir ye call hogi.
+            Node mailer try kiya but error de rha hai ye. Koi aur ye mailer wala kaam karo.
+        */
+        console.log('patientId:' + eId?.id + ',emailId:' + eId?.emailId + ',doctorId:' + user.id)
+        console.log('send to localhost:8100/patient/consent-form/' + user.id + '/' + eId?.id)
+    }
 
     const onsubmit = async (data:any) => {
-
-        /*Iske jagah pe ek mailer daalna hoga ki add-consent krte hi patient ke mail-id mein chalejae,fir ye call hogi.*/
-        const pdata = {patientId:data.patientId,doctorId:user.id}
-
+        
         try {
-            const response = await fetch('http://localhost:8085/consent/add-consent', {
-                method:'POST',
-                headers:{
-                    'Content-Type':'application/json'
-                },
-                body:JSON.stringify(pdata)
-            });
+            const response = await fetch('http://localhost:8081/patient/get-demographics?id=' + data.patientId);
             if(!response.ok){
                 throw new Error('Failed to add consent')
             }
             const rdata=await response.json()
-            console.log('Added Consent')
+            setEmailId(rdata)
             reset()
         }catch(error){
             console.error("Error adding consent")
         }
+
     } 
 
     return (

@@ -47,6 +47,7 @@ public class PatientServiceImpl implements PatientService{
         dPatient.setAge(age);
         dPatient.setAddress("************");
         dPatient.setPhoneNo("************");
+        dPatient.setEmailId("************");
         dPatient.setRedacted(true);
         return patientRepo.save(dPatient);
     }
