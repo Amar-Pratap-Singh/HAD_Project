@@ -1,5 +1,6 @@
 .view-patients h1 {
     text-align: center;
+    /* width: 100%; */
 }
 
 .view-patients .table {

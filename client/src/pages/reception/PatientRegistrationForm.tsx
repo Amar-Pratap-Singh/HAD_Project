@@ -1,5 +1,5 @@
-import React from 'react';
-import { IonButton, IonCol, IonContent, IonGrid, IonInput, IonItem, IonPage, IonRadio, IonRadioGroup, IonRow } from '@ionic/react';
+import React, { useState } from 'react';
+import { IonButton, IonCol, IonContent, IonGrid, IonInput, IonItem, IonPage, IonRadio, IonRadioGroup, IonRow, IonToast } from '@ionic/react';
 import { Controller, useForm } from 'react-hook-form';
 import TextInput from "../../components/TextInput";
 import Header from '../../components/Header';
@@ -17,6 +17,8 @@ type FormInputs = {
 const PatientRegistrationForm: React.FC = () => {
 
   const { control, handleSubmit, reset } = useForm();
+  const [pid, setPid] = useState(0);
+  const [showToast, setShowToast] = useState(false);
 
   const onSubmit = async (data: any) => {
     
@@ -35,9 +37,14 @@ const PatientRegistrationForm: React.FC = () => {
         throw new Error('Failed to register patient');
       }
 
+      var responseData = await response.json();
+
       // Clear the form after successful submission
       reset();
-
+      
+      console.log(responseData.id);
+      setPid(responseData.id);
+      setShowToast(true);
       console.log('Patient registered successfully');
 
     } catch(error){
@@ -69,9 +76,17 @@ const PatientRegistrationForm: React.FC = () => {
           </IonItem>
           <TextInput name='phoneNo' placeHolder='Enter patient phone number' label='Phone Number' control={control}/>
           <TextInput name='address' placeHolder='Enter patient address' label='Address' control={control}/>
+
           <TextInput name='emailId' placeHolder='Enter patient email-id' label='Email ID' control={control}/>          
           <IonButton type='submit' shape='round'>Register</IonButton>
+
+          <IonButton id="open-toast" type='submit' shape='round'>Register</IonButton>
+
         </form>
+          
+        {showToast &&
+        <IonToast trigger="open-toast" message={`Patient Registered With ID ${pid}`} duration={4000}></IonToast>
+        }
       </IonContent>
     </IonPage>
   );

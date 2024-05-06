@@ -12,9 +12,14 @@ const DrawingImage = ({ imageData }) => {
     };
 
   return (
-    <div style={imgStyle}>
-        <img src={`${imageData}`} alt="Drawing" />
-    </div>
+    <>
+      {
+        imageData &&
+        <div style={imgStyle}>
+          <img src={`${imageData}`} alt="Drawing" />
+        </div>
+      }
+    </>
   );
 };
 

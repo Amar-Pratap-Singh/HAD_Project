@@ -12,8 +12,9 @@ import { useForm } from "react-hook-form";
 import TextInput from "../../components/TextInput";
 import Header from "../../components/Header";
 import "./NurseCreateEncounter.css";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
+
 
 type FormInputs = {
   temperature: number;
@@ -25,6 +26,8 @@ type FormInputs = {
 const NurseCreateEncounter: React.FC = () => {
   const { control, handleSubmit, reset } = useForm();
   const { patientId } = useParams<{ patientId: string }>();
+
+  const history = useHistory();
 
   const user = useSelector((state: any) => state.user.currentUser);
 
@@ -55,6 +58,7 @@ const NurseCreateEncounter: React.FC = () => {
       reset();
 
       console.log('Success');
+      history.push(`/nurse/patient-list`);
 
     } catch(error){
       console.error('Error adding patient record:', error);

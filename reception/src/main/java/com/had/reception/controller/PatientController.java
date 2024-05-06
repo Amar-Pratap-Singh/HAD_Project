@@ -36,5 +36,4 @@ public class PatientController {
     public Patient deletePatient(@RequestParam("id") Integer id){
         return patientService.deletePatient(id);
     }
-
 }
