@@ -78,7 +78,7 @@ const PatientRegistrationForm: React.FC = () => {
           <TextInput name='address' placeHolder='Enter patient address' label='Address' control={control}/>
 
           <TextInput name='emailId' placeHolder='Enter patient email-id' label='Email ID' control={control}/>          
-          <IonButton type='submit' shape='round'>Register</IonButton>
+          {/* <IonButton type='submit' shape='round'>Register</IonButton> */}
 
           <IonButton id="open-toast" type='submit' shape='round'>Register</IonButton>
 

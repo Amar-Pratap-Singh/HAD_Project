@@ -12,6 +12,7 @@ import { useParams } from "react-router";
 import Header from "../../../components/Header";
 import DrawingImage from "../../../toolkit/DrawingImage";
 import AudioPlayback from "../../../toolkit/AudioPlayback";
+import { useLocation } from 'react-router-dom';
 
 interface PatientDetails {
   id: number;

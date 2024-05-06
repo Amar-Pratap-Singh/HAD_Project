@@ -32,7 +32,7 @@ const AddConsent:React.FC = () => {
         const htmlData = '<p>Your consent form:<a href=\"http://localhost:8100/patient/consent-form/' + user.id + '/' + eId?.id + '\">Here</a></p>';
         console.log(htmlData,eId?.emailId);
         try{
-            const response = await fetch('http://localhost:5000/mail/send-mail',{
+            const response = await fetch('http://localhost:5001/mail/send-mail',{
                 method:'POST',
                 headers:{
                     'Content-Type':'application/json'

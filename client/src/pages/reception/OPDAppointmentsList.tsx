@@ -60,7 +60,7 @@ const OPDAppointmentsList: React.FC = () => {
               <IonRow key={patient.patientId}>
                 <IonCol>{patient.patientId}</IonCol>
                 <IonCol>{patient.reason}</IonCol>
-                <IonCol>{patient.doctor}</IonCol>
+                <IonCol>{patient.doctorId}</IonCol>
                 <IonCol>
                   <IonButton onClick={() => delData(patient.patientId)}>Cancel Appointment</IonButton>
                 </IonCol>

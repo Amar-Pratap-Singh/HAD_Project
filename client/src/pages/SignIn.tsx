@@ -1,8 +1,8 @@
 import { IonButton, IonPage } from '@ionic/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { jwtDecode } from 'jwt-decode';
 import TextInput from '../components/TextInput'
 import { authSuccess } from '../redux/user/userSlice';
@@ -14,7 +14,6 @@ function SignIn() {
   const [error, setError] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const dispath = useDispatch();
-
   const onSubmit = async (data: any) => {
     try{
       setError(false);

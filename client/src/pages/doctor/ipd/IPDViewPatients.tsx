@@ -13,7 +13,7 @@ import {
   IonCardSubtitle,
   IonCardTitle,
 } from "@ionic/react";
-import { Route, useHistory, useParams } from "react-router-dom";
+import { Route, useHistory, useParams, useLocation } from "react-router-dom";
 import Header from "../../../components/Header";
 
 const IPDViewPatients: React.FC = () => {
@@ -144,6 +144,9 @@ const IPDViewPatients: React.FC = () => {
   const { wardNo } = useParams<{ wardNo: any }>();
   const history = useHistory();
 
+  const dataLocation = useLocation();
+  const pids:any = dataLocation.state;
+
   const [searchText, setSearchText] = useState('');
 
   useEffect(() => {
@@ -193,7 +196,7 @@ const IPDViewPatients: React.FC = () => {
         <IonSearchbar value={searchText} onIonInput={e => setSearchText(e.detail.value || '')}></IonSearchbar>
         
         <div className="flex flex-wrap justify-center">
-          {patients.filter(patient => (patient.wardNo==wardNo))
+          {patients.filter(patient => (patient.wardNo==wardNo) && (pids.find((item:any) => item.id == patient.id)))
             .filter(patient => searchText == '' || patient.patientId==searchText)
             .map((patient, key) => (
             <IonCard className="cursor-pointer" key={key}>

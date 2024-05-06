@@ -27,6 +27,11 @@ public class OpdController {
         return opdService.getOpdAppointments();
     }
 
+    @GetMapping("/get-doctor-opd")
+    public List<OpdAppointment> getOpdDoctor(@RequestParam int doctorId){
+        return opdService.getOpdAppointmentsDoctor(doctorId);
+    }
+
     @PutMapping("/delete-opd-appointment")
     public void deleteOpdAppointment(@RequestParam Integer patientId){
         opdService.deleteOpdAppointment(patientId);

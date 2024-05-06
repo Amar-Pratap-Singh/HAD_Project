@@ -5,8 +5,8 @@ import TextInput from '../../components/TextInput';
 import Header from '../../components/Header';
 
 type FormInputs = {
-  patiendId: string,
-  doctorId: string,
+  patientId: number,
+  doctorId: number,
   wardNo: number,
   bedNo: number
 }
@@ -84,6 +84,8 @@ const IPDAdmissionForm: React.FC = () => {
   }
   
   const onSubmit = async (data: any) => {
+
+    const tdata = {patientId:data.patientId,wardNo:data.wardNo,bedNo:data.bedNo};
     
     try{
       const response = await fetch("http://localhost:8081/patient/ipdappointment", {
@@ -91,14 +93,31 @@ const IPDAdmissionForm: React.FC = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(tdata),
       });
 
       if (!response.ok) {
         throw new Error('Failed to register patient');
       }
-      reset();
-      console.log('Patient registetered to IPD successfully');
+    } 
+    catch(error){
+      console.error('Error registering patient:', error);
+    }
+
+    const cdata = {patientId:data.patientId,doctorId:data.doctorId}
+
+    try{
+      const response = await fetch("http://localhost:8085/consent/add-consent", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(cdata),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to register patient');
+      }
     } 
     catch(error){
       console.error('Error registering patient:', error);
