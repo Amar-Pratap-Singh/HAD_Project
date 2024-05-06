@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class OpdAppointment {
     @Id
     private int patientId;
-    private String doctor;
+    private int doctorId;
     private String reason;
     private boolean isactive;
 }
