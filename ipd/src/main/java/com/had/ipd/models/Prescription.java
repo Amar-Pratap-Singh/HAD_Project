@@ -37,7 +37,7 @@ public class Prescription {
     
     @Column(columnDefinition = "MEDIUMTEXT")
     private String audioNotes;
-
+    
     @Column(columnDefinition = "MEDIUMTEXT")
     private String audioInstructions;
 
