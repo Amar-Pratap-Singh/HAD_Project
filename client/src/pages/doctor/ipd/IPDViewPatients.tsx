@@ -178,6 +178,11 @@ const IPDViewPatients: React.FC = () => {
     history.push(`/doctor/ipd/add-encounter/` + patientId);
   };
 
+  const viewNurseEncounter = (patientId: any) => {
+    history.push(`/nurse/patient-details/` + patientId);
+    location.reload();
+  };
+
   return (
     <IonPage>
       <Header/>
@@ -201,6 +206,7 @@ const IPDViewPatients: React.FC = () => {
               </IonCardHeader>
               <IonCardContent>
                 <IonButton className="w-full" onClick={() => viewPatientDetails(patient.patientId)}>View Details</IonButton>
+                <IonButton className="w-full" onClick={() => viewNurseEncounter(patient.patientId)}>Nurse Encounter</IonButton>
                 <IonButton className="w-full" onClick={() => addEncounter(patient.patientId)}>Add Encounter</IonButton>
                 <IonButton className="w-full" onClick={() => console.log("Discharged")}>Discharge</IonButton>
               </IonCardContent>

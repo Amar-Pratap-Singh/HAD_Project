@@ -18,7 +18,7 @@ import com.had.lab.model.DiagnosisReport;
 import com.had.lab.service.DiagnosisReportService;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin
 @RequestMapping("/lab")
 public class DiagnosisReportController {
     
@@ -26,8 +26,10 @@ public class DiagnosisReportController {
     private DiagnosisReportService diagnosisReportService;
 
     @PostMapping("/get-diagnosis-file-path")
-    public ResponseEntity<String> getDiagnosisReportPath(@RequestParam("file") MultipartFile file, @RequestParam("patientId") int patientId){
-        return diagnosisReportService.saveDiagnosisReportImage(file, patientId);
+    public ResponseEntity<String> getDiagnosisReportPath(@RequestParam(name="file", required=false) MultipartFile file, @RequestParam(name="patientId", required=false) String patientId){
+        System.out.println("here i am " + patientId);
+        // return new ResponseEntity("File uploaded successfully");
+        // return diagnosisReportService.saveDiagnosisReportImage(file, 202);
     }
 
     @PostMapping("/add-diagnosis-report")

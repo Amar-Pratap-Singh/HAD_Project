@@ -39,6 +39,12 @@ const NurseViewPatients: React.FC = () => {
     history.push(`/nurse/add-encounter/`+ patientId);
   };
 
+
+  const viewDoctorEncounter = (patientId: any)  => {
+    history.push(`/doctor/ipd/patient-details/` + patientId);
+  }
+
+
   return (
     <div className="view-patients">
       <IonPage>
@@ -56,8 +62,8 @@ const NurseViewPatients: React.FC = () => {
             {patients.map((patient) => (
               <IonRow key={patient.id}>
                 <IonCol>{patient.patientId}</IonCol>
-                <IonCol>{patient.bed_no}</IonCol>
-                <IonCol>{patient.ward_no}</IonCol>
+                <IonCol>{patient.bedNo}</IonCol>
+                <IonCol>{patient.wardNo}</IonCol>
                 <IonCol>
                   {/* Button to view patient details */}
                   <IonButton onClick={() => viewPatientDetails(patient.patientId)}>View Details</IonButton>
@@ -65,6 +71,10 @@ const NurseViewPatients: React.FC = () => {
                 <IonCol>
                   {/* Button to add encounter */}
                   <IonButton onClick={() => addEncounter(patient.patientId)}>Add Encounter</IonButton>
+                </IonCol>
+                <IonCol>
+                  {/* Button to add encounter */}
+                  <IonButton onClick={() => viewDoctorEncounter(patient.patientId)}>Doctor Encounter</IonButton>
                 </IonCol>
               </IonRow>
             ))}

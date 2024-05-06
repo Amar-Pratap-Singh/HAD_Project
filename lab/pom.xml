@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.had</groupId>
-	<artifactId>ipd</artifactId>
+	<artifactId>lab</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ipd</name>
-	<description>IPD Service</description>
+	<name>lab</name>
+	<description>Lab Service</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

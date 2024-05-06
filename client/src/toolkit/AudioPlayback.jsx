@@ -25,15 +25,19 @@ const AudioPlayback = ({ audioData }) => {
 
   return (
     <div>
+      {audioData && 
+      <>
       <button onClick={handleDecodeAudio}>Play Audio</button>
       {audioUrl && (
         <div>
-          <p>Audio Playback:</p>
-          <audio controls>
+        <p>Audio Playback:</p>
+        <audio controls>
             <source src={audioUrl} type="audio/mp3" />
           </audio>
         </div>
-      )}
+        )}
+      </>
+      }
     </div>
   );
 };

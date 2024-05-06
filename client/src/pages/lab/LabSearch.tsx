@@ -46,18 +46,29 @@ const LabSearch: React.FC = () => {
           for (var i=0; i<files.length ;i++){
 
             var file = files[i];
+            
             var formData = new FormData();
             
             formData.append("file", file);
             formData.append("patientId", pid);
+
+            // var formData = {"file":file,"patientId":pid}
             console.log(formData);
 
-            const path = getDiagnosisImagePath(formData);
+    
+            const response = await axios.post('http://localhost:8087/lab/get-diagnosis-file-path', formData, {
+              // headers: {
+              //   'Content-Type': 'multipart/form-data',
+              // },
+            });
 
-            var data = {
-              "path": path, 
-              "patientId": pid
-            }
+                  
+            // } 
+
+            // var data = {
+            //   "path": path, 
+            //   "patientId": pid
+            // }
 
             // addDiagnosisImage(data);
         }
@@ -70,19 +81,24 @@ const LabSearch: React.FC = () => {
   }
 
   const getDiagnosisImagePath = async (formData:any) => {
+    console.log(formData.get('patientId'));
+    console.log(formData.get('file'));
+    // var data = {"file": formData.get('file'), "patientId": formData.get('patientId')};
+
     try {
-      const response = await fetch(`http://localhost:8087/lab/get-diagnosis-file-path`, {
+      const response = await fetch(`http://localhost:8087/lab/get-diagnosis-file-path` , {
         method: 'POST',
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        body: JSON.stringify(formData),
+        //headers: {
+        //  'Content-Type': 'multipart/form-data',
+        //},
+        body: JSON.stringify(formData)
+        //  body: JSON.stringify({file:formData.get('file'),patientId:formData.get('patientId')})
       });
 
-      const data = await response.json();
-      console.log(data);
+      // const data = await response.json();
+      // console.log(data);
 
-      return data;
+      return response;
 
     } catch (error) {
       console.error("Error fetching file path:", error);
