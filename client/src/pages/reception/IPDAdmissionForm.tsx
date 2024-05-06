@@ -6,9 +6,14 @@ import Header from '../../components/Header';
 
 type FormInputs = {
   patiendId: string,
-  department: string,
+  doctorId: string,
   wardNo: number,
   bedNo: number
+}
+
+type docPair = {
+  doctorId: number,
+  doctorName: string 
 }
 
 const IPDAdmissionForm: React.FC = () => {
@@ -17,12 +22,17 @@ const IPDAdmissionForm: React.FC = () => {
 
   const [wardNoOptions, setWardNoOptions] = useState<number[]>([]);
   const [bedNoOptions, setBedNoOptions] = useState<number[]>([]);
+  const [doctorPairs, setDoctorPairs] = useState<docPair[]>([]);
+
   const wardNo = watch('wardNo');
   const bedNo = watch('bedNo');
+  const doctorId = watch('doctorId');
 
   useEffect(() => {
+    fetchDoctors();
     fetchWardNumbers();
   }, []);
+
 
   const fetchWardNumbers = async () => {
     try {
@@ -39,6 +49,24 @@ const IPDAdmissionForm: React.FC = () => {
     }
   }
 
+    const fetchDoctors = async () => {
+      try {
+        //Fetch ward numbers from backend
+        const response = await fetch("http://localhost:8082/api/auth/get-doctors");
+        if (!response.ok) {
+          throw new Error('Failed to fetch ward numbers');
+        }
+        const data = await response.json(); // Convert response to JSON
+        const doctorPairs = data.map((doctor: any) => ({ doctorId: doctor.id, doctorName: doctor.name }));
+
+      // Setting the extracted pairs into the state
+        console.log(doctorPairs);
+        setDoctorPairs(doctorPairs);
+      } 
+      catch (error) {
+        console.error('Error fetching ward numbers:', error);
+      }
+    }
   const handleWardNoChange = async (selectedValue: number) => {
     try {
       //Fetch available bed numbers for the selected ward from backend
@@ -75,6 +103,27 @@ const IPDAdmissionForm: React.FC = () => {
     catch(error){
       console.error('Error registering patient:', error);
     }
+    
+    console.log(data);
+    const consent_data = {doctorId: data.doctorId, patientId: data.patientId}
+     try{
+      const response = await fetch("http://localhost:8085/consent/add-consent", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(consent_data),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to register patient');
+      }
+      // reset();
+      console.log('Patient consent added successfully');
+    } 
+    catch(error){
+      console.error('Error adding consent:', error);
+    }
   }
 
   return (
@@ -86,9 +135,24 @@ const IPDAdmissionForm: React.FC = () => {
 
           <TextInput name='patientId' placeHolder='Enter patient ID' label='Patient ID' control={control}/>
           
-          <TextInput name='department' placeHolder='Enter admission department' label='Department' control={control}/>
           
           <IonItem className='border-2 border-solid border-black my-3'>
+          <Controller
+            name="doctorId"
+            control={control}
+            render={({ field }) => (
+              <IonSelect value={doctorId}  placeholder='Select Doctor' onIonChange={e => { field.onChange(e.detail.value); handleWardNoChange(parseInt(e.detail.value, 10)); }}>
+                {doctorPairs.map((doctor) => ( 
+                  <IonSelectOption key={doctor.doctorId} value={doctor.doctorId}>
+                    {`${doctor.doctorId} - ${doctor.doctorName}`} 
+                  </IonSelectOption>
+                ))}
+              </IonSelect>
+            )}
+          />
+        </IonItem>
+
+        <IonItem className='border-2 border-solid border-black my-3'>
             <Controller
               name="wardNo"
               control={control}
@@ -103,6 +167,7 @@ const IPDAdmissionForm: React.FC = () => {
               )}
             />
           </IonItem>
+
 
           <IonItem className='border-2 border-solid border-black my-3'>
             <Controller
