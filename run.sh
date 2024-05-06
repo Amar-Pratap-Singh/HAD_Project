@@ -7,5 +7,7 @@ cd ../opd
 mvn spring-boot:run &
 cd ../ipd
 mvn spring-boot:run &
+cd ../smtpserv
+mvn spring-boot:run &
 cd ../client
 ionic serve &

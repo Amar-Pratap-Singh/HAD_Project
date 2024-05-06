@@ -25,12 +25,29 @@ const AddConsent:React.FC = () => {
         sendEmail();
     },[eId])
 
-    const sendEmail = () => {
+    const sendEmail = async () => {
         /*Iske jagah pe ek mailer daalna hoga ki add-consent krte hi patient ke mail-id mein chalejae,fir ye call hogi.
             Node mailer try kiya but error de rha hai ye. Koi aur ye mailer wala kaam karo.
         */
-        console.log('patientId:' + eId?.id + ',emailId:' + eId?.emailId + ',doctorId:' + user.id)
-        console.log('send to localhost:8100/patient/consent-form/' + user.id + '/' + eId?.id)
+        const htmlData = '<p>Your consent form:<a href=\"http://localhost:8100/patient/consent-form/' + user.id + '/' + eId?.id + '\">Here</a></p>';
+        console.log(htmlData,eId?.emailId);
+        try{
+            const response = await fetch('http://localhost:5000/mail/send-mail',{
+                method:'POST',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify({mailId:eId?.emailId,body:htmlData})
+            })
+            if(!response.ok){
+                throw new Error('Failed to write email')
+            }
+            const rdata=await response.text();
+            console.log('Send mail success')
+            reset()
+        }catch(error){
+            console.error('Unable to write email')
+        }
     }
 
     const onsubmit = async (data:any) => {
@@ -42,7 +59,6 @@ const AddConsent:React.FC = () => {
             }
             const rdata=await response.json()
             setEmailId(rdata)
-            reset()
         }catch(error){
             console.error("Error adding consent")
         }
