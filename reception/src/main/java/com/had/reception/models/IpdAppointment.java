@@ -15,4 +15,6 @@ public class IpdAppointment {
     private Integer patientId;
     private Integer wardNo;
     private Integer bedNo;
+    private Integer doctorId;
+
 }

@@ -3,9 +3,13 @@ package com.had.authenticationservice.service;
 import com.had.authenticationservice.dto.LoginRequest;
 import com.had.authenticationservice.dto.SignupRequest;
 import com.had.authenticationservice.jwt.JwtService;
+import com.had.authenticationservice.model.Role;
 import com.had.authenticationservice.model.User;
 import com.had.authenticationservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -48,5 +52,10 @@ public class AuthenticationService {
         catch (Exception e) {
             throw new BadCredentialsException("Incorrect password");
         }
+    }
+
+    public List<User> findByRole(Role role)
+    {
+        return userRepository.findByRole(role);
     }
 }
