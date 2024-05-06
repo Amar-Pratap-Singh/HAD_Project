@@ -5,9 +5,9 @@ import Header from '../../components/Header';
 import TextInput from '../../components/TextInput';
 
 type FormInputs = {
-  patiendId: string,
+  patiendId: number,
   reason: string,
-  doctor: string
+  doctorId: number
 }
 
 const OPDAppointmentForm: React.FC = () => {
@@ -33,8 +33,8 @@ const OPDAppointmentForm: React.FC = () => {
 
       // Clear the form after successful submission
       reset();
-
-      console.log('Patient registetered to IPD successfully');
+      console.log(data);
+      console.log('Patient registetered to OPD successfully');
 
     } catch(error){
       console.error('Error registering patient:', error);
@@ -49,7 +49,7 @@ const OPDAppointmentForm: React.FC = () => {
           <h1 className='text-center text-xl font-semibold'>Add OPD Appointment</h1>
           <TextInput name='patientId' placeHolder='Enter patient ID' label='Patient ID' control={control}/>  
           <TextInput name='reason' placeHolder='Enter appointment date' label='Appointment Date' control={control}/> 
-          <TextInput name='doctor' placeHolder='Enter doctor name' label='Doctor Name' control={control}/>
+          <TextInput name='doctorId' placeHolder='Enter doctor ID' label='Doctor ID' control={control}/>
           <IonButton type='submit' shape='round'>Add Appointment</IonButton>
         </form>
       </IonContent>

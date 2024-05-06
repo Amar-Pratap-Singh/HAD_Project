@@ -25,6 +25,11 @@ public class OpdServiceImpl implements OpdService{
     }
 
     @Override
+    public List<OpdAppointment> getOpdAppointmentsDoctor(int doctorId) {
+        return opdAppointmentRepo.findAllByDoctorIdAndIsactiveTrue(doctorId);
+    }
+
+    @Override
     public OpdAppointment deleteOpdAppointment(Integer patientId) {
         Optional<OpdAppointment> tp=opdAppointmentRepo.findById(patientId);
         if(tp.isEmpty())

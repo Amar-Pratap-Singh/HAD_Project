@@ -76,6 +76,7 @@ import DeletePatient from './pages/admin/DeletePatient';
 import AddConsent from './pages/doctor/ipd/AddConsent';
 import RevokeConsent from './pages/admin/RevokeConsent';
 import ConsentForm from './pages/doctor/ipd/ConsentForm';
+
 setupIonicReact();
 
 const App = () => {

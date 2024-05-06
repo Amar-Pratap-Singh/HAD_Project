@@ -18,16 +18,16 @@ const AdminMenu: React.FC = () => {
               <IonLabel>Sign Up</IonLabel>
             </IonItem>
           </IonMenuToggle>
-          <IonMenuToggle>
+          {/* <IonMenuToggle>
             <IonItem routerLink="/admin/add-doctor" routerDirection="none">
               <IonLabel>Add Doctor</IonLabel>
             </IonItem>
-          </IonMenuToggle>
-          <IonMenuToggle>
+          </IonMenuToggle> */}
+          {/* <IonMenuToggle>
             <IonItem routerLink="/admin/add-nurse" routerDirection="none">
               <IonLabel>Add Nurse</IonLabel>
             </IonItem>
-          </IonMenuToggle>
+          </IonMenuToggle> */}
           <IonMenuToggle>
             <IonItem routerLink="/admin/delete-patient" routerDirection="none">
               <IonLabel color='danger'>Delete Patient</IonLabel>

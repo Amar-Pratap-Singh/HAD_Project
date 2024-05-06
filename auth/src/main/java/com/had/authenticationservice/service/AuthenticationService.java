@@ -26,6 +26,7 @@ public class AuthenticationService {
             throw new IllegalArgumentException("User with email already exists");
         });
         User user = new User();
+        user.setName(request.getName());
         user.setEmail(request.getEmail());
         user.setRole(request.getRole());
         user.setPassword(passwordEncoder.encode(request.getPassword()));

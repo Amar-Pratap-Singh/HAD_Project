@@ -11,4 +11,5 @@ import java.util.List;
 @Repository
 public interface OpdAppointmentRepo extends JpaRepository<OpdAppointment, Integer> {
     List<OpdAppointment> findAllByIsactiveTrue();
+    List<OpdAppointment> findAllByDoctorIdAndIsactiveTrue(int doctorId);
 }

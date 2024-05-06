@@ -21,7 +21,7 @@ const Header: React.FC = () => {
         <IonTitle className='text-black font-bold'>Hospital System</IonTitle>
         <IonButtons slot='end'>
           <IonButton disabled={true} className='text-black font-bold'>{user.id}</IonButton>
-          <IonButton disabled={true} className='text-black font-bold'>{user.sub}</IonButton>
+          <IonButton disabled={true} className='text-black font-bold'>{user.name}</IonButton>
           <IonButton disabled={true} className='text-black font-bold'>{user.role}</IonButton>
           <IonButton onClick={handleSignOut} className='text-black font-bold bg-gray-200'>Sign Out</IonButton>
         </IonButtons>
