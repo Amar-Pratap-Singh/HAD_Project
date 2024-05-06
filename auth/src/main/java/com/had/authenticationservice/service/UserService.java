@@ -1,7 +1,12 @@
 package com.had.authenticationservice.service;
 
+import com.had.authenticationservice.model.Role;
+import com.had.authenticationservice.model.User;
 import com.had.authenticationservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
