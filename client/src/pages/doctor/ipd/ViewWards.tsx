@@ -13,16 +13,31 @@ import {
 } from "@ionic/react";
 import { Route, useHistory } from "react-router-dom";
 import Header from "../../../components/Header";
+import { useSelector, useDispatch } from 'react-redux';
+import { State } from "ionicons/dist/types/stencil-public-runtime";
 
 const ViewWards: React.FC = () => {
 
   const history = useHistory();
   const [wards, setWards] = useState([1, 2, 3, 4, 5, 6, 7, 8]);
   const [selectedKey, setSelectedKey] = useState(null);
+  const [pids, setPids] = useState([]);
+
+  useEffect(()=>{
+    doctorPatientFetch();
+  });
+
+  const user = useSelector((state: any) => state.user.currentUser);
 
   const handleWardClick = (key: any) => {
-    history.push(`/doctor/ipd/patient-list/` + key);
+    history.push(`/doctor/ipd/patient-list/` + key, pids);
   };
+
+  const doctorPatientFetch = async () => {
+    const res = await fetch('http://localhost:8085/consent/get-patients?doctorId=' + user.id);
+    const response = await res.json();
+    setPids(response);
+  }
 
   return (
     <IonPage>
