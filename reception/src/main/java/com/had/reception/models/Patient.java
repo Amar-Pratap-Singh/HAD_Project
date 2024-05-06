@@ -32,5 +32,7 @@ public class Patient {
     private String phoneNo;
     @Convert(converter = StringCryptoConverter.class) 
     private String address;
+    @Convert(converter = StringCryptoConverter.class)
+    private String emailId;
     private boolean redacted;
 }

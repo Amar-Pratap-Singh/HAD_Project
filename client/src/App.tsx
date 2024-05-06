@@ -73,6 +73,9 @@ import TestSignUpNurse from './pages/admin/TestSignUpNurse';
 import SignIn from './pages/SignIn';
 import ViewWards from './pages/doctor/ipd/ViewWards';
 import DeletePatient from './pages/admin/DeletePatient';
+import AddConsent from './pages/doctor/ipd/AddConsent';
+import RevokeConsent from './pages/admin/RevokeConsent';
+import ConsentForm from './pages/doctor/ipd/ConsentForm';
 setupIonicReact();
 
 const App = () => {
@@ -124,6 +127,7 @@ const App = () => {
           <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/ipd/view-wards/" component={ViewWards} />
           <PrivateRoute allowedRoles={['DOCTOR', 'CLINICAL_ASSISTANT']} exact path="/doctor/ipd/patient-details/:patientId" component={PatientDetails} />
           <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/ipd/patient-list/:wardNo" component={IPDViewPatients} />
+          <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/ipd/patient-get-consent" component={AddConsent} />
 
           {/* Doctor Pages - OPD */}
           <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/opd/patient-list" component={OPDViewPatients} />
@@ -135,6 +139,9 @@ const App = () => {
           <PrivateRoute allowedRoles={['ADMIN']} exact path="/admin/add-doctor" component={TestSignUpDoctor} />
           <PrivateRoute allowedRoles={['ADMIN']} exact path="/admin/add-nurse" component={TestSignUpNurse} />
           <PrivateRoute allowedRoles={['ADMIN']} exact path="/admin/delete-patient" component={DeletePatient} />  
+          <PrivateRoute allowedRoles={['ADMIN']} exact path="/admin/patient-revoke-consent" component={RevokeConsent} /> 
+
+          <Route exact path="/patient/consent-form/:doctorId/:patientId" component={ConsentForm} />
           
         </IonRouterOutlet>
       </IonReactRouter>

@@ -23,6 +23,11 @@ const DoctorMenu: React.FC = () => {
               <IonLabel>View my OPD Patients</IonLabel>
             </IonItem>
           </IonMenuToggle>
+          <IonMenuToggle>
+            <IonItem routerLink="/doctor/ipd/patient-get-consent" routerDirection="none">
+              <IonLabel>Get patient consent</IonLabel>
+            </IonItem>
+          </IonMenuToggle>
         </IonList>
       </IonContent>
     </IonMenu>
