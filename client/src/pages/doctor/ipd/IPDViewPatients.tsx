@@ -147,6 +147,8 @@ const IPDViewPatients: React.FC = () => {
   const dataLocation = useLocation();
   const pids:any = dataLocation.state;
 
+  // console.log(pids);
+
   const [searchText, setSearchText] = useState('');
 
   useEffect(() => {
@@ -164,6 +166,7 @@ const IPDViewPatients: React.FC = () => {
       }
       const data = await response.json();
       setPatients(data);
+      console.log(data);
     } 
     catch (error) {
       console.error("Error fetching data:", error);
@@ -196,7 +199,8 @@ const IPDViewPatients: React.FC = () => {
         <IonSearchbar value={searchText} onIonInput={e => setSearchText(e.detail.value || '')}></IonSearchbar>
         
         <div className="flex flex-wrap justify-center">
-          {patients.filter(patient => (patient.wardNo==wardNo) && (pids.find((item:any) => item.id == patient.id)))
+          {/* <p>{pids.length}</p> */}
+          {patients.filter(patient => (patient.wardNo == wardNo) && (pids && pids.find((item:any) => item.id == patient.patientId)))
             .filter(patient => searchText == '' || patient.patientId==searchText)
             .map((patient, key) => (
             <IonCard className="cursor-pointer" key={key}>

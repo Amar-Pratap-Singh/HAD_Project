@@ -1,6 +1,7 @@
 package com.had.lab.controller;
 
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,16 +26,9 @@ public class DiagnosisReportController {
     @Autowired 
     private DiagnosisReportService diagnosisReportService;
 
-    @PostMapping("/get-diagnosis-file-path")
-    public ResponseEntity<String> getDiagnosisReportPath(@RequestParam(name="file", required=false) MultipartFile file, @RequestParam(name="patientId", required=false) String patientId){
-        System.out.println("here i am " + patientId);
-        // return new ResponseEntity("File uploaded successfully");
-        // return diagnosisReportService.saveDiagnosisReportImage(file, 202);
-    }
-
     @PostMapping("/add-diagnosis-report")
-    public DiagnosisReport addDiagnosisReport(@RequestBody DiagnosisReport diagnosisReport){
-        return diagnosisReportService.saveDiagnosisReport(diagnosisReport);
+    public ResponseEntity<String> getDiagnosisReportPath(@RequestParam(name="files") MultipartFile[] files, @RequestParam(name="patientId") Integer patientId){
+        return diagnosisReportService.saveDiagnosisReportImage(files, patientId);
     }
 
     @GetMapping("/get-diagnosis-report-by-patient-id")

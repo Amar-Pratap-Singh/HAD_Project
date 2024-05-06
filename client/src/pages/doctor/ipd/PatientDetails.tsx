@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
+  IonButton,
   IonCard,
   IonCardContent,
   IonCardHeader,
@@ -12,7 +13,7 @@ import { useParams } from "react-router";
 import Header from "../../../components/Header";
 import DrawingImage from "../../../toolkit/DrawingImage";
 import AudioPlayback from "../../../toolkit/AudioPlayback";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 
 interface PatientDetails {
   id: number;
@@ -55,9 +56,11 @@ interface EncounterWrapper {
 
 const PatientDetailsPage: React.FC = () => {
 
-  const { patientId } = useParams<{ patientId: string }>();;
+  const { patientId } = useParams<{ patientId: string }>();
   const [patientDetails, setPatientDetails] = useState<PatientDetails>();
   const [encounters, setEncounters] = useState<EncounterWrapper[]>([]);
+
+  const history = useHistory();
 
   useEffect(() => {
     fetchPatientDetails();
@@ -117,6 +120,10 @@ const PatientDetailsPage: React.FC = () => {
     }
   };
 
+  const viewDiagnosisReport = () => {
+    history.push(`/doctor/diagnosis-report/` + patientId);
+  }
+
   return (
     <IonPage>
       <Header/>
@@ -129,6 +136,8 @@ const PatientDetailsPage: React.FC = () => {
           <p>Gender: {patientDetails?.gender}</p>
           <p>Blood Group: {patientDetails?.bloodGroup}</p>
         </div>
+
+        <IonButton onClick={viewDiagnosisReport}> Diagnosis Report </IonButton>
 
         {encounters.map((encounter, index) => (
           <div key={index} className="border-2 border-solid border-black mx-10 my-5 p-3 flex flex-col gap-4">

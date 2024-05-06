@@ -76,6 +76,7 @@ import DeletePatient from './pages/admin/DeletePatient';
 import AddConsent from './pages/doctor/ipd/AddConsent';
 import RevokeConsent from './pages/admin/RevokeConsent';
 import ConsentForm from './pages/doctor/ipd/ConsentForm';
+import ViewDiagnosisReport from './pages/doctor/ViewDiagnosisReport';
 
 setupIonicReact();
 
@@ -130,6 +131,8 @@ const App = () => {
           <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/ipd/patient-list/:wardNo" component={IPDViewPatients} />
           <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/ipd/patient-get-consent" component={AddConsent} />
 
+          <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/diagnosis-report/:patientId" component={ViewDiagnosisReport} />
+          
           {/* Doctor Pages - OPD */}
           <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/opd/patient-list" component={OPDViewPatients} />
           <PrivateRoute allowedRoles={['DOCTOR']} exact path="/doctor/opd/create-prescription/:patientId" component={OPDCreatePrescription} />

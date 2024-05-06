@@ -13,7 +13,7 @@ import {
   IonCardTitle
 } from "@ionic/react";
 import Header from "../../../components/Header";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 
 interface PatientDetails {
   id: number;
@@ -65,6 +65,7 @@ const OPDGetPatientDetails: React.FC = () => {
   const { patientId } = useParams<{ patientId: string }>();
   const [patientDetails, setPatientDetails] = useState<PatientDetails>();
   const [encounters, setEncounters] = useState<EncounterWrapper[]>([]);
+  const history = useHistory();
 
   useEffect(() => {
     fetchPatientDetails();
@@ -122,6 +123,12 @@ const OPDGetPatientDetails: React.FC = () => {
     }
   };
 
+  const viewDiagnosisReport = () => {
+    history.push(`/doctor/diagnosis-report/` + patientId);
+  }
+
+
+
   return (
     <IonPage>
       <Header/>
@@ -134,6 +141,8 @@ const OPDGetPatientDetails: React.FC = () => {
           <p>Gender: {patientDetails?.gender}</p>
           <p>Blood Group: {patientDetails?.bloodGroup}</p>
         </div>
+
+        <IonButton onClick={viewDiagnosisReport}> Diagnosis Report </IonButton>
 
         {encounters.map((encounter, index) => (
           <div key={index} className="border-2 border-solid border-black mx-10 my-5 p-3 flex flex-col gap-4">

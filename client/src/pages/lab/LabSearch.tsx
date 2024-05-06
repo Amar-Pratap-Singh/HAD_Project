@@ -1,5 +1,5 @@
-import React,  { useState, useEffect } from "react";
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {
   IonPage,
   IonContent,
@@ -26,113 +26,60 @@ const LabSearch: React.FC = () => {
   const [pid, setPID] = useState("");
   const [patientDetails, setPatientDetails] = useState<PatientDetails>();
   const [fileChoose, setFileChoose] = useState(false);
+  const [selectedFilesPath, setSelectedFilesPath] = useState([]);
 
   const handleFormSubmit = () => {
-    setFileChoose(true);
-    fetchPatientDetails();
+    fetchPatientDetails(); 
+    if (patientDetails) setFileChoose(true);
   };
 
-
   const addDiagnosisReport = async () => {
-    var fileInput = document.querySelector('input[type="file"]');
-    if (fileInput instanceof HTMLInputElement) {
-      // Get the selected file(s)
-      var files = fileInput.files;
+    const fileInput = document.getElementById("fileInput") as HTMLInputElement;
+    if (!fileInput.files || fileInput.files.length === 0) {
+      console.error("No files selected.");
+      return;
+    }
 
-      // Check if any file is selected
-      if (files && files.length > 0) {
-          // Assuming you want to upload only the first file selected
-          
-          for (var i=0; i<files.length ;i++){
+    const formData = new FormData();
+    for (let i = 0; i < fileInput.files.length; i++) {
+      const file = fileInput.files[i];
+      formData.append("files", file);
+    }
 
-            var file = files[i];
-            
-            var formData = new FormData();
-            
-            formData.append("file", file);
-            formData.append("patientId", pid);
+    formData.append("patientId", pid);
 
-            // var formData = {"file":file,"patientId":pid}
-            console.log(formData);
-
-    
-            const response = await axios.post('http://localhost:8087/lab/get-diagnosis-file-path', formData, {
-              // headers: {
-              //   'Content-Type': 'multipart/form-data',
-              // },
-            });
-
-                  
-            // } 
-
-            // var data = {
-            //   "path": path, 
-            //   "patientId": pid
-            // }
-
-            // addDiagnosisImage(data);
+    try {
+      const response = await fetch(
+        "http://localhost:8087/lab/add-diagnosis-report",
+        {
+          method: "POST",
+          body: formData,
         }
-      } 
-      else {
-          console.log("No file selected");
-          // Handle case where no file is selected
+      );
+
+      if (response.ok) {
+        console.log(response);
+      } else {
+        console.error("Failed to add records.");
       }
-    }
-  }
-
-  const getDiagnosisImagePath = async (formData:any) => {
-    console.log(formData.get('patientId'));
-    console.log(formData.get('file'));
-    // var data = {"file": formData.get('file'), "patientId": formData.get('patientId')};
-
-    try {
-      const response = await fetch(`http://localhost:8087/lab/get-diagnosis-file-path` , {
-        method: 'POST',
-        //headers: {
-        //  'Content-Type': 'multipart/form-data',
-        //},
-        body: JSON.stringify(formData)
-        //  body: JSON.stringify({file:formData.get('file'),patientId:formData.get('patientId')})
-      });
-
-      // const data = await response.json();
-      // console.log(data);
-
-      return response;
-
     } catch (error) {
-      console.error("Error fetching file path:", error);
+      console.error("Error adding records: ", error);
     }
-  }
+  };
 
-  const addDiagnosisImage = async (data:any) => {
-    try {
-      const response = await fetch(`http://localhost:8087/lab/add-diagnosis-report`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      const responseData = await response.json();
-      console.log(responseData);
-
-    } catch (error) {
-      console.error("Error fetching file path:", error);
-    }
-  }
 
   const fetchPatientDetails = async () => {
     try {
       const response = await fetch(
         `http://localhost:8081/patient/get-demographics?id=` + pid
       );
-      if (!response.ok) {
+      if (response.ok) {
+        const data = await response.json();
+        setPatientDetails(data);
+      }
+      else{
         throw new Error("Failed to fetch patient details");
       }
-      const data = await response.json();
-      setPatientDetails(data);
     } catch (error) {
       console.error("Error fetching patient details:", error);
     }
@@ -173,12 +120,18 @@ const LabSearch: React.FC = () => {
                 <p>Blood Group: {patientDetails?.bloodGroup}</p>
               </div>
 
-              <form id="fileUploadForm">
-                <input type="file" name="file" multiple></input>
-                <IonButton onClick={addDiagnosisReport}>
-                  Add Diagnosis Report
-                </IonButton>
-              </form>
+              {/* <form id="fileUploadForm"> */}
+              <input
+                type="file"
+                id="fileInput"
+                name="file"
+                // onChange={handleFileChange}
+                multiple
+              ></input>
+              <IonButton onClick={addDiagnosisReport}>
+                Add Diagnosis Report
+              </IonButton>
+              {/* </form> */}
             </>
           )}
         </IonContent>

@@ -30,6 +30,7 @@ const ViewWards: React.FC = () => {
   const user = useSelector((state: any) => state.user.currentUser);
 
   const handleWardClick = (key: any) => {
+    console.log(pids);
     history.push(`/doctor/ipd/patient-list/` + key, pids);
   };
 

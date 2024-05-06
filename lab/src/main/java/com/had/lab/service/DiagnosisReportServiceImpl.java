@@ -1,6 +1,9 @@
 package com.had.lab.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -33,13 +36,13 @@ public class DiagnosisReportServiceImpl implements DiagnosisReportService {
         return diagnosisReportRepo.findAllByPatientId(patientId);
     }
 
-    @Override
-    public DiagnosisReport saveDiagnosisReport(DiagnosisReport diagnosisReport){
-        return diagnosisReportRepo.save(diagnosisReport);
-    }
+    // @Override
+    // public DiagnosisReport saveDiagnosisReport(DiagnosisReport diagnosisReport){
+    //     return diagnosisReportRepo.save(diagnosisReport);
+    // }
 
     @Override
-    public ResponseEntity<String> saveDiagnosisReportImage(MultipartFile file, int patientId) {
+    public ResponseEntity<String> saveDiagnosisReportImage(MultipartFile[] files, int patientId) {
         // Create the upload directory if it doesn't exist
         File uploadDir = new File(UPLOAD_DIR);
         if (!uploadDir.exists()) {
@@ -47,21 +50,25 @@ public class DiagnosisReportServiceImpl implements DiagnosisReportService {
         }
 
         try {
-            // Generate a unique filename for the uploaded file
-            String fileName = patientId + "_" + System.currentTimeMillis() + "_" + file.getOriginalFilename();
 
-            Path filePath = Paths.get(UPLOAD_DIR, fileName);
-            Files.copy(file.getInputStream(), filePath);
-            String path = filePath.toString();
+            for (int i=0; i<files.length ;i++){
 
-            HttpHeaders headers = new HttpHeaders();
-            headers.add("Access-Control-Allow-Origin", "*"); // Allow requests from all origins
-    
-            // Return the path in the response body with the appropriate headers
-            return ResponseEntity.ok().headers(headers).body(path);
-
-            // return path;
-            // return diagnosisReportRepo.save(diagnosisReport);
+                MultipartFile file = files[0]; 
+                // Generate a unique filename for the uploaded file
+                String fileName = patientId + "_" + System.currentTimeMillis() + "_" + file.getOriginalFilename();
+                
+                Path filePath = Paths.get(UPLOAD_DIR, fileName);
+                Files.copy(file.getInputStream(), filePath);
+                String path = filePath.toString();
+                
+                DiagnosisReport diagnosisReport = new DiagnosisReport();
+                diagnosisReport.setPath(path);
+                diagnosisReport.setPatientId(patientId);
+                
+                diagnosisReportRepo.save(diagnosisReport);
+            }
+            
+            return ResponseEntity.ok().body("Successfully added Diagnosis Report!");
 
         } catch (IOException e) {
             // Handle file save error

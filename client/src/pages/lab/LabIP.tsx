@@ -20,7 +20,7 @@ const LabIP: React.FC = () => {
   }, []);
 
   const fetchData = async () => {
-    setPatient({ id: 14, name: "Veenu", bill: 200 });
+    setPatient({ id: 14, name: "Deep", bill: 200 });
     setDocNotes("Lorem Ipsum");
     setTests([
       { id: 1, testname: "x-ray", testcode: "MD123", bill: 180 },
