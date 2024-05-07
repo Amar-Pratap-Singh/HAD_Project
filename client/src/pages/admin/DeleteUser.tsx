@@ -15,6 +15,7 @@ const DeleteUser: React.FC = () => {
   const onSubmit = async (data: any) => {
 
     console.log("Attempted to delete UserId:" + data.id);
+
     try{
       const response = await fetch("http://localhost:8082/api/auth/delete-user?userId=" + data.id, {
         method: 'DELETE'
@@ -29,7 +30,8 @@ const DeleteUser: React.FC = () => {
 
       alert('User ' + data.id + ' deleted successfully');
 
-    } catch(error){
+    } 
+    catch(error){
       console.error('Error deleting patient:', error);
     }
   };
@@ -38,9 +40,9 @@ const DeleteUser: React.FC = () => {
     <IonPage>
       <Header/>
       <IonContent className="ion-padding">
-        <form onSubmit={handleSubmit(onSubmit)} className='max-w-lg mx-auto mt-12'>
-          <h1 className='text-center text-xl font-semibold'>Delete User</h1>
-          <TextInput name='id' placeHolder='Enter user ID' label='ID' control={control}/>
+        <form onSubmit={handleSubmit(onSubmit)} className='max-w-md mx-auto mt-12'>
+          <h1 className='text-center text-2xl font-semibold mb-8'>Delete User</h1>
+          <TextInput name='id' placeHolder='Enter user ID' label='User ID' control={control}/>
           <IonButton type='submit' color='danger' shape='round'>DELETE</IonButton>
         </form>
       </IonContent>

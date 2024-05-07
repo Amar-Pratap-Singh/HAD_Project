@@ -15,27 +15,17 @@ const AdminMenu: React.FC = () => {
         <IonList>
           <IonMenuToggle>
             <IonItem routerLink="/admin/sign-up" routerDirection="none">
-              <IonLabel>Sign Up</IonLabel>
+              <IonLabel>Sign Up User</IonLabel>
             </IonItem>
           </IonMenuToggle>
-          {/* <IonMenuToggle>
-            <IonItem routerLink="/admin/add-doctor" routerDirection="none">
-              <IonLabel>Add Doctor</IonLabel>
-            </IonItem>
-          </IonMenuToggle> */}
-          {/* <IonMenuToggle>
-            <IonItem routerLink="/admin/add-nurse" routerDirection="none">
-              <IonLabel>Add Nurse</IonLabel>
-            </IonItem>
-          </IonMenuToggle> */}
           <IonMenuToggle>
             <IonItem routerLink="/admin/delete-patient" routerDirection="none">
               <IonLabel color='danger'>Delete Patient</IonLabel>
             </IonItem>
           </IonMenuToggle>
           <IonMenuToggle>
-            <IonItem color='danger' routerLink="/admin/delete-user" routerDirection="none">
-              <IonLabel>Delete User</IonLabel>
+            <IonItem routerLink="/admin/delete-user" routerDirection="none">
+              <IonLabel color='danger'>Delete User</IonLabel>
             </IonItem>
           </IonMenuToggle>
           <IonMenuToggle>

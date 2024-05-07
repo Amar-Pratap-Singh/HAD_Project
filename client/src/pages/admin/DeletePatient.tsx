@@ -15,6 +15,7 @@ const DeletePatient: React.FC = () => {
   const onSubmit = async (data: any) => {
 
     console.log(data.id);
+
     try{
       const response = await fetch("http://localhost:8081/patient/delete-patient?id=" + data.id, {
         method: 'PUT',
@@ -42,9 +43,9 @@ const DeletePatient: React.FC = () => {
     <IonPage>
       <Header/>
       <IonContent className="ion-padding">
-        <form onSubmit={handleSubmit(onSubmit)} className='max-w-lg mx-auto mt-12'>
-          <h1 className='text-center text-xl font-semibold'>Delete Patient</h1>
-          <TextInput name='id' placeHolder='Enter patient ID' label='ID' control={control}/>
+        <form onSubmit={handleSubmit(onSubmit)} className='max-w-md mx-auto mt-12'>
+          <h1 className='text-center text-2xl font-semibold mb-8'>Delete Patient</h1>
+          <TextInput name='id' placeHolder='Enter patient ID' label='Patient ID' control={control}/>
           <IonButton type='submit' color='danger' shape='round'>DELETE</IonButton>
         </form>
       </IonContent>

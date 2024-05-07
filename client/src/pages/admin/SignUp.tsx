@@ -49,7 +49,7 @@ function SignUp() {
       <Header />
       <IonContent>
         <div className='p-3 max-w-sm mx-auto'>
-          <h1 className='text-3xl text-center font-semibold my-7'>Sign Up</h1>
+          <h1 className='text-2xl text-center font-semibold mt-12 mb-8'>Sign Up User</h1>
           <form className='flex flex-col' onSubmit={handleSubmit(onSubmit)}>
             <TextInput name='name' placeHolder='Enter name' label='Name' control={control}/>
             <TextInput name='email' placeHolder='Enter email' label='Email' control={control}/>

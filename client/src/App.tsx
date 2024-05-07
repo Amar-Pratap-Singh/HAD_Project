@@ -58,6 +58,10 @@ import LabSearch from './pages/lab/LabSearch';
 import IPDViewPatients from './pages/doctor/ipd/IPDViewPatients'
 import AddEncounter from './pages/doctor/ipd/AddEncounter';
 import PatientDetails from './pages/doctor/ipd/PatientDetails';
+import ViewWards from './pages/doctor/ipd/ViewWards';
+import AddConsent from './pages/doctor/ipd/AddConsent';
+import ConsentForm from './pages/doctor/ipd/ConsentForm';
+import ViewDiagnosisReport from './pages/doctor/ViewDiagnosisReport';
 
 // doctor pages - opd
 import OPDCreatePrescription from './pages/doctor/opd/OPDCreatePrescription';
@@ -66,19 +70,12 @@ import OPDGetPatientDetails from './pages/doctor/opd/OPDGetPatientDetails';
 
 // admin pages
 import SignUp from './pages/admin/SignUp';
-import TestSignUpDoctor from './pages/admin/TestSignUpDoctor';
-import TestSignUpNurse from './pages/admin/TestSignUpNurse';
+import RevokeConsent from './pages/admin/RevokeConsent';
+import DeletePatient from './pages/admin/DeletePatient';
+import DeleteUser from './pages/admin/DeleteUser';
 
 // sign in page
 import SignIn from './pages/SignIn';
-import ViewWards from './pages/doctor/ipd/ViewWards';
-import DeletePatient from './pages/admin/DeletePatient';
-import AddConsent from './pages/doctor/ipd/AddConsent';
-import RevokeConsent from './pages/admin/RevokeConsent';
-import ConsentForm from './pages/doctor/ipd/ConsentForm';
-import ViewDiagnosisReport from './pages/doctor/ViewDiagnosisReport';
-
-import DeleteUser from './pages/admin/DeleteUser';
 
 setupIonicReact();
 
@@ -142,8 +139,6 @@ const App = () => {
 
           {/* Admin Pages */}
           <PrivateRoute allowedRoles={['ADMIN']} exact path="/admin/sign-up" component={SignUp} />
-          <PrivateRoute allowedRoles={['ADMIN']} exact path="/admin/add-doctor" component={TestSignUpDoctor} />
-          <PrivateRoute allowedRoles={['ADMIN']} exact path="/admin/add-nurse" component={TestSignUpNurse} />
           <PrivateRoute allowedRoles={['ADMIN']} exact path="/admin/delete-patient" component={DeletePatient} />  
           <PrivateRoute allowedRoles={['ADMIN']} exact path="/admin/delete-user" component={DeleteUser} />
           <PrivateRoute allowedRoles={['ADMIN']} exact path="/admin/patient-revoke-consent" component={RevokeConsent} /> 
