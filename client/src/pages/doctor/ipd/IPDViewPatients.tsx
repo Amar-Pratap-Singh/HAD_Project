@@ -15,6 +15,7 @@ import {
 } from "@ionic/react";
 import { Route, useHistory, useParams, useLocation } from "react-router-dom";
 import Header from "../../../components/Header";
+import { useSelector } from "react-redux";
 
 const IPDViewPatients: React.FC = () => {
 
@@ -142,6 +143,7 @@ const IPDViewPatients: React.FC = () => {
 
   const [patients, setPatients] = useState<any[]>([]);
   const { wardNo } = useParams<{ wardNo: any }>();
+  const user = useSelector((state: any) => state.user.currentUser);
   const history = useHistory();
 
   const dataLocation = useLocation();
@@ -240,8 +242,7 @@ const IPDViewPatients: React.FC = () => {
                 <IonCardTitle>Patient ID: {patient.patientId}</IonCardTitle>
                 <IonCardSubtitle>WardNo: {patient.wardNo}</IonCardSubtitle>
                 <IonCardSubtitle>BedNo: {patient.bedNo}</IonCardSubtitle>
-                <IonCardSubtitle>Dept: {patient.department}</IonCardSubtitle>
-                <IonCardSubtitle>Doctor: {patient.doctorName}</IonCardSubtitle>
+                <IonCardSubtitle>Doctor: {user.name}</IonCardSubtitle>
               </IonCardHeader>
               <IonCardContent>
                 <IonButton className="w-full" onClick={() => viewPatientDetails(patient.patientId)}>View Details</IonButton>

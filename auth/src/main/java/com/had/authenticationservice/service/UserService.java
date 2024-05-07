@@ -6,6 +6,7 @@ import com.had.authenticationservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -33,5 +34,12 @@ public class UserService {
                 return userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User with this email not found"));
             }
         };
+    }
+
+    public void deleteUser(int userId){
+        Optional<User> optionalUser=userRepository.findById(userId);
+        if(optionalUser.isEmpty() || optionalUser.get().getRole() == Role.ADMIN)
+            return ;
+        userRepository.deleteById(userId);
     }
 }

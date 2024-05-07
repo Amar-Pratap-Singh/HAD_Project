@@ -78,6 +78,7 @@ import RevokeConsent from './pages/admin/RevokeConsent';
 import ConsentForm from './pages/doctor/ipd/ConsentForm';
 import ViewDiagnosisReport from './pages/doctor/ViewDiagnosisReport';
 import PatientReferrable from './pages/reception/PatientReferrable';
+import DeleteUser from './pages/admin/DeleteUser';
 
 setupIonicReact();
 
@@ -145,6 +146,7 @@ const App = () => {
           <PrivateRoute allowedRoles={['ADMIN']} exact path="/admin/add-doctor" component={TestSignUpDoctor} />
           <PrivateRoute allowedRoles={['ADMIN']} exact path="/admin/add-nurse" component={TestSignUpNurse} />
           <PrivateRoute allowedRoles={['ADMIN']} exact path="/admin/delete-patient" component={DeletePatient} />  
+          <PrivateRoute allowedRoles={['ADMIN']} exact path="/admin/delete-user" component={DeleteUser} />
           <PrivateRoute allowedRoles={['ADMIN']} exact path="/admin/patient-revoke-consent" component={RevokeConsent} /> 
 
           <Route exact path="/patient/consent-form/:doctorId/:patientId" component={ConsentForm} />

@@ -5,18 +5,15 @@ import com.had.authenticationservice.dto.SignupRequest;
 import com.had.authenticationservice.model.Role;
 import com.had.authenticationservice.model.User;
 import com.had.authenticationservice.service.AuthenticationService;
+import com.had.authenticationservice.service.UserService;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -60,5 +57,13 @@ public class AuthenticationController {
     public List<User> getDoctors()
     {
         return authenticationService.findByRole(Role.DOCTOR);
+    }
+
+    @Autowired
+    private UserService userService;
+
+    @DeleteMapping("/delete-user")
+    public void deleteUser(@RequestParam int userId){
+        userService.deleteUser(userId);
     }
 }
