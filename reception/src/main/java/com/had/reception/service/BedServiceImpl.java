@@ -46,6 +46,31 @@ public class BedServiceImpl implements BedService {
     }
 
     @Override
+    public Bed updateBedStatusToAvailable(IpdAppointment ipdAppointment) {
+        Integer bedNo = ipdAppointment.getBedNo();
+        Integer wardNo = ipdAppointment.getWardNo();
+        Integer patientId = ipdAppointment.getPatientId();
+
+        Optional<Bed> optionalBed = bedRepo.findByBedNoAndWardNo(bedNo, wardNo);
+
+        if (optionalBed.isPresent()) {
+            Bed bed = optionalBed.get();
+            if (bed.getStatus().equals("Available")) {
+                System.out.println("This bed is already free");
+                return null;
+            }
+            bed.setStatus("Available");
+            bed.setPatientId(null);
+            bedRepo.save(bed);
+            return bed;
+        } else {
+            System.out.println("Bed not found with bed_no: " + bedNo + " and ward_no: " + wardNo);
+        }
+        return null;
+
+    }
+
+    @Override
     public List<Bed> getAllBeds() {
         return bedRepo.findAll();
     }

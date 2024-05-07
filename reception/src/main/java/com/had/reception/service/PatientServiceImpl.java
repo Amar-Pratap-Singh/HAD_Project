@@ -34,22 +34,37 @@ public class PatientServiceImpl implements PatientService{
     @Override
     public Patient deletePatient(Integer id) {
 
-        Optional<Patient> deletedPatient=patientRepo.findById(id);
+        Optional<Patient> deletedPatient = patientRepo.findById(id);
         System.out.println(deletedPatient.isEmpty());
-        if(deletedPatient.isEmpty())
+        if (deletedPatient.isEmpty())
             return null;
         Patient dPatient = deletedPatient.get();
         dPatient.setName("***********");
-        int agemod=dPatient.getAge()%10;
-        int age=(dPatient.getAge()/10) * 10;
-        if(agemod > 5)
-            age+=10;
+        int agemod = dPatient.getAge() % 10;
+        int age = (dPatient.getAge() / 10) * 10;
+        if (agemod > 5)
+            age += 10;
         dPatient.setAge(age);
         dPatient.setAddress("************");
         dPatient.setPhoneNo("************");
         dPatient.setEmailId("************");
         dPatient.setRedacted(true);
         return patientRepo.save(dPatient);
+    }
+
+    @Override
+    public List<Patient> getReferrable() {
+        return patientRepo.findAllByStatusAndRedactedFalse(1);
+    }
+
+    @Override
+    public Patient updatePatient(int patientId,int status) {
+        Optional<Patient> optionalPatient=patientRepo.findById(patientId);
+        if(optionalPatient.isEmpty())
+            return null;
+        Patient newPatient=optionalPatient.get();
+        newPatient.setStatus(status);
+        return patientRepo.save(newPatient);
     }
 
 

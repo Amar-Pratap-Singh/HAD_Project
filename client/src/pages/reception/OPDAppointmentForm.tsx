@@ -5,7 +5,7 @@ import Header from '../../components/Header';
 import TextInput from '../../components/TextInput';
 
 type FormInputs = {
-  patiendId: number,
+  patientId: number,
   reason: string,
   doctorId: number
 }
@@ -18,6 +18,19 @@ const OPDAppointmentForm: React.FC = () => {
 
     data={...data,isactive:true}
     
+    try{
+      const response = await fetch("http://localhost:8081/patient/set-status?patientId=" + data.patientId + "&status=0",{
+        method:'PUT'
+      });
+      if(!response.ok){
+        throw new Error('Failed to update patient status')
+      }
+      const r_data=await response.json();
+      console.log(r_data);
+    }catch(error){
+      console.error('Error updating patient')
+    }
+
     try{
       const response = await fetch("http://localhost:8081/patient/opdappointment", {
         method: 'POST',

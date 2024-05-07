@@ -77,6 +77,7 @@ import AddConsent from './pages/doctor/ipd/AddConsent';
 import RevokeConsent from './pages/admin/RevokeConsent';
 import ConsentForm from './pages/doctor/ipd/ConsentForm';
 import ViewDiagnosisReport from './pages/doctor/ViewDiagnosisReport';
+import PatientReferrable from './pages/reception/PatientReferrable';
 
 setupIonicReact();
 
@@ -109,6 +110,7 @@ const App = () => {
           <PrivateRoute allowedRoles={['RECEPTIONIST']} exact path="/reception/patient-list" component={PatientList} />
           <PrivateRoute allowedRoles={['RECEPTIONIST']} exact path="/reception/opd-appointments-list" component={OPDAppointmentsList} />
           <PrivateRoute allowedRoles={['RECEPTIONIST']} exact path="/reception/ipd-beds-list" component={IPDBedsList} />
+          <PrivateRoute allowedRoles={['RECEPTIONIST']} exact path="/reception/patient-referrable" component={PatientReferrable} />
           
 
           {/* Pharma Pages */}

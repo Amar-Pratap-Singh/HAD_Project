@@ -10,4 +10,6 @@ public interface PatientService {
     public List<Patient> getAllPatients();   
     public Optional<Patient> getDemographics(Integer id);
     public Patient deletePatient(Integer id);
+    public List<Patient> getReferrable();
+    public Patient updatePatient(int patientId,int status);
 } 
