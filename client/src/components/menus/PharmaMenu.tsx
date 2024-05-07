@@ -18,11 +18,6 @@ const PharmaMenu: React.FC = () => {
               <IonLabel>Search</IonLabel>
             </IonItem>
           </IonMenuToggle>
-          <IonMenuToggle>
-            <IonItem routerLink="/pharma/prescription" routerDirection="none">
-              <IonLabel>Prescription</IonLabel>
-            </IonItem>
-          </IonMenuToggle>
         </IonList>
       </IonContent>
       

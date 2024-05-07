@@ -42,7 +42,6 @@ import OPDAppointmentsList from './pages/reception/OPDAppointmentsList';
 import IPDBedsList from './pages/reception/IPDBedsList';
 
 // pharma pages
-import PharmaPrescription from './pages/pharma/PharmaPrescription';
 import PharmaSearch from './pages/pharma/PharmaSearch';
 
 // nurse pages
@@ -116,7 +115,6 @@ const App = () => {
 
           {/* Pharma Pages */}
           <PrivateRoute allowedRoles={['PHARMACIST']} exact path="/pharma/search" component={PharmaSearch} />
-          <PrivateRoute allowedRoles={['PHARMACIST']} exact path="/pharma/prescription" component={PharmaPrescription} />
 
           {/* Nurse Pages */}
           <PrivateRoute allowedRoles={['CLINICAL_ASSISTANT']} exact path="/nurse/patient-list" component={NurseViewPatients} />
