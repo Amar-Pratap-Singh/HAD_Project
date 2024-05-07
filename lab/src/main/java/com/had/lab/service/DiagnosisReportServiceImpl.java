@@ -1,5 +1,11 @@
 package com.had.lab.service;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Collections;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Base64;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -61,9 +67,16 @@ public class DiagnosisReportServiceImpl implements DiagnosisReportService {
                 Files.copy(file.getInputStream(), filePath);
                 String path = filePath.toString();
                 
+                
+                // Encode byte array to Base64 string
+                // Path path2 = Paths.get(path);
+                // byte[] imageData = Files.readAllBytes(path2);
+                // String base64String = Base64.getEncoder().encodeToString(imageData);
+
                 DiagnosisReport diagnosisReport = new DiagnosisReport();
                 diagnosisReport.setPath(path);
                 diagnosisReport.setPatientId(patientId);
+                // diagnosisReport.setFileData(base64String);
                 
                 diagnosisReportRepo.save(diagnosisReport);
             }
@@ -77,4 +90,6 @@ public class DiagnosisReportServiceImpl implements DiagnosisReportService {
         }
 
     }
+
 }
+

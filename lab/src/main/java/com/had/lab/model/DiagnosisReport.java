@@ -27,6 +27,7 @@ public class DiagnosisReport {
     private int diagnosisId;
     private int patientId;
     private String path;
+    // private String fileData;
 
 
     public int getDiagnosisId() {
@@ -52,4 +53,12 @@ public class DiagnosisReport {
     public void setPath(String path) {
         this.path = path;
     }
+
+    // public String getFileData(){
+    //     return fileData;
+    // }
+
+    // public void setFileData(String fileData){
+    //     this.fileData = fileData;
+    // }
 }

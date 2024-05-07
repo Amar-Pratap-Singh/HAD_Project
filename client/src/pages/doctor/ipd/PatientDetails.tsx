@@ -122,6 +122,7 @@ const PatientDetailsPage: React.FC = () => {
 
   const viewDiagnosisReport = () => {
     history.push(`/doctor/diagnosis-report/` + patientId);
+    location.reload();
   }
 
   return (

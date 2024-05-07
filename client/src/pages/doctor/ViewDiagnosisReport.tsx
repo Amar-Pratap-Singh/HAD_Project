@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router";
 import Header from '../../components/Header';
+import { IonButton } from '@ionic/react';
+import { useHistory } from 'react-router';
 
 interface DiagnosisDetails {
     diagnosisId: number;
@@ -12,6 +14,7 @@ const ViewDiagnosisReport: React.FC = () => {
 
     const { patientId } = useParams<{ patientId: string }>();
     const [diagnosisDetails, setDiagnosisDetails] = useState<DiagnosisDetails[]>();
+    const history = useHistory();
 
     useEffect(()=>{
         fetchDiagnosisReport();
@@ -34,13 +37,13 @@ const ViewDiagnosisReport: React.FC = () => {
 
     return (
         <>
-        <Header />
-        <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-            {/* <img src="/Users/amar/Downloads/testImage2.png"></img> */}
-            {diagnosisDetails && diagnosisDetails.map((image, index) => (
-                <img key={index} src={`image.path`} alt={image.path} style={{ marginBottom: '10px', maxWidth: '100%', maxHeight: '80vh' }} />
-            ))}
-        </div>
+            <Header />
+            <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                {diagnosisDetails && diagnosisDetails.map((image, index) => (
+                    <img key={index} src={image.path} alt={image.path} style={{ marginBottom: '20px', maxWidth: '100%', maxHeight: '80vh' }} />
+                ))}
+                <IonButton onClick={()=>{history.goBack();}}>Go Back</IonButton>
+            </div>
         </>
     );
 };
