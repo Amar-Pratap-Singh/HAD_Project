@@ -40,6 +40,7 @@ import IPDAdmissionForm from './pages/reception/IPDAdmissionForm';
 import PatientList from './pages/reception/PatientList';
 import OPDAppointmentsList from './pages/reception/OPDAppointmentsList';
 import IPDBedsList from './pages/reception/IPDBedsList';
+import PatientReferrable from './pages/reception/PatientReferrable';
 
 // pharma pages
 import PharmaSearch from './pages/pharma/PharmaSearch';
@@ -76,7 +77,7 @@ import AddConsent from './pages/doctor/ipd/AddConsent';
 import RevokeConsent from './pages/admin/RevokeConsent';
 import ConsentForm from './pages/doctor/ipd/ConsentForm';
 import ViewDiagnosisReport from './pages/doctor/ViewDiagnosisReport';
-import PatientReferrable from './pages/reception/PatientReferrable';
+
 import DeleteUser from './pages/admin/DeleteUser';
 
 setupIonicReact();

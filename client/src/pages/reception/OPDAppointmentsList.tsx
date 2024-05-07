@@ -53,16 +53,16 @@ const OPDAppointmentsList: React.FC = () => {
             <IonCol>Patient ID</IonCol>
             <IonCol>Appt Date</IonCol>
             <IonCol>Doctor</IonCol>
-            <IonCol></IonCol>
+            <IonCol>Cancel Appt</IonCol>
           </IonRow>
           {
             appointments.map(patient => (
-              <IonRow key={patient.patientId}>
+              <IonRow className='flex flex-row items-center' key={patient.patientId}>
                 <IonCol>{patient.patientId}</IonCol>
                 <IonCol>{patient.reason}</IonCol>
                 <IonCol>{patient.doctorId}</IonCol>
                 <IonCol>
-                  <IonButton onClick={() => delData(patient.patientId)}>Cancel Appointment</IonButton>
+                  <IonButton onClick={() => delData(patient.patientId)}>Cancel Appt</IonButton>
                 </IonCol>
               </IonRow>
             ))

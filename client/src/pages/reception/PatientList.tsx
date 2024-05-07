@@ -41,7 +41,7 @@ const PatientList: React.FC = () => {
             <IonCol>Email-ID</IonCol>
           </IonRow>
           {patients.map((patient) => (
-            <IonRow key={patient.id}>
+            <IonRow className="my-2" key={patient.id}>
               <IonCol>{patient.id}</IonCol>
               <IonCol>{patient.name}</IonCol>
               <IonCol>{patient.age}</IonCol>
