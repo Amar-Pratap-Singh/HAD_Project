@@ -43,6 +43,11 @@ const ReceptionMenu: React.FC = () => {
               <IonLabel>View All IPD Beds</IonLabel>
             </IonItem>
           </IonMenuToggle>
+          <IonMenuToggle>
+            <IonItem routerLink="/reception/patient-referrable" routerDirection="none">
+              <IonLabel>View Referrable Patients</IonLabel>
+            </IonItem>
+          </IonMenuToggle>
         </IonList>
       </IonContent>
       

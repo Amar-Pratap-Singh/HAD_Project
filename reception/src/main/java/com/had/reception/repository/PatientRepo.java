@@ -11,4 +11,5 @@ import com.had.reception.models.Patient;
 @Repository
 public interface PatientRepo extends JpaRepository<Patient, Integer>{
     List<Patient> findAllByRedactedFalse();
+    List<Patient> findAllByStatusAndRedactedFalse(int status);
 }

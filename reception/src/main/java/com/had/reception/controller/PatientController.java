@@ -32,6 +32,16 @@ public class PatientController {
         return patientService.getDemographics(id);
     }
 
+    @GetMapping("/get-referable")
+    public List<Patient> getReferable(){
+        return patientService.getReferrable();
+    }
+
+    @PutMapping("/set-status")
+    public Patient setStatus(@RequestParam int patientId,@RequestParam int status){
+        return patientService.updatePatient(patientId, status);
+    }
+
     @PutMapping("/delete-patient")
     public Patient deletePatient(@RequestParam("id") Integer id){
         return patientService.deletePatient(id);

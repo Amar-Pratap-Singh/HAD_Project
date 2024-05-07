@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { IonPage, IonContent, IonCol, IonGrid, IonRow, IonButton } from "@ionic/react";
 import { useHistory } from "react-router-dom";
 import Header from "../../../components/Header";
+import { useSelector } from "react-redux";
 
 const OPDViewPatients: React.FC = () => {
 
   const history = useHistory();
   const [appointments, setAppointments] = useState<any[]>([]);
+  const user = useSelector((state: any) => state.user.currentUser);
 
   useEffect(() => {
 		fetchData();
@@ -14,7 +16,7 @@ const OPDViewPatients: React.FC = () => {
 
   const fetchData = async () => {
 		try {
-			const response = await fetch('http://localhost:8081/patient/get-opd-appointments');
+			const response = await fetch('http://localhost:8081/patient/get-doctor-opd?doctorId=' + user.id);
 			if (!response.ok) {
 				throw new Error('Failed to fetch data');
 			}
@@ -37,6 +39,21 @@ const OPDViewPatients: React.FC = () => {
     history.push(`/doctor/opd/create-prescription/`+ patientId);
   };
 
+  const referToIPD = async (patientId: any) => {
+    try{
+      const response = await fetch("http://localhost:8081/patient/set-status?patientId=" + patientId + "&status=1",{
+        method:'PUT'
+      });
+      if(!response.ok){
+        throw new Error('Failed to update patient status')
+      }
+      const r_data=await response.json();
+      console.log(r_data);
+    }catch(error){
+      console.error('Error updating patient')
+    }
+  }
+
 	return(
     <IonPage>
       <Header/>
@@ -54,11 +71,11 @@ const OPDViewPatients: React.FC = () => {
           {appointments.map(appt => (
             <IonRow key={appt.patientId}>
               <IonCol size="1">{appt.patientId}</IonCol>
-              <IonCol size="2">{appt.doctor}</IonCol>
-              <IonCol size="2">{appt.appt_date}</IonCol>
+              <IonCol size="2">{user.id}</IonCol>
+              <IonCol size="2">{appt.reason}</IonCol>
               <IonCol><IonButton size="small" onClick={() => viewPatientDetails(appt.patientId)}>View</IonButton></IonCol>
               <IonCol><IonButton size="small" onClick={() => createPrescription(appt.patientId)}>Add</IonButton></IonCol>
-              <IonCol><IonButton size="small" onClick={() => console.log('refer')}>Refer</IonButton></IonCol>
+              <IonCol><IonButton size="small" onClick={() => referToIPD(appt.patientId)}>Refer</IonButton></IonCol>
             </IonRow>
           ))}
         </IonGrid>

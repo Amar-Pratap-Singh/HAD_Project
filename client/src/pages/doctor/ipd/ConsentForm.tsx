@@ -20,7 +20,7 @@ const ConsentForm:React.FC = () => {
             if(!response.ok){
                 throw new Error('Failed to add patient')
             }
-            const rdata=await response.json();
+            const rdata=await response.text();
             setGranted(true);
             alert('Your consent has been granted, you can now close the tab')
         }catch(error){

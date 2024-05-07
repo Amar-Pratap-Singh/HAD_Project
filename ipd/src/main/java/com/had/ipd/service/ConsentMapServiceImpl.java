@@ -25,6 +25,9 @@ public class ConsentMapServiceImpl implements ConsentMapService{
 
     @Override
     public ConsentMap addConsentMap(ConsentMap consentMap) {
+        Optional<ConsentMap> optionalConsentMap=CMRepo.getConsentMapByPatientIdAndDoctorId(consentMap.getPatientId(),consentMap.getDoctorId());
+        if(optionalConsentMap.isPresent())
+            return null;
         return CMRepo.save(consentMap);
     }
 

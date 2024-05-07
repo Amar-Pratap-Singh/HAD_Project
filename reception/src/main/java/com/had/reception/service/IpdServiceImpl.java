@@ -1,6 +1,7 @@
 package com.had.reception.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,18 @@ public class IpdServiceImpl implements IpdService {
 
     @Override
     public List<IpdAppointment> getIpdAppointments(){
-        return ipdAppointmentRepo.findAll();
+        return ipdAppointmentRepo.findByIsActiveTrue();
     }
+
+    @Override
+    public IpdAppointment deleteIpdAppointment(int patientId) {
+        Optional<IpdAppointment> ipdAppointmentOptional= ipdAppointmentRepo.findById(patientId);
+        if(ipdAppointmentOptional.isEmpty())
+            return null;
+        IpdAppointment ipdAppointment = ipdAppointmentOptional.get();
+        ipdAppointment.setIsActive(false);
+        return ipdAppointmentRepo.save(ipdAppointment);
+    }
+
+
 }

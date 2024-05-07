@@ -85,7 +85,20 @@ const IPDAdmissionForm: React.FC = () => {
   
   const onSubmit = async (data: any) => {
 
-    const tdata = {patientId:data.patientId,wardNo:data.wardNo,bedNo:data.bedNo};
+    try{
+      const response = await fetch("http://localhost:8081/patient/set-status?patientId=" + data.patientId + "&status=2",{
+        method:'PUT'
+      });
+      if(!response.ok){
+        throw new Error('Failed to update patient status')
+      }
+      const r_data=await response.json();
+      console.log(r_data);
+    }catch(error){
+      console.error('Error updating patient')
+    }
+
+    const tdata = {patientId:data.patientId,wardNo:data.wardNo,bedNo:data.bedNo,isActive:true};
     
     try{
       const response = await fetch("http://localhost:8081/patient/ipdappointment", {
@@ -94,25 +107,6 @@ const IPDAdmissionForm: React.FC = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(tdata),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to register patient');
-      }
-    } 
-    catch(error){
-      console.error('Error registering patient:', error);
-    }
-
-    const cdata = {patientId:data.patientId,doctorId:data.doctorId}
-
-    try{
-      const response = await fetch("http://localhost:8085/consent/add-consent", {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(cdata),
       });
 
       if (!response.ok) {

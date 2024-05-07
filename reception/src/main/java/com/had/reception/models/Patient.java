@@ -35,4 +35,5 @@ public class Patient {
     @Convert(converter = StringCryptoConverter.class)
     private String emailId;
     private boolean redacted;
+    private int status;
 }

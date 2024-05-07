@@ -189,6 +189,39 @@ const IPDViewPatients: React.FC = () => {
     location.reload();
   };
 
+  const dischargePatient = async (patient: any) => {
+    try{
+      const response = await fetch("http://localhost:8081/patient/set-status?patientId=" + patient.patientId + "&status=0",{
+        method:'PUT'
+      });
+      if(!response.ok){
+        throw new Error('Failed to update patient status')
+      }
+      const r_data=await response.json();
+      console.log(r_data);
+    }catch(error){
+      console.error('Error updating patient')
+    }
+    
+    try{
+      const response = await fetch("http://localhost:8081/patient/delete-ipd-appointment",{
+        method:'PUT',
+        headers:{
+          'Content-Type':'application/json'
+        },
+        body:JSON.stringify(patient)
+      });
+      if(!response.ok){
+        throw new Error('Failed to discharge patient')
+      }
+      const r_data=await response.text();
+      console.log(r_data);
+      location.reload();
+    }catch(error){
+      console.error('Error discharging patient')
+    }
+  }
+
   return (
     <IonPage>
       <Header/>
@@ -215,7 +248,7 @@ const IPDViewPatients: React.FC = () => {
                 <IonButton className="w-full" onClick={() => viewPatientDetails(patient.patientId)}>View Details</IonButton>
                 <IonButton className="w-full" onClick={() => viewNurseEncounter(patient.patientId)}>Nurse Encounter</IonButton>
                 <IonButton className="w-full" onClick={() => addEncounter(patient.patientId)}>Add Encounter</IonButton>
-                <IonButton className="w-full" onClick={() => console.log("Discharged")}>Discharge</IonButton>
+                <IonButton className="w-full" onClick={() => dischargePatient(patient)}>Discharge</IonButton>
               </IonCardContent>
             </IonCard>
           ))}
