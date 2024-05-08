@@ -143,7 +143,7 @@ const OPDGetPatientDetails: React.FC = () => {
           <p>Blood Group: {patientDetails?.bloodGroup}</p>
         </div>
 
-        <IonButton onClick={viewDiagnosisReport}> Diagnosis Report </IonButton>
+        <IonButton className="mx-10" onClick={viewDiagnosisReport}> Diagnosis Report </IonButton>
 
         {encounters.map((encounter, index) => (
           <div key={index} className="border-2 border-solid border-black mx-10 my-5 p-3 flex flex-col gap-4">

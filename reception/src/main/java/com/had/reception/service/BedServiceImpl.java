@@ -85,8 +85,8 @@ public class BedServiceImpl implements BedService {
         // Random random = new Random();
         Set<String> uniqueCombinations = new HashSet<>();
 
-        for (int wardNo = 1; wardNo <= 10; wardNo++) {
-            for (int bedNo = 1; bedNo <= 10; bedNo++) {
+        for (int wardNo = 1; wardNo <= 8; wardNo++) {
+            for (int bedNo = 1; bedNo <= 8; bedNo++) {
 
                 String combination = bedNo + "_" + wardNo;
 

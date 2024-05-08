@@ -11,7 +11,6 @@ import {
 import { useForm } from "react-hook-form";
 import TextInput from "../../components/TextInput";
 import Header from "../../components/Header";
-import "./NurseCreateEncounter.css";
 import { useParams, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -66,64 +65,27 @@ const NurseCreateEncounter: React.FC = () => {
   };
 
   return (
-    <div className="create-prescription">
-      <IonPage>
-        <Header />
-        <IonContent className="ion-padding">
-          <h1>Create Encounter</h1>
-          <form onSubmit={handleSubmit(handleFormSubmit)}>
-            <IonGrid>
-              <IonRow>
-                <IonCol>
-                  Blood Pressure:
-                </IonCol>
-                <IonCol>
-                  <TextInput
-                    name="lowBP"
-                    placeHolder=""
-                    label=""
-                    control={control}
-                  />
-                </IonCol>
-                <IonCol>
-                  <TextInput
-                    name="highBP"
-                    placeHolder=""
-                    label=""
-                    control={control}
-                  />
-                </IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol>
-                  <TextInput
-                    name="temperature"
-                    placeHolder="Enter temperature"
-                    label="Temperature(F)"
-                    control={control}
-                  />
-                </IonCol>
-              </IonRow>
-              <IonRow>
-                <IonCol>
-                  <TextInput
-                    name="healthCondition"
-                    placeHolder="Enter health condition"
-                    label="Health Condition"
-                    control={control}
-                  />
-                </IonCol>
-              </IonRow>
-            </IonGrid>
-            <div className="button-container">
-              <IonButton type="submit" shape="round">
-                Add Encounter
-              </IonButton>
-            </div>
-          </form>
-        </IonContent>
-      </IonPage>
-    </div>
+    <IonPage>
+      <Header/>
+      <IonContent className="ion-padding">
+      <form onSubmit={handleSubmit(handleFormSubmit)} className="max-w-xl mx-auto mt-5">
+        
+        <h1 className='text-center text-2xl font-semibold mb-8'>Create Encounter</h1>
+
+        <div className="flex flex-row gap-12">
+          <TextInput name="lowBP" placeHolder="Low BP" label="Low BP" control={control} />
+          <TextInput name="highBP" placeHolder="High BP" label="High BP" control={control} />
+        </div>
+
+        <TextInput name="temperature" placeHolder="Temperature" label="Temperature" control={control} />
+
+        <TextInput name="healthCondition" placeHolder="Health Condition" label="Health Condition" control={control} />
+
+        <IonButton type="submit" shape="round">Add Encounter</IonButton>
+
+      </form>
+      </IonContent>
+    </IonPage>
   );
 };
 

@@ -13,7 +13,6 @@ import {
   IonCardTitle,
 } from "@ionic/react";
 import Header from "../../components/Header";
-import "./NurseGetPatientDetails.css";
 import { useParams } from "react-router";
 
 interface PatientDetails {
@@ -82,8 +81,9 @@ const NurseGetPaitentDetails: React.FC = () => {
   }
 
   return (
-    <>
-      <Header />
+    <IonPage>
+      <Header/>
+      <IonContent>
       <IonCard>
         <IonCardHeader>
           <IonCardSubtitle>Patient ID: {patientDetails.patientId}</IonCardSubtitle>
@@ -110,7 +110,8 @@ const NurseGetPaitentDetails: React.FC = () => {
           </IonCardContent>
         </IonCard>
       ))}
-    </>
+      </IonContent>
+    </IonPage>
   );
 };
 
