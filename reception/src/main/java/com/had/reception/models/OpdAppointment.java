@@ -1,5 +1,9 @@
 package com.had.reception.models;
 
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.google.protobuf.Timestamp;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -16,4 +20,7 @@ public class OpdAppointment {
     private int doctorId;
     private String reason;
     private boolean isactive;
+
+    @CreationTimestamp
+    private Timestamp timestamp;
 }

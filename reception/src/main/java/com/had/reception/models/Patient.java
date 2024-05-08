@@ -1,5 +1,8 @@
 package com.had.reception.models;
 
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.google.protobuf.Timestamp;
 import com.had.reception.converter.StringCryptoConverter;
 
 import jakarta.persistence.Convert;
@@ -36,4 +39,7 @@ public class Patient {
     private String emailId;
     private boolean redacted;
     private int status;
+
+    @CreationTimestamp
+    private Timestamp timestamp;
 }

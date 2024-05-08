@@ -29,6 +29,9 @@ public class DiagnosisReport {
     private String path;
     // private String fileData;
 
+    @CreationTimestamp
+    private Timestamp timestamp;
+
 
     public int getDiagnosisId() {
         return diagnosisId;

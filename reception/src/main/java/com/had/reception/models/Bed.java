@@ -1,5 +1,9 @@
 package com.had.reception.models;
 
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.google.protobuf.Timestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,4 +31,7 @@ public class Bed {
     private Integer floorNo;
     private Integer patientId;
     private String status;
+
+    @CreationTimestamp
+    private Timestamp timestamp;
 }

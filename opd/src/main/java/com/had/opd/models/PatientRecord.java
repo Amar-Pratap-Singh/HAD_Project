@@ -2,6 +2,10 @@ package com.had.opd.models;
 
 import java.util.List;
 
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.google.protobuf.Timestamp;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -41,4 +45,7 @@ public class PatientRecord {
     
     // date
     private String followUp; // next date doctor gives to a patient
+
+    @CreationTimestamp
+    private Timestamp timestamp;
 }

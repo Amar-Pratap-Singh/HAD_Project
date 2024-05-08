@@ -1,5 +1,9 @@
 package com.had.ipd.models;
 
+import java.security.Timestamp;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,6 +28,8 @@ public class Medication {
     private String time;
     private String duration;
 
+    @CreationTimestamp
+    private Timestamp timestamp;
 
     // Getter and Setter for medicationId
     public int getMedicationId() {
