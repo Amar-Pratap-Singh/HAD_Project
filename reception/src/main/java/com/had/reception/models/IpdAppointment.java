@@ -21,6 +21,5 @@ public class IpdAppointment {
     private Integer bedNo;
     private Boolean isActive;
 
-    @CreationTimestamp
-    private Timestamp timestamp;
+
 }

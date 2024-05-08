@@ -40,8 +40,6 @@ public class User implements UserDetails {
     @Getter
     private Role role;
 
-    @CreationTimestamp
-    private Timestamp timestamp;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -21,6 +21,4 @@ public class OpdAppointment {
     private String reason;
     private boolean isactive;
 
-    @CreationTimestamp
-    private Timestamp timestamp;
 }

@@ -41,8 +41,6 @@ public class Prescription {
     @Column(columnDefinition = "MEDIUMTEXT")
     private String audioInstructions;
 
-    @CreationTimestamp
-    private Timestamp timestamp;
 
 
     // Getter and Setter for prescriptionId

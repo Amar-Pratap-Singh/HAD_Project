@@ -32,6 +32,5 @@ public class Bed {
     private Integer patientId;
     private String status;
 
-    @CreationTimestamp
-    private Timestamp timestamp;
+
 }

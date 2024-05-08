@@ -23,7 +23,4 @@ public class DiagnosisReport {
     private int patientId;
     private int doctorId;
     private String reportLink;
-
-    @CreationTimestamp
-    private Timestamp timestamp;
 }

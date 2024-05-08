@@ -39,7 +39,4 @@ public class Patient {
     private String emailId;
     private boolean redacted;
     private int status;
-
-    @CreationTimestamp
-    private Timestamp timestamp;
 }

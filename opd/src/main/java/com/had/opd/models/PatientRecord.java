@@ -46,6 +46,4 @@ public class PatientRecord {
     // date
     private String followUp; // next date doctor gives to a patient
 
-    @CreationTimestamp
-    private Timestamp timestamp;
 }

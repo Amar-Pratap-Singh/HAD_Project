@@ -28,8 +28,6 @@ public class Medication {
     private String time;
     private String duration;
 
-    @CreationTimestamp
-    private Timestamp timestamp;
 
     // Getter and Setter for medicationId
     public int getMedicationId() {
